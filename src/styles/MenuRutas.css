@@ -1,0 +1,36 @@
+/* MenuRutas.css */
+
+.body {
+    margin:auto;
+  }
+  
+
+.navbar {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: white;
+  }
+  
+  .navbar-brand img.logo {
+    
+    height: 50px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .login {
+    max-width: 30px;
+    height: auto;
+  }
+
