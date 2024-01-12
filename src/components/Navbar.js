@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../assets/images/logotechriders.png';
-import '../styles/MenuRutas.css';
+import '../styles/Navbar.css';
 
 class MenuRutas extends Component {
   render() {
@@ -12,13 +12,11 @@ class MenuRutas extends Component {
         </div>
         <div className="nav-links">
           <NavLink to="/" className="nav-link">Home</NavLink>
-          <NavLink to="/nuevopersonaje" className="nav-link">Nuevo Personaje</NavLink>
-          <NavLink to="/modificarpersonajes" className="nav-link">Modificar Personajes</NavLink>
           <NavLink to="/otraruta" className="nav-link">Otra Ruta</NavLink>
           <NavLink to="/otraruta2" className="nav-link">Otra Ruta 2</NavLink>
           <NavLink to="/otraruta3" className="nav-link">Otra Ruta 3</NavLink>
         </div>
-        <img src="http://icons.iconarchive.com/icons/visualpharm/icons8-metro-style/128/System-Login-icon.png" alt="Login" className="login" />
+
       </div>
     );
   }

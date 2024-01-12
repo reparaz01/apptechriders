@@ -1,0 +1,29 @@
+/* Footer.css */
+/* Estilos específicos para el Footer */
+
+#footer-wrap {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    color: white;
+  }
+  
+  .site-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .footer-logo img {
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .footer-img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Puedes ajustar estos estilos según tus necesidades */
+  

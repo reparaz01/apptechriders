@@ -1,0 +1,50 @@
+Paginas
+
+
+Area Usuario:
+ - Perfil de Usuario
+
+
+
+Login: 
+- Iniciar Sesión
+- Registro Usuario
+
+
+Home
+navbar -> Login 
+navbar -> Area Usuario 
+navbar -> calendario
+
+Banner ¿Quiénes somos?(resumen) con botón SABER MAS --> Sección QUIENES SOMOS
+
+sección charlas boton UNETE ->|| sección videotutoriales
+sección fotos eventos
+
+contacto
+footer
+
+
+
+Sección Charlas:
+
+registro TR particular
+registro empresa
+registro profesor --> registro centro/ centro ya creado
+Sección Charlas:
+tipos charla
+participa
+no ha iniciado sesión --> ir al Loglo y que inicie sesiop o se registre
+-si ha iniciado sesión --> dependiendo del rol:
+centro: solicita charla
+empresa/TR:seleccionar charla para dar
+calendario
+
+
+*Sección QUIENES SOMOS:
+Origenes
+Staff
+o
+Young riders
+Premios 2023
+Charlas 22-23
