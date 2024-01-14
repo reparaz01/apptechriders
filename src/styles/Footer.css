@@ -1,29 +1,34 @@
 /* Footer.css */
-/* Estilos específicos para el Footer */
 
 #footer-wrap {
-    background-color: black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    color: white;
-  }
-  
-  .site-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .footer-logo img {
-    height: 30px;
-    margin-right: 10px;
-  }
-  
-  .footer-img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Puedes ajustar estos estilos según tus necesidades */
-  
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Alinea verticalmente en el centro */
+  align-items: center;
+  padding: 30px;
+  color: white;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.site-info {
+  margin-top: 0px;
+}
+
+.footer-logo img {
+  max-width: 80px; /* Ajusta el tamaño de la imagen */
+  height: auto;
+  align-items: center;
+}
+
+.footer-img {
+  max-width: 100%;
+  height: auto;
+  align-items: center;
+}
+
+
+.spacer-cell {
+  width: 37px; /* O ajusta el valor según tu preferencia */
+}

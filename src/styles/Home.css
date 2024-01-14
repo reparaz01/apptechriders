@@ -1,21 +1,7 @@
 /* Home.css */
-#charlas-section {
-    position: relative;
-    height: 100vh; /* Ocupa toda la altura de la pantalla */
-    background-image: url('../assets/images/charlas.jpg');
-    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir completamente el contenedor */
-    background-position: right top; /* Ajusta la posición de la imagen a la derecha arriba */
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  .charlas-content {
-    position: absolute;
-    top: 10%;
-    left: 1%; /* Ajusta el margen izquierdo del texto según tus necesidades */
-    transform: translateY(-50%);
-    font-weight: 10;
-  }
-  
-  /* Añade estilos adicionales según tus necesidades */
-  
+
+body, html {
+  margin-left: 0; 
+  --bs-body-font-family: 'Montserrat', sans-serif;/* Eliminar el margen izquierdo predeterminado de Bootstrap */
+}
+

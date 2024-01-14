@@ -1,39 +1,20 @@
 /* Navbar.css */
 
-.body {
-  margin: auto;
+body, html {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; /* Cambiar la fuente predeterminada de todo el cuerpo y la página */
 }
 
 .navbar {
-  background-color: black;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px; /* Increase the vertical padding */
-  color: white;
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
+  font-family: 'Montserrat', sans-serif; /* Cambiar la fuente de la barra de navegación */
+  background-color: #000000;
+  height: 100px; /* Ajustar la altura verticalmente */
 }
 
 .navbar-brand img.logo {
-  height: 50px; /* Reduce the height of the logo */
+  max-height: 40px; /* Hacer el logo ligeramente más grande */
 }
 
-.nav-links {
-  display: flex;
-  gap: 30px;
-  margin-left: auto; /* Ajusta el margen izquierdo para alinear a la derecha */
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-}
-
-.login {
-  max-width: 30px;
-  height: auto;
+.navbar-nav {
+  margin-left: auto; /* Hace que los navlinks se alineen a la derecha */
 }

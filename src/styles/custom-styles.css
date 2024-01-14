@@ -1,5 +1,5 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    margin: auto;
+    --bs-body-font-family: 'Montserrat', sans-serif;/* Eliminar el margen izquierdo predeterminado de Bootstrap */
     font-weight: 300; /* Ajusta este valor según tus necesidades */
   }

@@ -1,35 +1,57 @@
+// Home.js
+
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import charlas from '../assets/images/charlas.jpg';
-import '../styles/Home.css'; 
+
+import "bootstrap/dist/css/bootstrap.min.css"; 
+import "bootstrap/dist/js/bootstrap.bundle"; 
+
 
 class Home extends Component {
   render() {
     return (
-      <div id="main" className="site-main container">
-        <Navbar />
+      <div id="main" >
+      <Navbar />
+        
 
-        {/* Sección con imagen "charlas" */}
-        <section id="charlas-section">
-          <div className="charlas-content">
-            <h1>Título de Charlas</h1>
+        <section>
+        <h1>Título de Charlas</h1>
             <h2>Subtítulo de Charlas</h2>
+          <div className="text-center">
+  
+
+            <div>
+              {/* Tabla con clases de Bootstrap */}
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Charla</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Nombre de la Charla 1</td>
+                    <td>Categoría 1</td>
+                    <td>
+                      <button className="btn btn-primary">Editar</button>
+                    </td>
+                  </tr>
+                  {/* Agrega más filas según sea necesario */}
+                </tbody>
+              </table>
+            </div>
           </div>
+
           <img src={charlas} alt="Charlas" className="charlas-image" />
         </section>
 
-        {/* Contenido específico de Home va aquí */}
-        <div id="primary" className="content-area">
-          <main id="content" className="site-content" role="main">
-            <section>
-              <h2>Título de la sección, Modificado Jhon</h2>
-              {/* Agrega tu contenido específico aquí */}
-            </section>
-          </main>
-        </div>
+        <Footer />
 
-        <Footer /> {/* Usa el componente Footer aquí */}
+        
       </div>
     );
   }

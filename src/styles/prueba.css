@@ -1,0 +1,6 @@
+/* custom-bootstrap-styles.css */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --bs-font-sans-serif: 'Montserrat', sans-serif;
+}
