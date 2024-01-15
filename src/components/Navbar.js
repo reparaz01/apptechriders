@@ -19,12 +19,17 @@ class Navbar extends Component {
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <NavLink to="/" className="nav-link">
-                  Home
+                  Inicio
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to={"/login"} className="nav-link">
                   Iniciar Sesión
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to={"/contacto"} className="nav-link">
+                  Contacto
                 </NavLink>
               </li>
             </ul>

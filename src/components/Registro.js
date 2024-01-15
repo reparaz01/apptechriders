@@ -79,7 +79,7 @@ export default class Registro extends Component {
     }
 
     componentDidMount = () => {
-        this.getRoles();
+       /* this.getRoles(); */
         this.getProvincias();
         console.log(Global.token);
     }
