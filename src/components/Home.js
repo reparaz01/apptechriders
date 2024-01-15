@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Calendario from './Calendario';
 import charlas from '../assets/images/charlas.jpg';
 
 import "bootstrap/dist/css/bootstrap.min.css"; 
@@ -47,6 +48,9 @@ class Home extends Component {
           </div>
 
           <img src={charlas} alt="Charlas" className="charlas-image" />
+          <div> 
+          <Calendario />
+          </div>
         </section>
 
         <Footer />
