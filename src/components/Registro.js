@@ -69,12 +69,9 @@ export default class Registro extends Component {
     }
 
     getProvincias = () => {
-        const headers = {
-            Authorization: "Bearer " + Global.token
-        }
         const request = 'api/provincias';
         const url = Global.urlApi + request;
-        axios.get(url, {headers}).then(response =>{
+        axios.get(url).then(response =>{
             this.setState({
                 provincia: response.data
             })
@@ -83,7 +80,7 @@ export default class Registro extends Component {
 
     componentDidMount = () => {
         this.getRoles();
-        this.getProvincias()
+        this.getProvincias();
         console.log(Global.token);
     }
 
