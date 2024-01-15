@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom'
 //Posibles errores, las rutas. Mirarlo si falla
 import axios from 'axios'
 import Global from './Global';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 export default class Login extends Component {
 
@@ -37,7 +39,7 @@ export default class Login extends Component {
 
     var request = "api/auth/login";
 
-    var url = Global.api + request;
+    var url = Global.urlApi + request;
 
     var datos = {
 
@@ -67,7 +69,7 @@ export default class Login extends Component {
 
     var request = "api/usuarios/perfilusuario";
 
-    var url = Global.api + request;
+    var url = Global.urlApi + request;
 
     var headers = {'Authorization':'Bearer ' + this.state.token }
 
@@ -87,6 +89,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
+        <Navbar />
           <form>
               <div className="mb-3">
                   <label className="form-label">Email</label>
@@ -98,7 +101,7 @@ export default class Login extends Component {
                   <input type="text" className="form-control" id="exampleInputPassword1" ref={this.cajaContrasena}/>
                   <div id="passwordlHelp" className="form-text">Introduce contraseña.</div>
               </div>
-                  <div id="registrolHelp" className="form-text">¿No tienes cuenta? <NavLink href='#'>Registrate</NavLink>.</div><br/>
+                  <div id="registrolHelp" className="form-text">¿No tienes cuenta? <NavLink to='/registro' className="nav-link" >Registrate</NavLink>.</div><br/>
                   <button type="submit" className="btn btn-primary" onClick={this.capturarToken}>Login</button>
           </form>
           {
@@ -126,6 +129,7 @@ export default class Login extends Component {
               )
             )
           }
+          <Footer />
       </div>
     )
   }

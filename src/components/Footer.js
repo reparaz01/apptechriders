@@ -1,5 +1,3 @@
-/* Footer.js */
-
 import React, { Component } from 'react';
 import '../styles/Footer.css';
 import logotajamar from '../assets/images/logotajamar.png';
@@ -17,7 +15,7 @@ class Footer extends Component {
                     <td className="footer-logo">
                       <img src={logotajamar} alt="Footer Logo" className="footer-img" />
                     </td>
-                    <td className="spacer-cell"></td> {/* Celda espaciadora */}
+                    <td className="spacer-cell"></td>
                     <td className="text-cell">
                       <p className="footer-first">© 2024 FP + Professional Education</p>
                       <p>

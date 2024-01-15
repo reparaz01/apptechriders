@@ -1,5 +1,5 @@
 var Global = {
     urlApi : "https://apitechriders.azurewebsites.net/",
-    token: "",
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyRGF0YSI6IntcIklkVXN1YXJpb1wiOjI3LFwiTm9tYnJlXCI6XCJ0ZXN0XCIsXCJBcGVsbGlkb3NcIjpcInRlc3RcIixcIkVtYWlsXCI6XCJ0ZXN0QGdtYWlsLmNvbVwiLFwiVGVsZWZvbm9cIjpcIjQ1Njc4WFwiLFwiTGlua2VkSW5cIjpcImxpbmtlZGluLmNvbVwiLFwiUGFzc3dvcmRcIjpcIjEyMzQ1XCIsXCJJZFJvbGVcIjoxLFwiSWRQcm92aW5jaWFcIjoyNyxcIklkRW1wcmVzYUNlbnRyb1wiOm51bGwsXCJFc3RhZG9cIjowfSIsIm5iZiI6MTcwNTMyMTc5OCwiZXhwIjoxNzA1MzIzNTk4LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDMyLyIsImF1ZCI6IkFwaVRlY2hSaWRlcnNDb3JlT0F1dGgifQ.AmQP2-cYm6c1ePLvKpu6zIxDn1LS640Ex9AnPerIwXk",
 }
 export default Global;

@@ -32,14 +32,14 @@ export default class Registro extends Component {
         var provincia = parseInt(this.cajaProvincia.current.value);
 
         var datos = {
-            nombre: nombre,
-            email: email,
-            telefono: telefono,
-            linkedin: linkedin,
-            password: password,
-            idRole: rol,
-            idProvincia: provincia,
-            estado: 1,
+            "nombre": nombre,
+            "email": email,
+            "telefono": telefono,
+            "linkedin": linkedin,
+            "password": password,
+            "idRole": rol,
+            "idProvincia": provincia,
+            "estado": 1,
         }
 
         var headers = {
@@ -84,6 +84,7 @@ export default class Registro extends Component {
     componentDidMount = () => {
         this.getRoles();
         this.getProvincias()
+        console.log(Global.token);
     }
 
     render() {
