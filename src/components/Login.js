@@ -88,49 +88,49 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
         <Navbar />
-          <form>
-              <div className="mb-3">
-                  <label className="form-label">Email</label>
-                  <input type="email" className="form-control" id="exampleInputEmail1" ref={this.cajaEmail}/>
-                  <div id="emailHelp" className="form-text">Introduce email.</div>
-              </div>
-              <div className="mb-3">
-                  <label className="form-label">Password</label>
-                  <input type="text" className="form-control" id="exampleInputPassword1" ref={this.cajaContrasena}/>
-                  <div id="passwordlHelp" className="form-text">Introduce contraseña.</div>
-              </div>
-                  <div id="registrolHelp" className="form-text">¿No tienes cuenta? <NavLink to='/registro' className="nav-link" >Registrate</NavLink>.</div><br/>
-                  <button type="submit" className="btn btn-primary" onClick={this.capturarToken}>Login</button>
+        <div className="container mt-5 flex-grow-1">
+          <form className="col-md-6 mx-auto">
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <input type="email" className="form-control" id="exampleInputEmail1" ref={this.cajaEmail}/>
+              <div id="emailHelp" className="form-text">Introduce email.</div>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input type="password" className="form-control" id="exampleInputPassword1" ref={this.cajaContrasena}/>
+              <div id="passwordlHelp" className="form-text">Introduce contraseña.</div>
+            </div>
+            <div id="registrolHelp" className="form-text">
+              ¿No tienes cuenta? <NavLink to='/registro' className="nav-link text-primary">Regístrate</NavLink>.
+            </div>
+
+            <br/>
+            <button type="submit" className="btn btn-primary" onClick={this.capturarToken}>Login</button>
           </form>
-          {
-            //Si la condicion es verdad llamamos a la funcion.
-            this.state.statusToken === true && ( 
-
-              this.GetUsuarios()
+        </div>
+        {
+          this.state.statusToken === true && (
+            this.GetUsuarios()
+          )
+        }
+        {
+          this.state.statusUsuarios === true && (
+            this.state.usuarios.idRole === 1 && (
+              alert("Eres Admin y nos vamos a tu página")
+            ),
+            this.state.usuarios.idRole === 2 && (
+              alert("Eres Profesor/Representante y nos vamos a tu página")
+            ),
+            this.state.usuarios.idRole === 3 && (
+              alert("Eres TechRider y nos vamos a tu página")
             )
-          }
-          {
-            //Si la condicion es verdad entramos a las siguientes condiciones, donde comprobamos que tipo de usuario es.
-            this.state.statusUsuarios === true && (
-
-              this.state.usuarios.idRole === 1 && (
-                //Aqui pondremos la navegacion hacia su pagina.
-                alert("Eres Admin y nos vamos a tu pagina")
-              ),
-              this.state.usuarios.idRole === 2 && (
-                //Aqui pondremos la navegacion hacia su pagina.
-                alert("Eres Profesor/Representante y nos vamos a tu pagina")
-              ),
-              this.state.usuarios.idRole === 3 && (
-                //Aqui pondremos la navegacion hacia su pagina.
-                alert("Eres TechRider y nos vamos a tu pagina")
-              )
-            )
-          }
-          <Footer />
+          )
+        }
+        <Footer />
       </div>
-    )
+    );
   }
+  
 }
