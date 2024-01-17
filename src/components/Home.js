@@ -24,7 +24,7 @@ class Home extends Component {
 
           {/* Contenido antes del div blanco */}
           <h1 style={{ color: 'white', marginTop: '20px' }}>Charlas Disponibles</h1>
-          <h3 style={{ color: 'white', marginBottom: '75px' }}>Selecciona una charla para acceder a sus datos</h2>
+          <h2 style={{ color: 'white', marginBottom: '75px' }}>Selecciona una charla para acceder a sus datos</h2>
 
           {/* Div blanco que ocupa la mitad de la página */}
           <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '0px', padding: '40px', marginTop: '20px', marginBottom: '50px' }}>
