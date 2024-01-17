@@ -118,13 +118,14 @@ export default class Login extends Component {
         {
           this.state.statusUsuarios === true && (
             this.state.usuarios.idRole === 1 && (
-              alert("Eres Admin y nos vamos a tu página")
+              window.location=("areaAdmin")
             ),
             this.state.usuarios.idRole === 2 && (
-              alert("Eres Profesor/Representante y nos vamos a tu página")
+              //Esto es para Profesor/Representante
+              window.location=("areaProfesor")
             ),
             this.state.usuarios.idRole === 3 && (
-              alert("Eres TechRider y nos vamos a tu página")
+              window.location=("areaTech")
             )
           )
         }

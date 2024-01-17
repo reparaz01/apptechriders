@@ -63,8 +63,8 @@ const Calendario = () => {
     <div className="container">
       <h2 className="mb-4">{mesActual.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</h2>
       <div className="d-flex justify-content-between mb-3">
-        <button className="btn btn-primary" onClick={() => cambiarMes('anterior')}>Mes Anterior</button>
-        <button className="btn btn-primary" onClick={() => cambiarMes('siguiente')}>Mes Siguiente</button>
+        <button className="btn btn-dark" onClick={() => cambiarMes('anterior')}>Mes Anterior</button>
+        <button className="btn btn-dark" onClick={() => cambiarMes('siguiente')}>Mes Siguiente</button>
       </div>
       <table className="table table-bordered">
         <thead>

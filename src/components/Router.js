@@ -4,6 +4,9 @@ import Home from './Home';
 import Login from './Login';
 import Registro from './Registro';
 import Contacto from './Contacto';
+import AreaAdmin from './AreaAdmin';
+import AreaTech from './AreaTech';
+import AreaProfesor from './AreaProfesor';
 
 import { useParams } from 'react-router-dom';
 
@@ -26,6 +29,9 @@ export default class Router extends Component {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/contacto" element={<Contacto />} />
+          <Route path="/areaAdmin" element={<AreaAdmin />} />
+          <Route path="/areaTech" element={<AreaTech />} />
+          <Route path="/areaProfesor" element={<AreaProfesor />} />
         </Routes>
       </BrowserRouter>
     );
