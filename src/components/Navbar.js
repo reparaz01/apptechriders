@@ -4,6 +4,7 @@ import logo from '../assets/images/logotechriders.png';
 import './../styles/Navbar.css';
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import "bootstrap/dist/js/bootstrap.bundle"; 
+import axios from 'axios'; // Importamos Axios
 import Global from './Global';
 
 class Navbar extends Component {
@@ -11,20 +12,41 @@ class Navbar extends Component {
     super(props);
     this.state = {
       tipoUsuario: Global.tipoUsuario,
+      usuarioNombre: "",
     };
   }
 
-  componentDidUpdate() {
-    const { tipoUsuario } = Global;
-    if (this.state.tipoUsuario !== tipoUsuario) {
-      this.setState({ tipoUsuario });
+  componentDidMount() {
+    if (this.state.tipoUsuario !== 0) {
+      this.obtenerNombreUsuario();
     }
-    console.log("NAVBAR "+Global.tipoUsuario)
-    console.log("NAVBAR "+Global.token)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.tipoUsuario !== prevState.tipoUsuario && this.state.tipoUsuario !== 0) {
+      this.obtenerNombreUsuario();
+    }
+  }
+
+  obtenerNombreUsuario() {
+    const url = Global.urlApi + '/api/Usuarios/PerfilUsuario'; 
+
+    axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${Global.token}`
+      }
+    })
+    .then(response => {
+      // Actualizar el estado con el nombre del usuario
+      this.setState({ usuarioNombre: response.data.nombre });
+    })
+    .catch(error => {
+      console.error("Error al obtener el nombre del usuario:", error);
+    });
   }
 
   render() {
-    const { tipoUsuario } = this.state;
+    const { tipoUsuario, usuarioNombre } = this.state;
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -53,10 +75,18 @@ class Navbar extends Component {
                 <>
                   <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="http://localhost:3000/areaTech" id="areaPersonalDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Área Personal
+                      {usuarioNombre}
                     </a>
                     <div className="dropdown-menu" aria-labelledby="areaPersonalDropdown">
-                      <NavLink to={"/area-personal"} className="dropdown-item">Área Personal</NavLink>
+                    <NavLink
+                        to={tipoUsuario === 1 ? "/areaAdmin" : 
+                            tipoUsuario === 2 ? "/areaProfesor" : 
+                            tipoUsuario === 3 ? "/areaTech" : 
+                            tipoUsuario === 4 ? "/areaEmpresa" : "/area-personal"}
+                        className="dropdown-item"
+                      >
+                        Área Personal
+                  </NavLink>
                       <div className="dropdown-divider"></div>
                       <NavLink to={"/logout"} className="dropdown-item">LogOut</NavLink>
                     </div>

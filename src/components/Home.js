@@ -31,7 +31,7 @@ componentDidMount(){
 
           {/* Contenido antes del div blanco */}
           <h1 style={{ color: 'white', marginTop: '20px' }}>Charlas Disponibles</h1>
-          <p style={{ color: 'white', marginBottom: '35px', fontSize: '27px' }}>Selecciona una charla para acceder a sus datos</p>
+          <p style={{ color: 'white', marginBottom: '35px', fontSize: '27px' }}>Selecciona una charla para mas informacion</p>
 
 
           {/* Div blanco que ocupa la mitad de la página */}
