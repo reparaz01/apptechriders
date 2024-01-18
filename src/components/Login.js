@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-//Posibles errores, las rutas. Mirarlo si falla
 import axios from 'axios'
 import Global from './Global';
 import Navbar from './Navbar';
 import Footer from './Footer';
+// Optimizacion de codigo, no borrar el antiguo
 
 export default class Login extends Component {
 
@@ -23,68 +23,83 @@ export default class Login extends Component {
     statusUsuarios : false,
 
     usuarios: []
-
   }
 
   ///** */ Zona Funciones **///
 
   //Funcionalidad: Metodo Post del Api donde se manda el email y la contraseña para obtenet el token del usuario.
-  capturarToken = (e) => {
-
+  capturarToken = async (e) => {
     e.preventDefault();
 
-    var email = this.cajaEmail.current.value;
+    const email = this.cajaEmail.current.value;
 
-    var contrasena = this.cajaContrasena.current.value;
+    const contrasena = this.cajaContrasena.current.value;
 
-    var request = "api/auth/login";
+    const request = 'api/auth/login';
 
-    var url = Global.urlApi + request;
+    const url = Global.urlApi + request;
 
-    var datos = {
+    const datos = {
 
-      "email" : email,
-      "password" : contrasena
+      email: email,
+
+      password: contrasena
+    };
+
+    try {
+      const response = await axios.post(url, datos);
+
+      this.setState(
+        {
+          statusToken: true,
+
+          token: response.data.response
+        },
+        () => {
+
+          this.GetUsuarios();
+        }
+      );
+    } catch (error) {
+
+      console.error('Error al capturar token:', error);
+
+      alert('Datos erroneos, compruebelo !!!');
     }
-
-    axios.post(url,datos).then(response => {
-
-      this.setState ({
-
-        statusToken: true,
-
-        token : response.data.response
-      })
-    })
-    //Este catch nos permite mandar un mensaje al haber algun tipo de error.
-    .catch(() => {
-
-      alert("Datos erroneos, compruebelo !!!");
-    })
-  }
+  };
 
   //Funcionalidad: Metodo Get del Api , donde se hace la peticion y le mandamos un header con el token capturado con la finalidad de
   //que nos devuelva la informacion de este usuario. Para evitar un bucle infinito cambiamos a false el statusToken.
-  GetUsuarios = () => {
+  GetUsuarios = async () => {
 
-    var request = "api/usuarios/perfilusuario";
+    const request = 'api/usuarios/perfilusuario';
 
-    var url = Global.urlApi + request;
+    const url = Global.urlApi + request;
 
-    var headers = {'Authorization':'Bearer ' + this.state.token }
+    const headers = { Authorization: 'Bearer ' + this.state.token };
 
-    axios.get(url,{headers}).then(response => {
+    try {
+
+      const response = await axios.get(url, { headers });
 
       this.setState({
 
-        statusUsuarios : true,
+        statusUsuarios: true,
 
-        usuarios : response.data,
+        usuarios: response.data,
 
-        statusToken : false
-      })
-    })
-  }
+        statusToken: false
+      });
+    } catch (error) {
+
+      console.error('Error al obtener usuarios:', error);
+    }
+    //console.log(this.state.usuarios.idRole);
+    
+    Global.tipoUsuario = this.state.usuarios.idRole;
+    
+    alert("Dato añadido al global usuario");
+  };
 
   render() {
     return (
@@ -111,21 +126,21 @@ export default class Login extends Component {
           </form>
         </div>
         {
-          this.state.statusToken === true && (
-            this.GetUsuarios()
-          )
-        }
-        {
           this.state.statusUsuarios === true && (
             this.state.usuarios.idRole === 1 && (
               window.location=("areaAdmin")
             ),
             this.state.usuarios.idRole === 2 && (
-              //Esto es para Profesor/Representante
               window.location=("areaProfesor")
             ),
             this.state.usuarios.idRole === 3 && (
               window.location=("areaTech")
+            ),
+            this.state.usuarios.idRole === 4 && (
+              window.location=("areaRepresentante")
+            ),
+            this.state.usuarios.idRole === 0 && ( //Nuevo codigo añadido
+              alert("Usuario aun no validado")
             )
           )
         }
