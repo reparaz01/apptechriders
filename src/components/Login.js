@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { Component, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Global from './Global';
 import Navbar from './Navbar';
@@ -17,11 +17,8 @@ export default class Login extends Component {
   state = {
 
     statusToken : false,
-
     token : "",
-
     statusUsuarios : false,
-
     usuarios: []
   }
 
@@ -32,17 +29,12 @@ export default class Login extends Component {
     e.preventDefault();
 
     const email = this.cajaEmail.current.value;
-
     const contrasena = this.cajaContrasena.current.value;
-
     const request = 'api/auth/login';
-
     const url = Global.urlApi + request;
-
     const datos = {
 
       email: email,
-
       password: contrasena
     };
 
@@ -52,7 +44,6 @@ export default class Login extends Component {
       this.setState(
         {
           statusToken: true,
-
           token: response.data.response
         },
         () => {
@@ -63,7 +54,6 @@ export default class Login extends Component {
     } catch (error) {
 
       console.error('Error al capturar token:', error);
-
       alert('Datos erroneos, compruebelo !!!');
     }
   };
@@ -71,35 +61,29 @@ export default class Login extends Component {
   //Funcionalidad: Metodo Get del Api , donde se hace la peticion y le mandamos un header con el token capturado con la finalidad de
   //que nos devuelva la informacion de este usuario. Para evitar un bucle infinito cambiamos a false el statusToken.
   GetUsuarios = async () => {
-
     const request = 'api/usuarios/perfilusuario';
-
     const url = Global.urlApi + request;
-
     const headers = { Authorization: 'Bearer ' + this.state.token };
-
+  
     try {
-
       const response = await axios.get(url, { headers });
-
+  
       this.setState({
-
         statusUsuarios: true,
-
         usuarios: response.data,
-
         statusToken: false
       });
+  
+      // Actualiza Global.tipoUsuario directamente
+      Global.tipoUsuario = response.data.idRole;
+      Global.token = this.state.token;
+  
+      alert("Dato añadido al global usuario");
     } catch (error) {
-
       console.error('Error al obtener usuarios:', error);
     }
-    //console.log(this.state.usuarios.idRole);
-    
-    Global.tipoUsuario = this.state.usuarios.idRole;
-    
-    alert("Dato añadido al global usuario");
   };
+  
 
   render() {
     return (
@@ -120,34 +104,56 @@ export default class Login extends Component {
             <div id="registrolHelp" className="form-text">
               ¿No tienes cuenta? <NavLink to='/registro' className="nav-link text-primary">Regístrate</NavLink>.
             </div>
-
-            <br/>
+            <br />
             <button type="submit" className="btn btn-primary" onClick={this.capturarToken}>Login</button>
           </form>
         </div>
-        {
-          this.state.statusUsuarios === true && (
-            this.state.usuarios.idRole === 1 && (
-              <NavLink to="/areaAdmin" className="navbar-brand">
-              </NavLink>
-            ),
-            this.state.usuarios.idRole === 2 && (
-              window.location=("areaProfesor")
-            ),
-            this.state.usuarios.idRole === 3 && (
-              window.location=("areaTech")
-            ),
-            this.state.usuarios.idRole === 4 && (
-              window.location=("areaRepresentante")
-            ),
-            this.state.usuarios.idRole === 0 && ( //Nuevo codigo añadido
-              alert("Usuario aun no validado")
-            )
-          )
-        }
+        {this.state.statusUsuarios === true && (
+          <div>
+            {this.state.usuarios.idRole === 1 && (
+              <div>
+                {Global.tipoUsuario = 1}
+                <RedirectTo path="/areaAdmin" />
+              </div>
+            )}
+            {this.state.usuarios.idRole === 2 && (
+              <div>
+                {Global.tipoUsuario = 2}
+                <RedirectTo path="/areaProfesor" />
+              </div>
+            )}
+            {this.state.usuarios.idRole === 3 && (
+              <div>
+                {Global.tipoUsuario = 3}
+                <RedirectTo path="/areaTech" />
+              </div>
+            )}
+            {this.state.usuarios.idRole === 4 && (
+              <div>
+                {Global.tipoUsuario = 4}
+                <RedirectTo path="/areaRepresentante" />
+              </div>
+            )}
+            {this.state.usuarios.idRole === 0 && (
+              <div>
+                {alert("Usuario aún no validado")}
+              </div>
+            )}
+          </div>
+        )}
         <Footer />
       </div>
     );
   }
-  
 }
+
+// Helper component for programmatic navigation
+const RedirectTo = ({ path }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate(path);
+  }, [navigate, path]);
+
+  return null;
+};

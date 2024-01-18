@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
+import Logout from './Logout';
 import Registro from './Registro';
 import Contacto from './Contacto';
 import AreaAdmin from './AreaAdmin';
@@ -28,6 +29,7 @@ export default class Router extends Component {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/areaAdmin" element={<AreaAdmin />} />

@@ -14,9 +14,14 @@ class Navbar extends Component {
     };
   }
 
-  componentDidUpdate(){
-    console.log("navbar" + Global.tipoUsuario);
-}
+  componentDidUpdate() {
+    const { tipoUsuario } = Global;
+    if (this.state.tipoUsuario !== tipoUsuario) {
+      this.setState({ tipoUsuario });
+    }
+    console.log("NAVBAR "+Global.tipoUsuario)
+    console.log("NAVBAR "+Global.token)
+  }
 
   render() {
     const { tipoUsuario } = this.state;
@@ -46,25 +51,20 @@ class Navbar extends Component {
                 </>
               ) : (
                 <>
-                  <li className="nav-item">
-                    <NavLink to={"/area-personal"} className="nav-link">
+                  <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" href="http://localhost:3000/areaTech" id="areaPersonalDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Área Personal
-                    </NavLink>
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="areaPersonalDropdown">
+                      <NavLink to={"/area-personal"} className="dropdown-item">Área Personal</NavLink>
+                      <div className="dropdown-divider"></div>
+                      <NavLink to={"/logout"} className="dropdown-item">LogOut</NavLink>
+                    </div>
                   </li>
                   <li className="nav-item">
                     <NavLink to={"/charlas"} className="nav-link">
                       Charlas
                     </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <div className="nav-item dropdown">
-                      <button className="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                      </button>
-                      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {/* Contenido del dropdown */}
-                      </div>
-                    </div>
                   </li>
                 </>
               )}
@@ -83,4 +83,3 @@ class Navbar extends Component {
 }
 
 export default Navbar;
-

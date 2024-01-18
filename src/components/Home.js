@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import Calendario from './Calendario';
+ /* import Calendario from './Calendario'; */
 import charlas from '../assets/images/charlas.jpg';
 import Global from './Global';
 
@@ -37,7 +37,7 @@ componentDidMount(){
           {/* Div blanco que ocupa la mitad de la página */}
           <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '0px', padding: '40px', marginTop: '20px', marginBottom: '50px' }}>
             {/* Contenido dentro del fondo blanco */}
-            
+            <button> Hola</button>
 
           </div>
 
