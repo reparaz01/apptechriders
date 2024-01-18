@@ -9,7 +9,7 @@ import AreaTech from './AreaTech';
 import AreaProfesor from './AreaProfesor';
 import AreaRepresentante from './AreaRepresentante';
 
-import { useParams } from 'react-router-dom';
+ /* import { useParams } from 'react-router-dom'; */
 
 export default class Router extends Component {
   render() {

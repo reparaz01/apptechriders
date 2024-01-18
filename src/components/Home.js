@@ -3,11 +3,18 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import Calendario from './Calendario';
 import charlas from '../assets/images/charlas.jpg';
+import Global from './Global';
 
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import "bootstrap/dist/js/bootstrap.bundle"; 
 
 class Home extends Component {
+
+componentDidMount(){
+    console.log("home" + Global.tipoUsuario);
+}
+
+
   render() {
     return (
       <div id="main" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -24,12 +31,13 @@ class Home extends Component {
 
           {/* Contenido antes del div blanco */}
           <h1 style={{ color: 'white', marginTop: '20px' }}>Charlas Disponibles</h1>
-          <h2 style={{ color: 'white', marginBottom: '75px' }}>Selecciona una charla para acceder a sus datos</h2>
+          <p style={{ color: 'white', marginBottom: '35px', fontSize: '27px' }}>Selecciona una charla para acceder a sus datos</p>
+
 
           {/* Div blanco que ocupa la mitad de la página */}
           <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '0px', padding: '40px', marginTop: '20px', marginBottom: '50px' }}>
             {/* Contenido dentro del fondo blanco */}
-            <Calendario />
+            
 
           </div>
 

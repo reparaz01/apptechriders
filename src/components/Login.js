@@ -128,7 +128,8 @@ export default class Login extends Component {
         {
           this.state.statusUsuarios === true && (
             this.state.usuarios.idRole === 1 && (
-              window.location=("areaAdmin")
+              <NavLink to="/areaAdmin" className="navbar-brand">
+              </NavLink>
             ),
             this.state.usuarios.idRole === 2 && (
               window.location=("areaProfesor")
