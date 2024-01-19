@@ -4,6 +4,8 @@ import axios from 'axios'
 import Global from './Global';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import loginimage from '../assets/images/Login.jpg';
+
 // Optimizacion de codigo, no borrar el antiguo
 
 export default class Login extends Component {
@@ -15,7 +17,7 @@ export default class Login extends Component {
     token: "",
     statusUsuarios: false,
     usuarios: [],
-    redirectTo: null // Nueva variable para redireccionar
+    redirectTo: null // variable para redireccionar
   }
 
   capturarToken = async (e) => {
@@ -44,7 +46,7 @@ export default class Login extends Component {
       );
     } catch (error) {
       console.error('Error al capturar token:', error);
-      alert('Datos erroneos, compruebelo !!!');
+      alert('Usuario o Contraseña Incorrectos');
     }
   };
 
@@ -70,7 +72,6 @@ export default class Login extends Component {
       localStorage.setItem('tipoUsuario', response.data.idRole);
       localStorage.setItem('token', this.state.token);
   
-      alert("Dato añadido al global usuario");
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
     }
@@ -79,26 +80,39 @@ export default class Login extends Component {
   render() {
     return (
       <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-        <Navbar />
-        <div className="container mt-5 flex-grow-1">
-          <form className="col-md-6 mx-auto">
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input type="email" className="form-control" id="exampleInputEmail1" ref={this.cajaEmail}/>
-              <div id="emailHelp" className="form-text">Introduce email.</div>
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <input type="password" className="form-control" id="exampleInputPassword1" ref={this.cajaContrasena}/>
-              <div id="passwordlHelp" className="form-text">Introduce contraseña.</div>
-            </div>
-            <div id="registrolHelp" className="form-text">
-              ¿No tienes cuenta? <NavLink to='/registro' className="nav-link text-primary">Regístrate</NavLink>.
-            </div>
-            <br />
-            <button type="submit" className="btn btn-primary" onClick={this.capturarToken}>Login</button>
-          </form>
-        </div>
+  <Navbar />
+  <div className="container mt-3 flex-grow-1 d-flex justify-content-center align-items-center">
+    {/* Tarjeta de Bootstrap */}
+    <div className="card col-md-7 mt-3 p-5"> {/* Aumenté el ancho de la tarjeta y añadí padding */}
+      <div className="card-body d-flex align-items-center flex-column"> {/* Añadí flex-column para centrar los elementos verticalmente */}
+        {/* Agregar imagen a la izquierda con más espacio */}
+        <img
+          src={loginimage}
+          alt="Descripción de la imagen"
+          className="img-fluid mb-4" // Añadí margen inferior
+          style={{ maxWidth: '300px', maxHeight: '300px', marginTop:'-30px' }}
+        />
+
+        {/* Formulario con cuadros de texto más largos y centrados */}
+        <form className="w-75 text-center"> {/* Ajusté el ancho del formulario y centré los elementos */}
+          <div className="mb-4">
+            <p style={{ color: 'black', marginBottom: '5px', fontSize: '20px', fontWeight: 'bolder' }}>Correo Electrónico</p>
+            <input type="email" className="form-control" id="exampleInputEmail1" ref={this.cajaEmail} />
+          </div>
+          <div className="mb-4">
+            <p style={{ color: 'black', marginBottom: '5px', fontSize: '20px', fontWeight: 'bolder' }}>Contraseña</p>
+            <input type="password" className="form-control" id="exampleInputPassword1" ref={this.cajaContrasena} style= {{marginBottom: '40px'}} />
+          </div>
+          <button type="submit" className="btn btn-dark btn-lg w-100" onClick={this.capturarToken}>
+            Iniciar Sesión
+          </button>
+          <div id="registrolHelp" className="form-text font-weight-bold">
+            ¿No tienes cuenta? <NavLink to='/registro' className="nav-link text-primary">Regístrate</NavLink>.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
         {
         
         this.state.statusUsuarios === true && (

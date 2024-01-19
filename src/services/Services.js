@@ -1,7 +1,7 @@
 import Global from './../components/Global';
 import axios from 'axios';
 
-export default class Service {
+export default class Services {
 
 // METODO PARA AUTORIZAR ACCECSO
 
@@ -44,17 +44,6 @@ autorizarAcceso(usuario){
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-    getDatosUsuario() {
-        return new Promise(function(resolve) {
-            var request = "api/Cubos/Marcas";
-            var marcas = [];
-            var url = Global.urlApi + request;
-            axios.get(url).then(response => {
-                marcas = response.data;
-                resolve(marcas);
-            })
-        })
-    }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
@@ -108,19 +97,7 @@ autorizarAcceso(usuario){
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-    getDatosUsuario() {
-        return new Promise(function(resolve) {
-          const headers = {
-            'Authorization': 'bearer ' + Global.token,
-          };
-          var request = "api/Manage/PerfilUsuario";
-          var usuario = {};
-          var url = Global.urlApi + request;
-          axios.get(url, { headers }).then(response => {
-            usuario = response.data;
-            resolve(usuario);
-          })
-      })
+    getDatosUsuarioO() {
 
     }
 

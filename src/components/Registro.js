@@ -117,16 +117,16 @@ export default class Registro extends Component {
             return (
               <div>
                 <Navbar />
-                  <div className="container mt-5">
+                  <div className="container mt-5 mb-5">
                     <div className='card text-center'>
                         <div className="card-body">
                             <h2 className='card-title'>Registro</h2>
                             <form>
                                 <label>Roles:</label>
                                 <select name="rol" ref={this.cajaRoles} className="form-control">
-                                    <option id="1" value="3">Techrider</option>
-                                    <option id="2" value="2">Profesor</option>
-                                    <option id="3" value="2">Responsable Empresa</option>
+                                    <option id="1" value="2">PROFESOR</option>
+                                    <option id="2" value="3">TECHRIDER</option>
+                                    <option id="3" value="4">RESPONSABLE</option>
                                 </select>
                                 <br/>
                                 <div className="row">

@@ -7,6 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import axios from 'axios'; // Importamos Axios
 import Global from './Global';
 
+
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -18,17 +19,17 @@ class Navbar extends Component {
 
   componentDidMount() {
     if (this.state.tipoUsuario !== 0) {
-      this.obtenerNombreUsuario();
+      this.getDatosUsuario();
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.tipoUsuario !== prevState.tipoUsuario && this.state.tipoUsuario !== 0) {
-      this.obtenerNombreUsuario();
+      this.getDatosUsuario();
     }
   }
 
-  obtenerNombreUsuario() {
+  getDatosUsuario() {
     const url = Global.urlApi + '/api/Usuarios/PerfilUsuario'; 
 
     axios.get(url, {
@@ -44,7 +45,7 @@ class Navbar extends Component {
       console.error("Error al obtener el nombre del usuario:", error);
     });
   }
-  
+
   render() {
     const { tipoUsuario, usuarioNombre } = this.state;
 

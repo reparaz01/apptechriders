@@ -7,7 +7,7 @@ export default class AreaAdmin extends Component {
     return (
       <div>
           <Navbar />
-            <h1>Area Tech</h1>
+          
           <Footer />
       </div>
     )
