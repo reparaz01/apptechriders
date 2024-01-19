@@ -5,7 +5,7 @@ export default class Service {
 
 // METODO PARA AUTORIZAR ACCECSO
 
-    autorizarAcceso(email, password) {
+    prueba(email, password) {
         const json = {
             "email": email,
             "password": password
@@ -32,25 +32,19 @@ export default class Service {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
 
-    getCubos() {
-      return new Promise(function(resolve) {
-        const headers = {
-            'Authorization': 'bearer ' + Global.token,
-          };
-          var request = "api/Cubos";
-          var cubos = [];
-          var url = Global.urlApi + request;
-          axios.get(url, { headers }).then(response => {
-            cubos = response.data;
-              resolve(cubos);
-          })
-        })
-
-    }
+autorizarAcceso(usuario){
+  return new Promise(function(resolve) {
+      var request = "api/Auth/Login";
+      var url = Global.urlApi + request;
+      axios.post(url, usuario).then(response => {
+          resolve(response);
+      })
+  })
+}
     
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-    getMarcas() {
+    getDatosUsuario() {
         return new Promise(function(resolve) {
             var request = "api/Cubos/Marcas";
             var marcas = [];

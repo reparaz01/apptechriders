@@ -8,7 +8,11 @@ const Logout = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Reset del tipo de usuario y el token
+    // Limpiar localStorage
+    localStorage.removeItem('tipoUsuario');
+    localStorage.removeItem('token');
+
+    // Reset del tipo de usuario y el token en Global
     Global.tipoUsuario = 0;
     Global.token = "";
 
@@ -23,10 +27,10 @@ const Logout = () => {
   }, [navigate]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '200px' }}>
       {loading ? (
         <>
-          <img src={loadImage} alt="Cargando..." />
+          <img src={loadImage} alt="Cargando..." style={{ maxWidth: '200px' }} />
           <h1>Cargando...</h1>
         </>
       ) : null}

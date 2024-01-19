@@ -11,7 +11,7 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tipoUsuario: Global.tipoUsuario,
+      tipoUsuario: parseInt(localStorage.getItem('tipoUsuario')) || 0,
       usuarioNombre: "",
     };
   }
@@ -33,7 +33,7 @@ class Navbar extends Component {
 
     axios.get(url, {
       headers: {
-        'Authorization': `Bearer ${Global.token}`
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     })
     .then(response => {
@@ -44,7 +44,7 @@ class Navbar extends Component {
       console.error("Error al obtener el nombre del usuario:", error);
     });
   }
-
+  
   render() {
     const { tipoUsuario, usuarioNombre } = this.state;
 

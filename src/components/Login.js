@@ -7,24 +7,17 @@ import Footer from './Footer';
 // Optimizacion de codigo, no borrar el antiguo
 
 export default class Login extends Component {
-
-  // Referencias Cajas.
   cajaEmail = React.createRef();
-
   cajaContrasena = React.createRef();
 
-  // Zona state , donde se ira cambiando el valor.
   state = {
-
-    statusToken : false,
-    token : "",
-    statusUsuarios : false,
-    usuarios: []
+    statusToken: false,
+    token: "",
+    statusUsuarios: false,
+    usuarios: [],
+    redirectTo: null // Nueva variable para redireccionar
   }
 
-  ///** */ Zona Funciones **///
-
-  //Funcionalidad: Metodo Post del Api donde se manda el email y la contraseña para obtenet el token del usuario.
   capturarToken = async (e) => {
     e.preventDefault();
 
@@ -33,7 +26,6 @@ export default class Login extends Component {
     const request = 'api/auth/login';
     const url = Global.urlApi + request;
     const datos = {
-
       email: email,
       password: contrasena
     };
@@ -47,19 +39,15 @@ export default class Login extends Component {
           token: response.data.response
         },
         () => {
-
           this.GetUsuarios();
         }
       );
     } catch (error) {
-
       console.error('Error al capturar token:', error);
       alert('Datos erroneos, compruebelo !!!');
     }
   };
 
-  //Funcionalidad: Metodo Get del Api , donde se hace la peticion y le mandamos un header con el token capturado con la finalidad de
-  //que nos devuelva la informacion de este usuario. Para evitar un bucle infinito cambiamos a false el statusToken.
   GetUsuarios = async () => {
     const request = 'api/usuarios/perfilusuario';
     const url = Global.urlApi + request;
@@ -74,16 +62,19 @@ export default class Login extends Component {
         statusToken: false
       });
   
-      // Actualiza Global.tipoUsuario directamente
+      // Global
       Global.tipoUsuario = response.data.idRole;
       Global.token = this.state.token;
+
+      // Guardar en localStorage
+      localStorage.setItem('tipoUsuario', response.data.idRole);
+      localStorage.setItem('token', this.state.token);
   
       alert("Dato añadido al global usuario");
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
     }
   };
-  
 
   render() {
     return (
@@ -108,30 +99,32 @@ export default class Login extends Component {
             <button type="submit" className="btn btn-primary" onClick={this.capturarToken}>Login</button>
           </form>
         </div>
-        {this.state.statusUsuarios === true && (
+        {
+        
+        this.state.statusUsuarios === true && (
           <div>
             {this.state.usuarios.idRole === 1 && (
               <div>
                 {Global.tipoUsuario = 1}
-                <RedirectTo path="/areaAdmin" />
+                {this.setState({ redirectTo: "/areaAdmin" })} 
               </div>
             )}
             {this.state.usuarios.idRole === 2 && (
               <div>
                 {Global.tipoUsuario = 2}
-                <RedirectTo path="/areaProfesor" />
+                {this.setState({ redirectTo: "/areaProfesor" })} 
               </div>
             )}
             {this.state.usuarios.idRole === 3 && (
               <div>
                 {Global.tipoUsuario = 3}
-                <RedirectTo path="/areaTech" />
+                {this.setState({ redirectTo: "/areaTech" })} 
               </div>
             )}
             {this.state.usuarios.idRole === 4 && (
               <div>
                 {Global.tipoUsuario = 4}
-                <RedirectTo path="/areaRepresentante" />
+                {this.setState({ redirectTo: "/areaRepresentante" })} 
               </div>
             )}
             {this.state.usuarios.idRole === 0 && (
@@ -140,14 +133,17 @@ export default class Login extends Component {
               </div>
             )}
           </div>
-        )}
+        )
+        
+        }
         <Footer />
+        {this.state.redirectTo && <RedirectTo path={this.state.redirectTo} />} 
       </div>
     );
   }
 }
 
-// Helper component for programmatic navigation
+// Metodo para Redireccionar sin NavLink
 const RedirectTo = ({ path }) => {
   const navigate = useNavigate();
 
