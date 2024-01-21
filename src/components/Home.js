@@ -3,7 +3,6 @@ import Navbar from './Navbar';
 import Footer from './Footer';
  /* import Calendario from './Calendario'; */
 import charlas from '../assets/images/charlas.jpg';
-import Global from './Global';
 
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import "bootstrap/dist/js/bootstrap.bundle"; 
@@ -11,7 +10,6 @@ import "bootstrap/dist/js/bootstrap.bundle";
 class Home extends Component {
 
 componentDidMount(){
-    console.log("home" + Global.tipoUsuario);
 }
 
 

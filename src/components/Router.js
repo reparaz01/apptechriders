@@ -5,9 +5,9 @@ import Login from './Login';
 import Logout from './Logout';
 import Registro from './Registro';
 import Contacto from './Contacto';
-import AreaAdmin from './AreaAdmin';
+import ZonaAdmin from './zonaAdmin/DashboardAdmin';
 import AreaTech from './AreaTech';
-import AreaProfesor from './AreaProfesor';
+import AreaProfesor from './zonaProfesor/AreaProfesor';
 import AreaRepresentante from './AreaRepresentante';
 
  /* import { useParams } from 'react-router-dom'; */
@@ -32,7 +32,7 @@ export default class Router extends Component {
           <Route path="/logout" element={<Logout />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/areaAdmin" element={<AreaAdmin />} />
+          <Route path="/zonaAdmin" element={<ZonaAdmin />} />
           <Route path="/areaTech" element={<AreaTech />} />
           <Route path="/areaProfesor" element={<AreaProfesor />} />
           <Route path="/areaRepresentante" element={<AreaRepresentante />} />

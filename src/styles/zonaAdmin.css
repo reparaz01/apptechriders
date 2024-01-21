@@ -1,0 +1,43 @@
+/* DashboardAdmin.css */
+.dashboard-admin {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.sidebar-admin {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.sidebar-admin button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.dashboard-body {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+}
+

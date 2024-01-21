@@ -83,7 +83,7 @@ class Navbar extends Component {
                         to={tipoUsuario === 1 ? "/areaAdmin" : 
                             tipoUsuario === 2 ? "/areaProfesor" : 
                             tipoUsuario === 3 ? "/areaTech" : 
-                            tipoUsuario === 4 ? "/areaEmpresa" : "/area-personal"}
+                            tipoUsuario === 4 ? "/areaRepresentante" : "/area-personal"}
                         className="dropdown-item"
                       >
                         Área Personal

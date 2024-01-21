@@ -120,7 +120,7 @@ export default class Login extends Component {
             {this.state.usuarios.idRole === 1 && (
               <div>
                 {Global.tipoUsuario = 1}
-                {this.setState({ redirectTo: "/areaAdmin" })} 
+                {this.setState({ redirectTo: "/zonaAdmin" })} 
               </div>
             )}
             {this.state.usuarios.idRole === 2 && (
