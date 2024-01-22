@@ -5,6 +5,7 @@ import Footer from './../Footer';
 import SidebarAdmin from './SidebarAdmin';
 import './../../styles/zonaAdmin.css';
 import Perfil from './Perfil';
+import Usuarios from './Usuarios';
 
 class DashboardAdmin extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class DashboardAdmin extends Component {
           <div className="dashboard-body">
             {/* Renderizar el componente seleccionado */}
             {selectedComponent === 'Perfil' && <Perfil />}
+            {selectedComponent === 'Usuarios' && <Usuarios />}
             {/* Agrega más componentes según sea necesario */}
           </div>
         </div>

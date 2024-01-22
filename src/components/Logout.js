@@ -11,7 +11,7 @@ const Logout = () => {
     // Limpiar localStorage
     localStorage.removeItem('tipoUsuario');
     localStorage.removeItem('token');
-
+    localStorage.removeItem('idUsuario');
     // Reset del tipo de usuario y el token en Global
     Global.tipoUsuario = 0;
     Global.token = "";

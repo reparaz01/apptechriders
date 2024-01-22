@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Global from './../Global';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import RuedaAjuste from './../../assets/images/ruedaajuste.png';
 
 export default class Perfil extends Component {
 
@@ -58,6 +60,9 @@ export default class Perfil extends Component {
     return (
         <div>
             <div className="container my-4">
+                <NavLink to={"/editarPerfil"}>
+                    <img src={RuedaAjuste} width={"3%"} height={"3%"} alt='Editar Perfil'/>
+                </NavLink>
                 <h2 className="text-center mb-4">Informacion Perfil</h2>
                 {this.state.error && <div className="alert alert-danger">{this.state.error}</div>}
                 <form>

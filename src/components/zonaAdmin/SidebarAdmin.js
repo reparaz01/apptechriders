@@ -10,7 +10,7 @@ class SidebarAdmin extends Component {
       <div className="sidebar-admin">
         <h2>Dashboard Admin</h2>
         <button onClick={() => onComponentChange('Perfil')}>Perfil</button>
-        <button onClick={() => onComponentChange('ComponentB')}>Usuarios</button>
+        <button onClick={() => onComponentChange('Usuarios')}>Usuarios</button>
         <button onClick={() => onComponentChange('ComponentC')}>Charlas</button>
         {/* Agrega más botones según sea necesario */}
       </div>

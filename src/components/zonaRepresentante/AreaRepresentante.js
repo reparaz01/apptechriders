@@ -4,7 +4,7 @@ import Footer from '../Footer';
 import Global from './../Global';
 import axios from 'axios';
 
-export default class AreaProfesor extends Component {
+export default class AreaRepresentante extends Component {
 
     state = {
         informacion: {},
@@ -33,7 +33,6 @@ export default class AreaProfesor extends Component {
                 }, () => {
                     this.getProvincia();
                     this.getEmpresaCentro();
-                    this.getCursosProfesor();
                 });
             })
             .catch(error => {
@@ -59,20 +58,6 @@ export default class AreaProfesor extends Component {
             });
     }
 
-    getCharlasProfesor = () => {
-        var request = "api/Provincias/" + this.state.idProvincia;
-        var url = Global.urlApi + request;
-
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    provincia: response.data,
-                });
-            })
-            .catch(error => {
-                console.error('Error al obtener Provincia:', error);
-            });
-    }
 
 
     getCursosProfesor = () => {
@@ -91,8 +76,6 @@ export default class AreaProfesor extends Component {
                 console.error('Error al obtener Cursos:', error);
             });
     }
-
-
 
     getEmpresaCentro = () => {
         const { idEmpresaCentro } = this.state.informacion;
@@ -124,7 +107,7 @@ export default class AreaProfesor extends Component {
             <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
                 <Navbar />
                 <div style={{ flex: 1, padding: '20px' }}>
-                    <h1>Area Personal - Profesor</h1>
+                    <h1>Area Personal - Representante</h1>
                     <hr />
                     <div className="container my-4">
                       <div className="container my-4 d-flex justify-content-center align-items-center">
@@ -166,7 +149,7 @@ export default class AreaProfesor extends Component {
                             </div>
                         </form>
                     </div>
-                    <h1 className="text-center">Centro</h1>
+                    <h1 className="text-center">Empresa</h1>
                 </div>
                 <div className="container my-2">
                     <label className="form-label">Centro</label>
@@ -177,44 +160,11 @@ export default class AreaProfesor extends Component {
                     )}
                 </div>
                 <div className="container my-2">
-                    <h1 className="text-center">Cursos</h1>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Curso</th>
-                                <th scope="col">Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.cursos.map(curso => (
-                                <tr key={curso.idCurso}>
-                                    <td>{curso.nombreCurso}</td>
-                                    <td>{curso.descripcionCurso}</td>
-                                    {/* Puedes añadir más columnas según sea necesario */}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <h1 className="text-center">Datos Empresa</h1>
                 </div>
 
                 <div className="container my-2">
                     <h1 className="text-center">Charlas Solicitadas</h1>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Curso</th>
-                                <th scope="col">Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.cursos.map(curso => (
-                                <tr key={curso.idCurso}>
-                                    <td>{curso.nombreCurso}</td>
-                                    <td>{curso.descripcionCurso}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
                 </div>
                 <Footer />
             </div>

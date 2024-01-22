@@ -71,6 +71,7 @@ export default class Login extends Component {
       // Guardar en localStorage
       localStorage.setItem('tipoUsuario', response.data.idRole);
       localStorage.setItem('token', this.state.token);
+      localStorage.setItem('idUsuario', response.data.idUsuario)
   
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
@@ -81,10 +82,11 @@ export default class Login extends Component {
     return (
       <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
   <Navbar />
+  <br/>
   <div className="container mt-3 flex-grow-1 d-flex justify-content-center align-items-center">
     {/* Tarjeta de Bootstrap */}
     <div className="card col-md-7 mt-3 p-5"> {/* Aumenté el ancho de la tarjeta y añadí padding */}
-      <div className="card-body d-flex align-items-center flex-column"> {/* Añadí flex-column para centrar los elementos verticalmente */}
+      <div className="card-body d-flex align-items-center flex-column"> 
         {/* Agregar imagen a la izquierda con más espacio */}
         <img
           src={loginimage}
@@ -106,8 +108,9 @@ export default class Login extends Component {
           <button type="submit" className="btn btn-dark btn-lg w-100" onClick={this.capturarToken}>
             Iniciar Sesión
           </button>
-          <div id="registrolHelp" className="form-text font-weight-bold">
-            ¿No tienes cuenta? <NavLink to='/registro' className="nav-link text-primary">Regístrate</NavLink>.
+          <br/><br/>
+          <div id="registrolHelp" className="form-text font-weight-bold" style={{ fontSize: '18px' }}>
+              ¿No tienes cuenta? <NavLink to='/registro' className="nav-link text-primary">Regístrate</NavLink>
           </div>
         </form>
       </div>
@@ -150,6 +153,7 @@ export default class Login extends Component {
         )
         
         }
+        <br/><br/><br/>
         <Footer />
         {this.state.redirectTo && <RedirectTo path={this.state.redirectTo} />} 
       </div>
