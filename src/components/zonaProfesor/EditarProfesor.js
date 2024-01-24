@@ -132,14 +132,13 @@ export default class EditarProfesor extends Component {
 
   render() {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <div className="header">
           <Navbar />
         </div>
         <div className="dashboard-body">
-        <h1>Area Personal - Profesor</h1>
-        <hr />
-        
+          <h1>Area Personal - Profesor</h1>
+          <hr />
           <div className="container my-4">
             <NavLink to="/areaProfesor" className="form-label fw-bold" role="img">
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -147,60 +146,67 @@ export default class EditarProfesor extends Component {
               </svg>
             </NavLink>
             <div className="container my-4 d-flex justify-content-center align-items-center">
-                        <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
-                        <NavLink to="/areaProfesor" className="btn btn-primary" role="button" onClick={this.putInformacion}>
-                            Guardar Cambios
-                        </NavLink>
+              <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
+              <NavLink to="/areaProfesor" className="btn btn-primary" role="button" onClick={this.putInformacion}>
+                Guardar Cambios
+              </NavLink>
             </div>
             <form>
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label className="form-label">Nombre </label>
-                  <input type="text" className="form-control" defaultValue={this.state.informacion.nombre} ref={this.cajaNombre} />
+                  <label className="form-label">Nombre &emsp;&emsp;&nbsp;&nbsp;&nbsp;
+                  &emsp;&emsp;&emsp;&emsp;
+                  &emsp;&emsp;&emsp;&emsp;
+                  &emsp;&emsp;&emsp;&emsp; Apellido</label>
+                  <div className="d-flex">
+                    <input type="text" className="form-control" defaultValue={this.state.informacion.nombre} ref={this.cajaNombre} />
+                    <input type="text" className="form-control ms-2" defaultValue={this.state.informacion.apellidos} ref={this.cajaApellido} />
+                  </div>
                 </div>
-
+  
                 <div className="col-md-6 mb-3">
-                  <label className="form-label">Apellido </label>
-                  <input type="text" className="form-control" defaultValue={this.state.informacion.apellidos} ref={this.cajaApellido} />
+                  <label className="form-label">Telefono </label>
+                  <input type="text" className="form-control" defaultValue={this.state.informacion.telefono} ref={this.cajaTelf} />
                 </div>
-
+  
                 <div className="col-md-6 mb-3">
                   <label className="form-label">Email </label>
                   <input type="text" className="form-control" defaultValue={this.state.informacion.email} ref={this.cajaEmail} />
                 </div>
-
+  
                 <div className="col-md-6 mb-3">
                   <label className="form-label">LinkedIn </label>
                   <input type="text" className="form-control" defaultValue={this.state.informacion.linkedIn} ref={this.cajaLinkedin} />
                 </div>
-
+  
                 <div className="col-md-6 mb-3">
                   <label className="form-label">Password </label>
                   <input type="text" className="form-control" defaultValue={this.state.informacion.password} ref={this.cajaPass} />
                 </div>
-
+  
                 <div className="col-md-6 mb-3">
-                    <label className="form-label">Provincia</label>
-                    <select
-                        className="form-select"
-                        ref={this.cajaIdProvincia}
-                        value={this.state.informacion.idProvincia} 
-                        onChange={(e) => this.setState({ informacion: { ...this.state.informacion, idProvincia: e.target.value } })}
-                    >
-                        {this.state.provincias.map((provincia) => (
-                            <option key={provincia.idProvincia} value={provincia.idProvincia}>
-                                {provincia.nombreProvincia}
-                            </option>
-                        ))}
-                    </select>
+                  <label className="form-label">Provincia</label>
+                  <select
+                    className="form-select"
+                    ref={this.cajaIdProvincia}
+                    value={this.state.informacion.idProvincia}
+                    onChange={(e) => this.setState({ informacion: { ...this.state.informacion, idProvincia: e.target.value } })}
+                  >
+                    {this.state.provincias.map((provincia) => (
+                      <option key={provincia.idProvincia} value={provincia.idProvincia}>
+                        {provincia.nombreProvincia}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 {/* Agregar otros campos según sea necesario */}
               </div>
             </form>
           </div>
         </div>
-          <Footer />
+        <Footer />
       </div>
     );
   }
+  
 }
