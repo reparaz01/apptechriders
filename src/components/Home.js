@@ -15,7 +15,7 @@ componentDidMount(){
 
   render() {
     return (
-      <div id="main" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar />
 
         <section style={{ position: 'relative', textAlign: 'center', color: 'white', marginTop: '00px', flex: 1 }}>
@@ -27,12 +27,10 @@ componentDidMount(){
             style={{ position: 'absolute', top: 0, left: 0, zIndex: -1, width: '100%', height: '100%', objectFit: 'cover' }}
           />
 
-          {/* Contenido antes del div blanco */}
           <h1 style={{ color: 'white', marginTop: '20px' }}>Charlas Disponibles</h1>
           <p style={{ color: 'white', marginBottom: '35px', fontSize: '27px' }}>Selecciona una charla para mas informacion</p>
 
 
-          {/* Div blanco que ocupa la mitad de la página */}
           <div style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', borderRadius: '0px', padding: '40px', marginTop: '20px', marginBottom: '50px' }}>
             {/* Contenido dentro del fondo blanco */}
             <button> Hola</button>

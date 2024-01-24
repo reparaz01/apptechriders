@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import Global from './../Global';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 export default class AreaProfesor extends Component {
@@ -78,8 +79,6 @@ export default class AreaProfesor extends Component {
     getCursosProfesor = () => {
         var request = "api/QueryTools/FindCursosProfesor/" + parseInt(localStorage.getItem('idUsuario'));
         var url = Global.urlApi + request;
-
-        console.log(url)
  
         axios.get(url)
             .then(response => {
@@ -116,7 +115,6 @@ export default class AreaProfesor extends Component {
     componentDidMount() {
         this.getInformacion();
         
-        console.log(this.state.cursos.length);
     }
 
     render() {
@@ -129,7 +127,9 @@ export default class AreaProfesor extends Component {
                     <div className="container my-4">
                       <div className="container my-4 d-flex justify-content-center align-items-center">
                         <h1 className="text-center mb-0 me-2 ms-2">Información Perfil</h1>
-                        <button type="button" className="btn btn-dark ms-2">Editar</button>
+                        <NavLink to="/editarProfesor" className="btn btn-dark ms-2" role="button">
+                            Editar
+                        </NavLink>
                     </div>
                         {this.state.error && <div className="alert alert-danger">{this.state.error}</div>}
                         <form>

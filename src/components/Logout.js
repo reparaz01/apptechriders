@@ -27,10 +27,10 @@ const Logout = () => {
   }, [navigate]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '200px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '300px' }}>
       {loading ? (
         <>
-          <img src={loadImage} alt="Cargando..." style={{ maxWidth: '200px' }} />
+          <img src={loadImage} alt="Cargando..." style={{ maxWidth: '150px' }} />
           <h1>Cargando...</h1>
         </>
       ) : null}

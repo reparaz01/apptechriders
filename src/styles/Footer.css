@@ -4,16 +4,12 @@
   background-color: black;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Alinea verticalmente en el centro */
+  justify-content: center; 
   align-items: center;
   padding: 30px;
   color: white;
-  width: 100vw;
+ 
   box-sizing: border-box;
-}
-
-.site-info {
-  margin-top: 0px;
 }
 
 .footer-logo img {
@@ -29,6 +25,3 @@
 }
 
 
-.spacer-cell {
-  width: 0px; /* O ajusta el valor según tu preferencia */
-}

@@ -7,6 +7,7 @@ import Registro from './Registro';
 import Contacto from './Contacto';
 import ZonaAdmin from './zonaAdmin/DashboardAdmin';
 import EditarPerfil from './zonaAdmin/EditarPerfil';
+import EditarProfesor from './zonaProfesor/EditarProfesor';
 import AreaTech from './AreaTech';
 import AreaProfesor from './zonaProfesor/AreaProfesor';
 import AreaRepresentante from './zonaRepresentante/AreaRepresentante';
@@ -35,6 +36,7 @@ export default class Router extends Component {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/zonaAdmin" element={<ZonaAdmin />} />
           <Route path="/editarPerfil" element={<EditarPerfil />} />
+          <Route path="/editarProfesor" element={<EditarProfesor />} />
           <Route path="/areaTech" element={<AreaTech />} />
           <Route path="/areaProfesor" element={<AreaProfesor />} />
           <Route path="/areaRepresentante" element={<AreaRepresentante />} />

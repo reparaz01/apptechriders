@@ -1,4 +1,4 @@
-//Importamos los paquetes necesarios
+ //Importamos los paquetes necesarios
 import React, { Component, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Global from '../Global';
