@@ -89,7 +89,7 @@ class Navbar extends Component {
                         Área Personal
                   </NavLink>
                       <div className="dropdown-divider"></div>
-                      <NavLink to={"/logout"} className="dropdown-item">LogOut</NavLink>
+                      <NavLink to={"/logout"} className="dropdown-item">Salir</NavLink>
                     </div>
                   </li>
                   <li className="nav-item">

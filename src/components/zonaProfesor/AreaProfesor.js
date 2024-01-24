@@ -169,7 +169,6 @@ export default class AreaProfesor extends Component {
                     <h1 className="text-center">Centro</h1>
                 </div>
                 <div className="container my-2">
-                    <label className="form-label">Centro</label>
                     {this.state.informacion.idEmpresaCentro ? (
                         <input type="text" className="form-control" placeholder={this.state.centroUsuario.nombre} readOnly />
                     ) : (
@@ -178,6 +177,7 @@ export default class AreaProfesor extends Component {
                 </div>
                 <div className="container my-2">
                     <h1 className="text-center">Cursos</h1>
+                    <br/>
                     <table className="table">
                         <thead>
                             <tr>

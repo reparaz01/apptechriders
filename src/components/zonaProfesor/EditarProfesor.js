@@ -14,6 +14,8 @@ export default class EditarProfesor extends Component {
   cajaLinkedin = React.createRef();
   cajaPass = React.createRef();
   cajaIdProvincia = React.createRef();
+  cajaIdEmpresaCentro = React.createRef();
+
 
 
   state = {
@@ -21,6 +23,11 @@ export default class EditarProfesor extends Component {
     informacion: {},
     statusPutInformacion: false,
     provincias: [],
+    cursos: [],
+    centros:[],
+    centroUsuario: {},
+    charlas: [],
+    charlasProfesor: [],
   };
 
   getInformacion = () => {
@@ -32,12 +39,18 @@ export default class EditarProfesor extends Component {
 
     axios
       .get(url, { headers })
-      .then((response) => {
+      .then(response => {
         this.setState({
-          statusInformacion: true,
-          informacion: response.data,
+            informacion: response.data,
+            statusInformacion: true,
+        }, () => {
+            this.getProvincias();
+            this.getEmpresaCentro();
+            this.getEmpresasCentro();
+            this.getCursosProfesor();
+            this.getCharlasProfesor();
         });
-      })
+    })
       .catch((error) => {
         console.error('Error al obtener información del perfil:', error);
         this.setState({
@@ -45,8 +58,8 @@ export default class EditarProfesor extends Component {
         });
       });
 
-    this.getProvincias();
-    console.log(this.state.informacion.idUsuario);
+
+
   };
 
   getProvincias = () => {
@@ -65,6 +78,93 @@ export default class EditarProfesor extends Component {
       });
   };
 
+
+  getCursosProfesor = () => {
+    var request = "api/QueryTools/FindCursosProfesor/" + parseInt(localStorage.getItem('idUsuario'));
+    var url = Global.urlApi + request;
+
+    axios.get(url)
+        .then(response => {
+            this.setState({
+                cursos: response.data,
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener Cursos:', error);
+        });
+ }
+
+ getCharlasProfesor = () => {
+  const { cursos } = this.state;
+  const request = 'api/charlas';
+  const urlTodasCharlas = Global.urlApi + request;
+
+  axios
+    .get(urlTodasCharlas)
+    .then((response) => {
+      var todasCharlas = response.data;
+
+      console.log('Todas las charlas:', todasCharlas);
+      console.log('Cursos del profesor:', cursos);
+
+      // Filtrar charlas del profesor utilizando map
+      var charlasProfesor = todasCharlas.filter((charla) =>
+        cursos.some((curso) => curso.idCurso === charla.idCurso)
+      );
+
+      console.log('Charlas del profesor:', charlasProfesor);
+
+      this.setState({
+        charlas: todasCharlas,
+        charlasProfesor: charlasProfesor,
+      });
+    })
+    .catch((error) => {
+      console.error('Error al obtener charlas:', error);
+    });
+};
+
+
+
+
+
+  getEmpresaCentro = () => {
+    const { idEmpresaCentro } = this.state.informacion;
+
+    if (idEmpresaCentro) {
+        var request = "api/EmpresasCentros/" + this.state.informacion.idEmpresaCentro;
+        var url = Global.urlApi + request;
+
+        axios.get(url)
+            .then(response => {
+                this.setState({
+                    centroUsuario: response.data
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener Empresa Centro:', error);
+            });
+    }
+  }
+
+  getEmpresasCentro = () => {
+
+        var request = "api/EmpresasCentros/"
+        var url = Global.urlApi + request;
+
+        axios.get(url)
+            .then(response => {
+                this.setState({
+                    centros: response.data
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener Empresa Centro:', error);
+            });
+    
+  }
+
+
   putInformacion = (e) => {
     e.preventDefault();
     var token = localStorage.getItem('token');
@@ -80,11 +180,8 @@ export default class EditarProfesor extends Component {
     var pass = this.cajaPass.current.value;
     var idRole = this.state.informacion.idRole;
 
-
-
-    console.log(""+ this.cajaIdProvincia.current.value);
     var idProvincia = parseInt(this.cajaIdProvincia.current.value, 10);
-    var idEmpresaCentro = this.state.informacion.idEmpresaCentro;
+    var idEmpresaCentro = parseInt(this.cajaIdEmpresaCentro.current.value, 10);
     var estado = this.state.informacion.estado;
 
     var data = {
@@ -120,11 +217,14 @@ export default class EditarProfesor extends Component {
   componentDidMount() {
     this.getInformacion();
     
+
   }
 
   componentDidUpdate(prevProps, prevState) {
     // Verificar si el estado de la información ha cambiado
-    if (prevState.informacion !== this.state.informacion) {
+    if (prevState.charlasProfesor !== this.state.charlasProfesor) {
+      
+      
       /*console.log(this.state.informacion);*/
       // Aquí puedes realizar cualquier otra operación después de la actualización del estado
     }
@@ -203,6 +303,109 @@ export default class EditarProfesor extends Component {
               </div>
             </form>
           </div>
+          
+          <div className="container my-2">
+            <h1 className="text-center">Centro</h1>
+            <br/>
+            {this.state.centros.length > 0 ? (
+              <select
+                className="form-select"
+                ref={this.cajaIdEmpresaCentro}
+                value={this.state.centroUsuario.idEmpresaCentro || ''}
+                onChange={(e) => this.setState({ centroUsuario: { ...this.state.centroUsuario, idEmpresaCentro: e.target.value } })}
+              >
+                {this.state.centros.map((centro) => (
+                  <option key={centro.idEmpresaCentro} value={centro.idEmpresaCentro}>
+                    {centro.nombre}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input type="text" className="form-control" placeholder="No seleccionado" readOnly />
+            )}
+          </div>
+          <div id="registrolHelp" className="form-text font-weight-bold text-center mt-2" style={{ fontSize: '18px' }}>
+            ¿No está tu centro? <NavLink to='/registro' className="nav-link text-primary">Regístralo</NavLink>
+            <br/>
+          </div>
+
+
+
+        <div className="container my-2">
+          <h1 className="text-center">
+            Cursos &nbsp; 
+            <NavLink to="/crearCurso" className="form-label fw-bold" role="img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+          </svg>
+            </NavLink>
+          </h1>
+          <br/>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Curso</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.cursos.map((curso) => (
+                <tr key={curso.idCurso}>
+                  <td>{curso.nombreCurso}</td>
+                  <td>{curso.descripcionCurso}</td>
+                  <td>
+                    <button className="btn btn-danger" onClick={() => this.handleEliminarCurso(curso.idCurso)}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+
+        <div className="container my-2">
+          <h1 className="text-center">
+            Mis Charlas &nbsp;
+            {/* Puedes ajustar el enlace según sea necesario */}
+          </h1>
+          <br />
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Descripción</th>
+                <th scope="col">ID Curso</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.charlasProfesor.map((charla) => (
+                <tr key={charla.idCharla}>
+                  <td>{charla.descripcion}</td>
+                  <td>{charla.idCurso}</td>
+                  <td>{charla.fechaCharla}</td>
+                  <td>
+                    {/* Agrega aquí el botón de eliminar y su lógica */}
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => this.handleEliminarCharla(charla.idCharla)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+
+
+
         </div>
         <Footer />
       </div>
