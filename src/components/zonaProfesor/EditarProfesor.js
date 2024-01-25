@@ -222,8 +222,8 @@ export default class EditarProfesor extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     // Verificar si el estado de la información ha cambiado
-    if (prevState.charlasProfesor !== this.state.charlasProfesor) {
-      
+    if (prevState.cursos !== this.state.cursos) {
+      this.getCharlasProfesor();
       
       /*console.log(this.state.informacion);*/
       // Aquí puedes realizar cualquier otra operación después de la actualización del estado
