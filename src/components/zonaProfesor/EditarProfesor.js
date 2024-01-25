@@ -146,7 +146,6 @@ export default class EditarProfesor extends Component {
             });
     }
   }
-
   getEmpresasCentro = () => {
 
         var request = "api/EmpresasCentros/"
@@ -402,8 +401,6 @@ export default class EditarProfesor extends Component {
             </tbody>
           </table>
         </div>
-
-
 
 
         </div>
