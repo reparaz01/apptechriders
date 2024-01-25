@@ -15,7 +15,9 @@ export default class AreaProfesor extends Component {
         provincia: {},
         centroUsuario: {},
         empresascentros: [],
-        cursos: []
+        cursos: [],
+        charlas: [],
+        charlasProfesor: [],
     }
 
     getInformacion = () => {
@@ -35,6 +37,7 @@ export default class AreaProfesor extends Component {
                     this.getProvincia();
                     this.getEmpresaCentro();
                     this.getCursosProfesor();
+                    this.getCharlasProfesor();
                 });
             })
             .catch(error => {
@@ -61,19 +64,34 @@ export default class AreaProfesor extends Component {
     }
 
     getCharlasProfesor = () => {
-        var request = "api/Provincias/" + this.state.idProvincia;
-        var url = Global.urlApi + request;
-
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    provincia: response.data,
-                });
-            })
-            .catch(error => {
-                console.error('Error al obtener Provincia:', error);
+        const { cursos } = this.state;
+        const request = 'api/charlas';
+        const urlTodasCharlas = Global.urlApi + request;
+      
+        axios
+          .get(urlTodasCharlas)
+          .then((response) => {
+            var todasCharlas = response.data;
+      
+            console.log('Todas las charlas:', todasCharlas);
+            console.log('Cursos del profesor:', cursos);
+      
+            // Filtrar charlas del profesor utilizando map
+            var charlasProfesor = todasCharlas.filter((charla) =>
+              cursos.some((curso) => curso.idCurso === charla.idCurso)
+            );
+      
+            console.log('Charlas del profesor:', charlasProfesor);
+      
+            this.setState({
+              charlas: todasCharlas,
+              charlasProfesor: charlasProfesor,
             });
-    }
+          })
+          .catch((error) => {
+            console.error('Error al obtener charlas:', error);
+          });
+      };
 
 
     getCursosProfesor = () => {
@@ -116,6 +134,17 @@ export default class AreaProfesor extends Component {
         this.getInformacion();
         
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        // Verificar si el estado de la información ha cambiado
+        if (prevState.cursos !== this.state.cursos) {
+          this.getCharlasProfesor();
+          
+          /*console.log(this.state.informacion);*/
+          // Aquí puedes realizar cualquier otra operación después de la actualización del estado
+        }
+      }
+
 
     render() {
         return (
@@ -198,24 +227,30 @@ export default class AreaProfesor extends Component {
                 </div>
 
                 <div className="container my-2">
-                    <h1 className="text-center">Charlas Solicitadas</h1>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Curso</th>
-                                <th scope="col">Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.cursos.map(curso => (
-                                <tr key={curso.idCurso}>
-                                    <td>{curso.nombreCurso}</td>
-                                    <td>{curso.descripcionCurso}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+          <h1 className="text-center">
+            Mis Charlas &nbsp;
+            {/* Puedes ajustar el enlace según sea necesario */}
+          </h1>
+          <br />
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Descripción</th>
+                <th scope="col">ID Curso</th>
+                <th scope="col">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.charlasProfesor.map((charla) => (
+                <tr key={charla.idCharla}>
+                  <td>{charla.descripcion}</td>
+                  <td>{charla.idCurso}</td>
+                  <td>{charla.fechaCharla}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
                 <Footer />
             </div>
         );

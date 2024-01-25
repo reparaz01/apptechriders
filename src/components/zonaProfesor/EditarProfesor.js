@@ -354,9 +354,10 @@ export default class EditarProfesor extends Component {
                 <tr key={curso.idCurso}>
                   <td>{curso.nombreCurso}</td>
                   <td>{curso.descripcionCurso}</td>
+    
                   <td>
                     <button className="btn btn-danger" onClick={() => this.handleEliminarCurso(curso.idCurso)}>
-                      Eliminar
+                     Eliminar
                     </button>
                   </td>
                 </tr>
