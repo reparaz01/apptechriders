@@ -92,12 +92,17 @@ export default class EditarProfesor extends Component {
         .catch(error => {
             console.error('Error al obtener Cursos:', error);
         });
- }
+  }
 
- getCharlasProfesor = () => {
-  const { cursos } = this.state;
-  const request = 'api/charlas';
-  const urlTodasCharlas = Global.urlApi + request;
+  getNombreCurso = (idCurso) => {
+    const curso = this.state.cursos.find((curso) => curso.idCurso === idCurso);
+    return curso ? curso.nombreCurso : "Desconocido";
+  };
+
+  getCharlasProfesor = () => {
+    const { cursos } = this.state;
+    const request = 'api/charlas';
+    const urlTodasCharlas = Global.urlApi + request;
 
   axios
     .get(urlTodasCharlas)
@@ -324,7 +329,7 @@ export default class EditarProfesor extends Component {
             )}
           </div>
           <div id="registrolHelp" className="form-text font-weight-bold text-center mt-2" style={{ fontSize: '18px' }}>
-            ¿No está tu centro? <NavLink to='/registro' className="nav-link text-primary">Regístralo</NavLink>
+            ¿No está tu centro? <NavLink to='/RegistrarEmpresaCentro' className="nav-link text-primary">Regístralo</NavLink>
             <br/>
           </div>
 
@@ -333,7 +338,7 @@ export default class EditarProfesor extends Component {
         <div className="container my-2">
           <h1 className="text-center">
             Cursos &nbsp; 
-            <NavLink to="/crearCurso" className="form-label fw-bold" role="img">
+            <NavLink to="/registrarCurso" className="form-label fw-bold" role="img">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
@@ -368,16 +373,21 @@ export default class EditarProfesor extends Component {
 
 
         <div className="container my-2">
-          <h1 className="text-center">
-            Mis Charlas &nbsp;
-            {/* Puedes ajustar el enlace según sea necesario */}
+        <h1 className="text-center">
+            Mis Charlas &nbsp; 
+            <NavLink to="/registrarCurso" className="form-label fw-bold" role="img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+          </svg>
+            </NavLink>
           </h1>
           <br />
           <table className="table">
             <thead>
               <tr>
                 <th scope="col">Descripción</th>
-                <th scope="col">ID Curso</th>
+                <th scope="col">Curso</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Acciones</th>
               </tr>
@@ -386,7 +396,7 @@ export default class EditarProfesor extends Component {
               {this.state.charlasProfesor.map((charla) => (
                 <tr key={charla.idCharla}>
                   <td>{charla.descripcion}</td>
-                  <td>{charla.idCurso}</td>
+                  <td>{this.getNombreCurso(charla.idCurso)}</td>
                   <td>{charla.fechaCharla}</td>
                   <td>
                     {/* Agrega aquí el botón de eliminar y su lógica */}

@@ -5,27 +5,27 @@ import Login from './Login';
 import Logout from './Logout';
 import Registro from './Registro';
 import Contacto from './Contacto';
+
 import ZonaAdmin from './zonaAdmin/DashboardAdmin';
 import EditarPerfil from './zonaAdmin/EditarPerfil';
+
 import EditarProfesor from './zonaProfesor/EditarProfesor';
-import AreaTech from './AreaTech';
 import AreaProfesor from './zonaProfesor/AreaProfesor';
+import RegistrarCurso from './RegistrarCurso';
+
+import RegistrarEmpresaCentro from './RegistrarEmpresaCentro';
+
+import AreaTech from './AreaTech';
+
 import AreaRepresentante from './zonaRepresentante/AreaRepresentante';
 
- /* import { useParams } from 'react-router-dom'; */
+import Charlas from './charlas/Charlas';
+import DetallesCharla from './charlas/DetallesCharla';
 
 export default class Router extends Component {
   render() {
 
-   /*
-
-    function PersonajesElement(){
-        var {idSerie, nombreSerie} = useParams();
-        return<Personajes idSerie = {idSerie} nombreSerie = {nombreSerie}/>
-    }
-
-   */
-
+   
     return (
       <BrowserRouter>
         <Routes>
@@ -34,9 +34,17 @@ export default class Router extends Component {
           <Route path="/logout" element={<Logout />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/contacto" element={<Contacto />} />
+
+          <Route path="/charlas" element={<Charlas />} />
+          <Route path="/detallesCharla" element={<DetallesCharla/>} />
+
           <Route path="/zonaAdmin" element={<ZonaAdmin />} />
           <Route path="/editarPerfil" element={<EditarPerfil />} />
+
           <Route path="/editarProfesor" element={<EditarProfesor />} />
+          <Route path="/registrarEmpresaCentro" element={<RegistrarEmpresaCentro />} />
+          <Route path="/registrarCurso" element={<RegistrarCurso />} />
+
           <Route path="/areaTech" element={<AreaTech />} />
           <Route path="/areaProfesor" element={<AreaProfesor />} />
           <Route path="/areaRepresentante" element={<AreaRepresentante />} />

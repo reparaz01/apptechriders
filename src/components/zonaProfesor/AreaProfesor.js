@@ -93,6 +93,21 @@ export default class AreaProfesor extends Component {
           });
       };
 
+      getEstadoCharla = (idEstadoCharla) => {
+        const estadosCharla = [
+          { idEstadosCharla: 1, tipo: "CANCELADA" },
+          { idEstadosCharla: 2, tipo: "PENDIENTE" },
+          { idEstadosCharla: 3, tipo: "PROCESO" },
+          { idEstadosCharla: 4, tipo: "CERRADA" },
+          { idEstadosCharla: 5, tipo: "COMPLETADA" },
+          { idEstadosCharla: 6, tipo: "ACREDITADA" },
+        ];
+      
+        const estado = estadosCharla.find((estado) => estado.idEstadosCharla === idEstadoCharla);
+      
+        return estado ? estado.tipo : "Desconocido";
+      };
+
 
     getCursosProfesor = () => {
         var request = "api/QueryTools/FindCursosProfesor/" + parseInt(localStorage.getItem('idUsuario'));
@@ -109,6 +124,11 @@ export default class AreaProfesor extends Component {
             });
     }
 
+
+    getNombreCurso = (idCurso) => {
+        const curso = this.state.cursos.find((curso) => curso.idCurso === idCurso);
+        return curso ? curso.nombreCurso : "Desconocido";
+      };
 
 
     getEmpresaCentro = () => {
@@ -236,18 +256,31 @@ export default class AreaProfesor extends Component {
             <thead>
               <tr>
                 <th scope="col">Descripción</th>
-                <th scope="col">ID Curso</th>
+                <th scope="col">Curso</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col"> Acciones </th>
               </tr>
             </thead>
             <tbody>
-              {this.state.charlasProfesor.map((charla) => (
+            {this.state.charlasProfesor.map((charla) => (
                 <tr key={charla.idCharla}>
-                  <td>{charla.descripcion}</td>
-                  <td>{charla.idCurso}</td>
-                  <td>{charla.fechaCharla}</td>
+                    <td>{charla.descripcion}</td>
+                    <td>{this.getNombreCurso(charla.idCurso)}</td>
+                    <td>{charla.fechaCharla}</td>
+                    <td>{this.getEstadoCharla(charla.idEstadoCharla)}</td>
+                    <td>
+                    <NavLink
+                        to={"/detallesCharla"}
+                        className="btn btn-dark"
+                        onClick={() => localStorage.setItem('idCharlaSeleccionada', charla.idCharla)}
+                        >
+                        Detalles
+                    </NavLink>
+                    </td>
+
                 </tr>
-              ))}
+            ))}
             </tbody>
           </table>
         </div>

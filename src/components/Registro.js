@@ -194,7 +194,7 @@ export default class Registro extends Component {
                                     }
                                 </select>*/}
                                 <br/>
-                                <button className='btn btn-info' type="submit" onClick={this.registro}>Registrarse</button>
+                                <button className='btn btn-dark btn-block' type="submit" onClick={this.registro}>&nbsp;&nbsp;  Registrarse &nbsp;&nbsp;</button>
                             </form>
                         </div>
                     </div>
