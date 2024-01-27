@@ -21,6 +21,7 @@ import AreaRepresentante from './zonaRepresentante/AreaRepresentante';
 
 import Charlas from './charlas/Charlas';
 import DetallesCharla from './charlas/DetallesCharla';
+import RegistrarCharla from './charlas/RegistrarCharla';
 
 export default class Router extends Component {
   render() {
@@ -37,6 +38,7 @@ export default class Router extends Component {
 
           <Route path="/charlas" element={<Charlas />} />
           <Route path="/detallesCharla" element={<DetallesCharla/>} />
+          <Route path="/registrarCharla" element={<RegistrarCharla/>} />
 
           <Route path="/zonaAdmin" element={<ZonaAdmin />} />
           <Route path="/editarPerfil" element={<EditarPerfil />} />

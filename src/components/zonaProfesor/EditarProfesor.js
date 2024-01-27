@@ -108,16 +108,10 @@ export default class EditarProfesor extends Component {
     .get(urlTodasCharlas)
     .then((response) => {
       var todasCharlas = response.data;
-
-      console.log('Todas las charlas:', todasCharlas);
-      console.log('Cursos del profesor:', cursos);
-
       // Filtrar charlas del profesor utilizando map
       var charlasProfesor = todasCharlas.filter((charla) =>
         cursos.some((curso) => curso.idCurso === charla.idCurso)
       );
-
-      console.log('Charlas del profesor:', charlasProfesor);
 
       this.setState({
         charlas: todasCharlas,
@@ -243,12 +237,12 @@ export default class EditarProfesor extends Component {
         <div className="dashboard-body">
           <h1>Area Personal - Profesor</h1>
           <hr />
-          <div className="container my-4">
-            <NavLink to="/areaProfesor" className="form-label fw-bold" role="img">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
+          <NavLink to="/areaProfesor" className="form-label fw-bold" role="img">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
               </svg>
-            </NavLink>
+          </NavLink>
+          <div className="container my-4">
             <div className="container my-4 d-flex justify-content-center align-items-center">
               <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
               <NavLink to="/areaProfesor" className="btn btn-primary" role="button" onClick={this.putInformacion}>
@@ -369,13 +363,14 @@ export default class EditarProfesor extends Component {
               ))}
             </tbody>
           </table>
+          <br></br>
         </div>
 
 
         <div className="container my-2">
         <h1 className="text-center">
             Mis Charlas &nbsp; 
-            <NavLink to="/registrarCurso" className="form-label fw-bold" role="img">
+            <NavLink to="/registrarCharla" className="form-label fw-bold" role="img">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>

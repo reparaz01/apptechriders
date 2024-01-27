@@ -6,7 +6,7 @@ import withReactContent from 'sweetalert2-react-content'
 import Navbar from '../Navbar';
 import Footer from '../Footer';
  
-export default class RegistrarCharlas extends Component {
+export default class RegistrarCharla extends Component {
     cajaDescripcion = React.createRef();
     cajaFecha = React.createRef();
     cajaAcreditacionLinkedIn = React.createRef();

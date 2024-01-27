@@ -72,16 +72,11 @@ export default class AreaProfesor extends Component {
           .get(urlTodasCharlas)
           .then((response) => {
             var todasCharlas = response.data;
-      
-            console.log('Todas las charlas:', todasCharlas);
-            console.log('Cursos del profesor:', cursos);
-      
+         
             // Filtrar charlas del profesor utilizando map
             var charlasProfesor = todasCharlas.filter((charla) =>
               cursos.some((curso) => curso.idCurso === charla.idCurso)
             );
-      
-            console.log('Charlas del profesor:', charlasProfesor);
       
             this.setState({
               charlas: todasCharlas,
