@@ -158,6 +158,7 @@ export default class AreaRepresentante extends Component {
                 <div className="container my-2">
                     <h1 className="text-center">Datos Empresa</h1>
                     <br/>
+                    {this.state.informacion.idEmpresaCentro ? (
                             <form>
                                 <div className="row">
                                     <div className="col-md-6 mb-3">
@@ -201,6 +202,9 @@ export default class AreaRepresentante extends Component {
                                     </div>
                                 </div>
                             </form>
+                                 ) : (
+                                <h6 className="text-center">No hay Datos de Empresa</h6>
+                                 )}
                     <br/>
                 </div>
     
