@@ -5,7 +5,7 @@ import axios from 'axios';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 
-export default class EditarProfesor extends Component {
+export default class EditarRepresentante extends Component {
   cajaIdUsuario = React.createRef();
   cajaNombre = React.createRef();
   cajaApellido = React.createRef();
@@ -16,6 +16,12 @@ export default class EditarProfesor extends Component {
   cajaIdProvincia = React.createRef();
   cajaIdEmpresaCentro = React.createRef();
 
+  cajaNombreEmpresa = React.createRef();
+  cajaDireccionEmpresa = React.createRef();
+  cajaTelefonoEmpresa = React.createRef();
+  cajaPersonaContactoEmpresa = React.createRef();
+  cajaCIFEmpresa = React.createRef();
+  cajaRazonSocialEmpresa = React.createRef();
 
 
   state = {
@@ -47,8 +53,6 @@ export default class EditarProfesor extends Component {
             this.getProvincias();
             this.getEmpresaCentro();
             this.getEmpresasCentro();
-            this.getCursosProfesor();
-            this.getCharlasProfesor();
         });
     })
       .catch((error) => {
@@ -79,54 +83,6 @@ export default class EditarProfesor extends Component {
   };
 
 
-  getCursosProfesor = () => {
-    var request = "api/QueryTools/FindCursosProfesor/" + parseInt(localStorage.getItem('idUsuario'));
-    var url = Global.urlApi + request;
-
-    axios.get(url)
-        .then(response => {
-            this.setState({
-                cursos: response.data,
-            });
-        })
-        .catch(error => {
-            console.error('Error al obtener Cursos:', error);
-        });
-  }
-
-  getNombreCurso = (idCurso) => {
-    const curso = this.state.cursos.find((curso) => curso.idCurso === idCurso);
-    return curso ? curso.nombreCurso : "Desconocido";
-  };
-
-  getCharlasProfesor = () => {
-    const { cursos } = this.state;
-    const request = 'api/charlas';
-    const urlTodasCharlas = Global.urlApi + request;
-
-  axios
-    .get(urlTodasCharlas)
-    .then((response) => {
-      var todasCharlas = response.data;
-      // Filtrar charlas del profesor utilizando map
-      var charlasProfesor = todasCharlas.filter((charla) =>
-        cursos.some((curso) => curso.idCurso === charla.idCurso)
-      );
-
-      this.setState({
-        charlas: todasCharlas,
-        charlasProfesor: charlasProfesor,
-      });
-    })
-    .catch((error) => {
-      console.error('Error al obtener charlas:', error);
-    });
-};
-
-
-
-
-
   getEmpresaCentro = () => {
     const { idEmpresaCentro } = this.state.informacion;
 
@@ -145,6 +101,7 @@ export default class EditarProfesor extends Component {
             });
     }
   }
+
   getEmpresasCentro = () => {
 
         var request = "api/EmpresasCentros/"
@@ -177,11 +134,11 @@ export default class EditarProfesor extends Component {
     var linkedin = this.cajaLinkedin.current.value;
     var pass = this.cajaPass.current.value;
     var idRole = this.state.informacion.idRole;
-
+  
     var idProvincia = parseInt(this.cajaIdProvincia.current.value, 10);
     var idEmpresaCentro = parseInt(this.cajaIdEmpresaCentro.current.value, 10);
     var estado = this.state.informacion.estado;
-
+  
     var data = {
       idUsuario: idUsuario,
       nombre: nombre,
@@ -195,22 +152,72 @@ export default class EditarProfesor extends Component {
       idEmpresaCentro: idEmpresaCentro,
       estado: estado,
     };
-
-
+  
     axios
       .put(url, data, { headers })
       .then((response) => {
         alert('Usuario actualizado');
-        window.location.href = "/areaProfesor";
+        window.location.href = "/areaRepresentante";
         this.setState({
           statusPutInformacion: true,
         });
+  
+        // Llamada a editarEmpresa solo si idEmpresaCentro no es null
+        if (this.state.informacion.idEmpresaCentro !== null) {
+          this.editarEmpresa();
+          console.log("tengo emopr3sa");
+        }
       })
-
       .catch((error) => {
         console.error('Error al actualizar usuario:', error);
       });
   };
+
+  editarEmpresa = () => { // Quitar el parámetro 'e'
+    var token = localStorage.getItem('token');
+    var headers = { Authorization: 'Bearer ' + token };
+    var request = 'api/EmpresasCentros';
+    var url = Global.urlApi + request;
+  
+    var idEmpresaCentro = this.state.informacion.idEmpresaCentro;
+    var nombre = this.cajaNombreEmpresa.current.value;
+    var direccion = this.cajaDireccionEmpresa.current.value;
+    var telefono = this.cajaTelefonoEmpresa.current.value;
+    var personaContacto = this.cajaPersonaContactoEmpresa.current.value;
+    var cif = this.cajaCIFEmpresa.current.value;
+    var razonSocial = this.cajaRazonSocialEmpresa.current.value;
+  
+    var idProvincia = this.state.centroUsuario.idProvincia;
+    var idTipoEmpresa = this.state.centroUsuario.idTipoEmpresa;
+    var estadoEmpresa = this.state.centroUsuario.estadoEmpresa;
+  
+    var data = {
+      idEmpresaCentro: idEmpresaCentro,
+      nombre: nombre,
+      direccion: direccion,
+      telefono: telefono,
+      personaContacto: personaContacto,
+      cif: cif,
+      idProvincia: idProvincia,
+      razonSocial: razonSocial,
+      idTipoEmpresa: idTipoEmpresa,
+      estadoEmpresa: estadoEmpresa
+    };
+  
+    console.log(data);
+  
+    axios
+      .put(url, data, { headers })
+      .then((response) => {
+        this.setState({
+          statusPutInformacion: true,
+        });
+      })
+      .catch((error) => {
+        console.error('Error al actualizar empresa:', error);
+      });
+  };
+
 
   componentDidMount() {
     this.getInformacion();
@@ -221,7 +228,7 @@ export default class EditarProfesor extends Component {
   componentDidUpdate(prevProps, prevState) {
     // Verificar si el estado de la información ha cambiado
     if (prevState.cursos !== this.state.cursos) {
-      this.getCharlasProfesor();
+      this.getEmpresaCentro();
       
       /*console.log(this.state.informacion);*/
       // Aquí puedes realizar cualquier otra operación después de la actualización del estado
@@ -235,9 +242,9 @@ export default class EditarProfesor extends Component {
           <Navbar />
         </div>
         <div className="dashboard-body">
-          <h1>Area Personal - Profesor</h1>
+          <h1>Area Personal - Representante</h1>
           <hr />
-          <NavLink to="/areaProfesor" className="form-label fw-bold" role="img">
+          <NavLink to="/areaRepresentante" className="form-label fw-bold" role="img">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
               </svg>
@@ -245,7 +252,7 @@ export default class EditarProfesor extends Component {
           <div className="container my-4">
             <div className="container my-4 d-flex justify-content-center align-items-center">
               <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
-              <NavLink to="/areaProfesor" className="btn btn-primary" role="button" onClick={this.putInformacion}>
+              <NavLink to="/areaRepresentante" className="btn btn-primary" role="button" onClick={this.putInformacion}>
                 Guardar Cambios
               </NavLink>
             </div>
@@ -303,24 +310,32 @@ export default class EditarProfesor extends Component {
           </div>
           
           <div className="container my-2">
-            <h1 className="text-center">Centro</h1>
+            <h1 className="text-center">Empresa</h1>
             <br/>
             {this.state.centros.length > 0 ? (
-              <select
-                className="form-select"
-                ref={this.cajaIdEmpresaCentro}
-                value={this.state.centroUsuario.idEmpresaCentro || ''}
-                onChange={(e) => this.setState({ centroUsuario: { ...this.state.centroUsuario, idEmpresaCentro: e.target.value } })}
-              >
-                {this.state.centros.map((centro) => (
-                  <option key={centro.idEmpresaCentro} value={centro.idEmpresaCentro}>
-                    {centro.nombre}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input type="text" className="form-control" placeholder="No seleccionado" readOnly />
-            )}
+  <select
+    className="form-select"
+    ref={this.cajaIdEmpresaCentro}
+    value={this.state.centroUsuario.idEmpresaCentro || ''}
+    onChange={(e) => {
+      const selectedValue = e.target.value;
+      // Si se selecciona "Ninguna", establece el valor como null
+      const newValue = selectedValue === "Ninguna" ? null : selectedValue;
+      this.setState({ centroUsuario: { ...this.state.centroUsuario, idEmpresaCentro: newValue } });
+    }}
+  >
+    <option value="">Selecciona una empresa</option>
+    {/* Añade una opción "Ninguna" al final */}
+    <option value="Ninguna">Ninguna</option>
+    {this.state.centros.map((centro) => (
+      <option key={centro.idEmpresaCentro} value={centro.idEmpresaCentro}>
+        {centro.nombre}
+      </option>
+    ))}
+  </select>
+) : (
+  <input type="text" className="form-control" placeholder="No seleccionado" readOnly />
+)}
           </div>
           <div id="registrolHelp" className="form-text font-weight-bold text-center mt-2" style={{ fontSize: '18px' }}>
             ¿No está tu centro? <NavLink to='/RegistrarEmpresaCentro' className="nav-link text-primary">Regístralo</NavLink>
@@ -328,84 +343,47 @@ export default class EditarProfesor extends Component {
           </div>
 
 
-
-        <div className="container my-2">
-          <h1 className="text-center">
-            Cursos &nbsp; 
-            <NavLink to="/registrarCurso" className="form-label fw-bold" role="img">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-          </svg>
-            </NavLink>
-          </h1>
+          <div className="container my-2">
+          <h1 className="text-center mb-0 me-2 ms-2">Datos Empresa </h1> &nbsp; &nbsp;&nbsp;&nbsp;
           <br/>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Curso</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.cursos.map((curso) => (
-                <tr key={curso.idCurso}>
-                  <td>{curso.nombreCurso}</td>
-                  <td>{curso.descripcionCurso}</td>
-    
-                  <td>
-                    <button className="btn btn-danger" onClick={() => this.handleEliminarCurso(curso.idCurso)}>
-                     Eliminar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <br></br>
-        </div>
+          {this.state.informacion.idEmpresaCentro ? (
+            <form>
+              <div className="row">
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Nombre Empresa</label>
+                  <input type="text" className="form-control" defaultValue={this.state.centroUsuario.nombre} ref={this.cajaNombreEmpresa} />
+                </div>
 
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Dirección</label>
+                  <input type="text" className="form-control" defaultValue={this.state.centroUsuario.direccion} ref={this.cajaDireccionEmpresa} />
+                </div>
 
-        <div className="container my-2">
-        <h1 className="text-center">
-            Mis Charlas &nbsp; 
-            <NavLink to="/registrarCharla" className="form-label fw-bold" role="img">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-          </svg>
-            </NavLink>
-          </h1>
-          <br />
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Descripción</th>
-                <th scope="col">Curso</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.charlasProfesor.map((charla) => (
-                <tr key={charla.idCharla}>
-                  <td>{charla.descripcion}</td>
-                  <td>{this.getNombreCurso(charla.idCurso)}</td>
-                  <td>{charla.fechaCharla}</td>
-                  <td>
-                    {/* Agrega aquí el botón de eliminar y su lógica */}
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => this.handleEliminarCharla(charla.idCharla)}
-                    >
-                      Eliminar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Teléfono</label>
+                  <input type="text" className="form-control" defaultValue={this.state.centroUsuario.telefono} ref={this.cajaTelefonoEmpresa} />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Persona de Contacto</label>
+                  <input type="text" className="form-control" defaultValue={this.state.centroUsuario.personaContacto} ref={this.cajaPersonaContactoEmpresa} />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">CIF</label>
+                  <input type="text" className="form-control" defaultValue={this.state.centroUsuario.cif} ref={this.cajaCIFEmpresa} />
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label className="form-label">Razón Social</label>
+                  <input type="text" className="form-control" defaultValue={this.state.centroUsuario.razonSocial} ref={this.cajaRazonSocialEmpresa} />
+                </div>
+              </div>
+            </form>
+          ) : (
+            <h6 className="text-center">Selecciona una Empresa para ver sus datos</h6>
+          )}
+          <br/>
         </div>
 
 

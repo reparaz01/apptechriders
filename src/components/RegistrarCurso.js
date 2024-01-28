@@ -17,6 +17,7 @@ export default class RegistrarCurso extends Component {
         error: null,
         centroUsuario: {},
         empresascentros: [],
+        idUsuario: localStorage.getItem("idUsuario"),
     }
  
     getCentro = () => {
@@ -93,6 +94,8 @@ export default class RegistrarCurso extends Component {
                 icon: "success",
                 title: "Curso Creado",
             });
+            localStorage.setItem('idCurso', response.data.idCurso)
+            this.CrearCursoProfesor();
         }).catch(error => {
             // Manejar errores de la solicitud HTTP si es necesario
             console.error("Error en la solicitud HTTP", error);
@@ -102,6 +105,22 @@ export default class RegistrarCurso extends Component {
                 icon: "error",
                 title: "Oops...",            
             });
+        });
+    }
+ 
+    CrearCursoProfesor = () =>{
+ 
+        var datos = {
+            "idCurso": localStorage.getItem("idCurso"),
+            "idProfesor": this.state.idUsuario,
+        }
+ 
+        var token = localStorage.getItem('token');
+        var headers = { Authorization: 'Bearer ' + token };
+        var request = `api/cursosprofesores?idcurso=${localStorage.getItem("idCurso")}&idprofesor=${this.state.idUsuario}`;
+        var url = Global.urlApi + request;
+        axios.post(url, datos, { headers }).then(response => {        
+            console.log(response);
         });
     }
  

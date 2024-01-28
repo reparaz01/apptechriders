@@ -21,9 +21,11 @@ import RegistrarCurso from './RegistrarCurso';
 
 import RegistrarEmpresaCentro from './RegistrarEmpresaCentro';
 
-import AreaTech from './AreaTech';
+import AreaTechRider from './zonaTechRider/AreaTechRider';
+import EditarTechRider from './zonaTechRider/EditarTechRider';
 
 import AreaRepresentante from './zonaRepresentante/AreaRepresentante';
+import EditarRepresentante from './zonaRepresentante/EditarRepresentante';
 
 import Charlas from './charlas/Charlas';
 import DetallesCharla from './charlas/DetallesCharla';
@@ -73,12 +75,19 @@ export default class Router extends Component {
           {/* Fin Rutas zona Admin */}
 
           <Route path="/editarProfesor" element={<EditarProfesor />} />
+          <Route path="/areaProfesor" element={<AreaProfesor />} />
+
           <Route path="/registrarEmpresaCentro" element={<RegistrarEmpresaCentro />} />
           <Route path="/registrarCurso" element={<RegistrarCurso />} />
 
-          <Route path="/areaTech" element={<AreaTech />} />
-          <Route path="/areaProfesor" element={<AreaProfesor />} />
+          <Route path="/areaTechRider" element={<AreaTechRider />} />
+          <Route path="/editarTechRider" element={<EditarTechRider />} />
+          
+          
           <Route path="/areaRepresentante" element={<AreaRepresentante />} />
+          <Route path="/editarRepresentante" element={<EditarRepresentante />} />
+
+          
         </Routes>
       </BrowserRouter>
     );

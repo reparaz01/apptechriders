@@ -135,7 +135,7 @@ export default class Login extends Component {
             {this.state.usuarios.idRole === 3 && (
               <div>
                 {Global.tipoUsuario = 3}
-                {this.setState({ redirectTo: "/areaTech" })} 
+                {this.setState({ redirectTo: "/areaTechRider" })} 
               </div>
             )}
             {this.state.usuarios.idRole === 4 && (

@@ -82,7 +82,7 @@ class Navbar extends Component {
                     <NavLink
                         to={tipoUsuario === 1 ? "/zonaAdmin" : 
                             tipoUsuario === 2 ? "/areaProfesor" : 
-                            tipoUsuario === 3 ? "/areaTech" : 
+                            tipoUsuario === 3 ? "/areaTechRider" : 
                             tipoUsuario === 4 ? "/areaRepresentante" : "/area-personal"}
                         className="dropdown-item"
                       >
