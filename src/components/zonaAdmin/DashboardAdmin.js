@@ -4,8 +4,12 @@ import Navbar from './../Navbar';
 import Footer from './../Footer';
 import SidebarAdmin from './SidebarAdmin';
 import './../../styles/zonaAdmin.css';
-import Perfil from './Perfil';
-import Usuarios from './Usuarios';
+//import Perfil from './Perfil';
+import InfoAdmin from './InfoAdmin';
+//import Usuarios from './Usuarios';
+import Todosusuarios from './TodosUsuarios';
+import TodosCharlas from './TodosCharlas';
+import TodosEmpresas from './TodosEmpresas';
 
 class DashboardAdmin extends Component {
   constructor(props) {
@@ -33,8 +37,10 @@ class DashboardAdmin extends Component {
           </div>
           <div className="dashboard-body">
             {/* Renderizar el componente seleccionado */}
-            {selectedComponent === 'Perfil' && <Perfil />}
-            {selectedComponent === 'Usuarios' && <Usuarios />}
+            {selectedComponent === 'InfoAdmin' && <InfoAdmin />}
+            {selectedComponent === 'TodosUsuarios' && <Todosusuarios />}
+            {selectedComponent === 'TodosCharlas' && <TodosCharlas />}
+            {selectedComponent === 'TodosEmpresas' && <TodosEmpresas />}
             {/* Agrega más componentes según sea necesario */}
           </div>
         </div>

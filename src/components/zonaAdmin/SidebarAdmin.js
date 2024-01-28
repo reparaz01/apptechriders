@@ -9,9 +9,10 @@ class SidebarAdmin extends Component {
     return (
       <div className="sidebar-admin">
         <h2>Dashboard Admin</h2>
-        <button onClick={() => onComponentChange('Perfil')}>Perfil</button>
-        <button onClick={() => onComponentChange('Usuarios')}>Usuarios</button>
-        <button onClick={() => onComponentChange('ComponentC')}>Charlas</button>
+        <button onClick={() => onComponentChange('InfoAdmin')}>Perfil</button>
+        <button onClick={() => onComponentChange('TodosUsuarios')}>Usuarios</button>
+        <button onClick={() => onComponentChange('TodosCharlas')}>Charlas</button>
+        <button onClick={() => onComponentChange('TodosEmpresas')}>Empresas</button>
         {/* Agrega más botones según sea necesario */}
       </div>
     );

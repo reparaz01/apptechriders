@@ -11,7 +11,7 @@
 }
 
 .sidebar-admin {
-  width: 200px;
+  width: 300px;
   background-color: #f0f0f0;
   padding: 20px;
 }
@@ -30,3 +30,17 @@
   padding: 20px;
 }
 
+.cajas-arriba {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cajas-arriba > div {
+  flex: 1;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.cajas-arriba a {
+  margin-right: 6px; /* Ajusta el valor según tu preferencia */
+}

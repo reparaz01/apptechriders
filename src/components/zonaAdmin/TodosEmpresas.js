@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class Usuarios extends Component {
+export default class TodosEmpresas extends Component {
   render() {
     return (
       <div>
-        Usuarios
+          Empresas
       </div>
     )
   }

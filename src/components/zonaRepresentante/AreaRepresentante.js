@@ -15,7 +15,8 @@ export default class AreaRepresentante extends Component {
         provincia: {},
         centroUsuario: {},
         empresascentros: [],
-        cursos: []
+        cursos: [],
+        techriders : [],
     }
 
     getInformacion = () => {
@@ -79,6 +80,37 @@ export default class AreaRepresentante extends Component {
         }
     }
 
+
+    getTechRidersEmpresa = () => {
+        var request = "api/QueryTools/FindTechRidersEnEmpresa/" + this.state.informacion.idEmpresaCentro;
+        var url = Global.urlApi + request;
+
+        axios.get(url)
+            .then(response => {
+                this.setState({
+                    techriders: response.data,
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener TechRiders:', error);
+            });
+    }
+
+    getInformacionTechRider = () => {
+        var request = "api/QueryTools/FindTechRidersEnEmpresa/" + this.state.informacion.idEmpresaCentro;
+        var url = Global.urlApi + request;
+
+        axios.get(url)
+            .then(response => {
+                this.setState({
+                    techriders: response.data,
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener TechRiders:', error);
+            });
+    }
+
     componentDidMount() {
         this.getInformacion();
         console.log(this.state.informacion);
@@ -88,10 +120,8 @@ export default class AreaRepresentante extends Component {
     componentDidUpdate(prevProps, prevState) {
         // Verificar si el estado de la información ha cambiado
         if (prevState.informacion !== this.state.informacion) {
-            console.log(this.state.informacion);
-          
-          /*console.log(this.state.informacion);*/
-          // Aquí puedes realizar cualquier otra operación después de la actualización del estado
+        this.getTechRidersEmpresa();
+
         }
       }
 
@@ -105,7 +135,9 @@ export default class AreaRepresentante extends Component {
                     <div className="container my-4">
                         <div className="container my-4 d-flex justify-content-center align-items-center">
                             <h1 className="text-center mb-0 me-2 ms-2">Información Perfil</h1>
-                            <button type="button" className="btn btn-dark ms-2">Editar</button>
+                            <NavLink to="/editarProfesor" className="btn btn-dark ms-2" role="button">
+                            Editar
+                        </NavLink>
                         </div>
                         {this.state.error && <div className="alert alert-danger">{this.state.error}</div>}
                         <form>
@@ -203,22 +235,67 @@ export default class AreaRepresentante extends Component {
                                 </div>
                             </form>
                                  ) : (
-                                <h6 className="text-center">No hay Datos de Empresa</h6>
+                                <h6 className="text-center">Selecciona una Empresa para ver sus datos</h6>
                                  )}
                     <br/>
                 </div>
     
                 <div className="container my-2">
-                    <h1 className="text-center">
-                        M &nbsp; 
-                        <NavLink to="/registrarCurso" className="form-label fw-bold" role="img">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                            </svg>
-                        </NavLink>
-                    </h1>
+                    <h1 className="text-center">Tech Riders</h1>
+                    <br/>
+                    {this.state.informacion.idEmpresaCentro ? (
+                            <form>
+                                <div className="row">
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Nombre Empresa</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.nombre} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Dirección</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.direccion} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Teléfono</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.telefono} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Persona de Contacto</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.personaContacto} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">CIF</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.cif} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Razón Social</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.razonSocial} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Tipo de Empresa</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.idTipoEmpresa} readOnly />
+                                    </div>
+    
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Estado Empresa</label>
+                                        <input type="text" className="form-control" placeholder={this.state.centroUsuario.estadoEmpresa} readOnly />
+                                    </div>
+                                </div>
+                            </form>
+                                 ) : (
+                                <h6 className="text-center">Selecciona una Empresa para ver sus datos</h6>
+                                 )}
+                    <br/>
                 </div>
+    
+
+
+
                 <Footer />
             </div>
         );

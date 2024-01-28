@@ -1,14 +1,11 @@
  //Importamos los paquetes necesarios
 import React, { Component, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Global from '../Global';
 import axios from 'axios';
-import Navbar from '../Navbar'
-import Footer from '../Footer'
-import flechaAtras from './../../assets/images/fechaAtras.webp';
 
 
-export default class EditarPerfil extends Component {
+export default class InfoAdmin extends Component {
     
     //Referenciamos a las cajas del formulario.
     cajaIdUsuario = React.createRef();
@@ -88,15 +85,16 @@ export default class EditarPerfil extends Component {
         e.preventDefault();
 
         const campos = [
-
             this.cajaIdUsuario,
-
+            this.cajaNombre,
+            this.cajaApellido,
+            this.cajaEmail,
+            this.cajaTelf,
+            this.cajaLinkedin,
+            this.cajaPass,
             this.cajaIdRole,
-
             this.cajaIdProvincia,
-
             this.cajaIdEmpresaCentro,
-
             this.cajaEstado,
         ];
       
@@ -197,50 +195,44 @@ export default class EditarPerfil extends Component {
   render() {
     return (
         <div>
-            <div className="header">
-                <Navbar />
-            </div>
             <div className="dashboard-body">
                 <div className="container my-4">
-                    <NavLink to={"/zonaAdmin"}>
-                        <img src={flechaAtras} width={"3%"} height={"3%"} alt='Pagina Anterior'/>
-                    </NavLink>
-                    <h2 className="text-center mb-4">Editar Perfil</h2>
+                    <h2 className="text-center mb-4">Informacion Perfil</h2>
                     <form>
                         <div className="row">
-                        <div className="col-md-6 mb-3">
-                            <label className="form-label">Id Usuarios </label>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Id Usuarios </label>
                                 <input type="text" className="form-control"  defaultValue={this.state.informacion.idUsuario} ref={this.cajaIdUsuario} disabled/>
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Nombre </label>
-                                <input type="text" className="form-control"  defaultValue={this.state.informacion.nombre} ref={this.cajaNombre} />
+                                <input type="text" className="form-control"  defaultValue={this.state.informacion.nombre} ref={this.cajaNombre} disabled/>
                             </div>
                             
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Apellido </label>
-                                <input type="text" className="form-control"   defaultValue={this.state.informacion.apellidos} ref={this.cajaApellido} />
+                                <input type="text" className="form-control"   defaultValue={this.state.informacion.apellidos} ref={this.cajaApellido} disabled/>
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Email </label>
-                                <input type="text" className="form-control"  defaultValue={this.state.informacion.email} ref={this.cajaEmail} />
+                                <input type="text" className="form-control"  defaultValue={this.state.informacion.email} ref={this.cajaEmail} disabled/>
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Telefono </label>
-                                <input type="text" className="form-control"  defaultValue={this.state.informacion.telefono} ref={this.cajaTelf} />
+                                <input type="text" className="form-control"  defaultValue={this.state.informacion.telefono} ref={this.cajaTelf} disabled/>
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">LinkedIn </label>
-                                <input type="text" className="form-control"  defaultValue={this.state.informacion.linkedIn} ref={this.cajaLinkedin}/>
+                                <input type="text" className="form-control"  defaultValue={this.state.informacion.linkedIn} ref={this.cajaLinkedin} disabled/>
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Password </label>
-                                <input type="text" className="form-control"  defaultValue={this.state.informacion.password} ref={this.cajaPass}/>
+                                <input type="text" className="form-control"  defaultValue={this.state.informacion.password} ref={this.cajaPass} disabled/>
                             </div>
 
                             <div className="col-md-6 mb-3">
@@ -264,12 +256,9 @@ export default class EditarPerfil extends Component {
                             </div>
                         </div>
                     </form>
-                    <button type="submit" className="btn btn-warning" onClick={this.ableCamps}>Habilitar Campos</button>
+                    <button type="submit" className="btn btn-warning" onClick={this.ableCamps}>Activar Edicion</button>
                     <button type="submit" className="btn btn-success" onClick={this.putInformacion}>Actualizar Datos</button>
                 </div>
-            </div>
-            <div className="footer">
-                <Footer />
                 {this.state.redirectTo && <RedirectTo path={this.state.redirectTo} />} 
             </div>
         </div>

@@ -80,7 +80,7 @@ class Navbar extends Component {
                     </a>
                     <div className="dropdown-menu" aria-labelledby="areaPersonalDropdown">
                     <NavLink
-                        to={tipoUsuario === 1 ? "/areaAdmin" : 
+                        to={tipoUsuario === 1 ? "/zonaAdmin" : 
                             tipoUsuario === 2 ? "/areaProfesor" : 
                             tipoUsuario === 3 ? "/areaTech" : 
                             tipoUsuario === 4 ? "/areaRepresentante" : "/area-personal"}
