@@ -226,13 +226,13 @@ export default class AreaRepresentante extends Component {
                 </div>
     
                 <div className="container my-2">
-                    <h1 className="text-center">Tech Riders</h1>
+                    <h1 className="text-center">Miembros de la Empresa</h1>
                     <br/>
                     {this.state.techriders.length > 0 ? (
                         <table className="table">
                         <thead>
                             <tr>
-                            <th scope="col">TechRider</th>
+                            <th scope="col">Representante / TechRider</th>
                             <th scope="col">Email</th>
                             <th scope="col">Telefono</th>
                             <th scope="col">Direccion</th>

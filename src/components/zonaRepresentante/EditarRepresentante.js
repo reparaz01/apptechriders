@@ -173,7 +173,7 @@ export default class EditarRepresentante extends Component {
       });
   };
 
-  editarEmpresa = () => { // Quitar el parámetro 'e'
+  editarEmpresa = () => { 
     var token = localStorage.getItem('token');
     var headers = { Authorization: 'Bearer ' + token };
     var request = 'api/EmpresasCentros';

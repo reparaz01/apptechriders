@@ -163,9 +163,6 @@ getEmpresaCentro = () => {
             </form>
           </div>
           <h1 className="text-center">Centro</h1>
-          <NavLink className="btn btn-success" to={"/crearCurso"}>
-              Prueba crearCentro
-          </NavLink>
         </div>
         <div className="container my-2">
           {this.state.informacion.idEmpresaCentro ? (
@@ -176,12 +173,8 @@ getEmpresaCentro = () => {
         </div>
         <div className="container my-2">
           <h1 className="text-center">
-              Mis Tecnologias &nbsp;
-              {/* Puedes ajustar el enlace según sea necesario */}
+              Mis Tecnologias
           </h1>
-          <NavLink className="btn btn-success" to={"/crearTecno"}>
-              Prueba crearTecno
-          </NavLink>
           <br />
           <table className="table">
             <thead>
@@ -204,12 +197,8 @@ getEmpresaCentro = () => {
         </div>
         <div className="container my-2">
           <h1 className="text-center">
-              Mis Charlas &nbsp;
-              {/* Puedes ajustar el enlace según sea necesario */}
+              Mis Charlas
           </h1>
-          <NavLink className="btn btn-success" to={"/crearCharlas"}>
-              Prueba crearCharla
-          </NavLink>
           <br />
           <table className="table">
             <thead>
