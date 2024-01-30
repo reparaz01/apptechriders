@@ -23,6 +23,7 @@ import RegistrarEmpresaCentro from './RegistrarEmpresaCentro';
 
 import AreaTechRider from './zonaTechRider/AreaTechRider';
 import EditarTechRider from './zonaTechRider/EditarTechRider';
+import RegistrarTecnologia from './RegistrarTecnologia';
 
 import AreaRepresentante from './zonaRepresentante/AreaRepresentante';
 import EditarRepresentante from './zonaRepresentante/EditarRepresentante';
@@ -82,7 +83,7 @@ export default class Router extends Component {
 
           <Route path="/areaTechRider" element={<AreaTechRider />} />
           <Route path="/editarTechRider" element={<EditarTechRider />} />
-          
+          <Route path="/registrarTecnologia" element={<RegistrarTecnologia />} />
           
           <Route path="/areaRepresentante" element={<AreaRepresentante />} />
           <Route path="/editarRepresentante" element={<EditarRepresentante />} />

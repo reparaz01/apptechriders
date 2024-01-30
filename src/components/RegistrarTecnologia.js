@@ -13,7 +13,8 @@ export default class RegistrarTecnologia extends Component {
     state = {
         error: null,
         token: localStorage.getItem("token"),
-        tipotecno: []
+        tipotecno: [],
+        idUsuario: localStorage.getItem("idUsuario"),
     }
  
     CrearTecnologia = (e) => {
@@ -44,6 +45,8 @@ export default class RegistrarTecnologia extends Component {
                 icon: "success",
                 title: "Tecnologia Creada",
             });
+            localStorage.setItem('idTecno', response.data.idTecnologia)
+            this.CrearTecnologiaTechrider();
         }).catch(error => {
             // Manejar errores de la solicitud HTTP si es necesario
             console.error("Error en la solicitud HTTP", error);
@@ -53,6 +56,22 @@ export default class RegistrarTecnologia extends Component {
                 icon: "error",
                 title: "Oops...",            
             });
+        });
+    }
+ 
+    CrearTecnologiaTechrider = () =>{
+ 
+        var datos = {
+            "idUsuario": this.state.idUsuario,
+            "idTecnologia": localStorage.getItem("idTecno"),
+        }
+ 
+        var token = localStorage.getItem('token');
+        var headers = { Authorization: 'Bearer ' + token };
+        var request = `api/TecnologiasTechRiders?idtechrider=${this.state.idUsuario}&idtecnologia=${localStorage.getItem("idTecno")}`;
+        var url = Global.urlApi + request;
+        axios.post(url, datos, { headers }).then(response => {        
+            console.log(response);
         });
     }
  

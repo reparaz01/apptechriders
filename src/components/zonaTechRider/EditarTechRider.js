@@ -5,7 +5,7 @@ import axios from 'axios';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
  
-export default class EditarTechRider extends Component {
+export default class EditarTechrider extends Component {
     cajaIdUsuario = React.createRef();
     cajaNombre = React.createRef();
     cajaApellido = React.createRef();
@@ -150,7 +150,7 @@ export default class EditarTechRider extends Component {
         var nombre = this.cajaNombre.current.value;
         var apellido = this.cajaApellido.current.value;
         var email = this.cajaEmail.current.value;
-        var telf = this.state.informacion.telefono;
+        var telf = this.cajaTelf.current.value;
         var linkedin = this.cajaLinkedin.current.value;
         var pass = this.cajaPass.current.value;
         var idRole = this.state.informacion.idRole;
@@ -178,7 +178,7 @@ export default class EditarTechRider extends Component {
         .put(url, data, { headers })
         .then((response) => {
             alert('Usuario actualizado');
-            window.location.href = "/areaTech";
+            window.location.href = "/areaTechRider";
             this.setState({
             statusPutInformacion: true,
             });
@@ -213,7 +213,7 @@ export default class EditarTechRider extends Component {
             <div className="dashboard-body">
             <h1>Area Personal - Techrider</h1>
             <hr />
-            <NavLink to="/areaTech" className="form-label fw-bold" role="img">
+            <NavLink to="/areaTechRider" className="form-label fw-bold" role="img">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                 </svg>
@@ -221,7 +221,7 @@ export default class EditarTechRider extends Component {
             <div className="container my-4">
                 <div className="container my-4 d-flex justify-content-center align-items-center">
                 <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
-                <NavLink to="/areaProfesor" className="btn btn-primary" role="button" onClick={this.putInformacion}>
+                <NavLink to="/areaTech" className="btn btn-primary" role="button" onClick={this.putInformacion}>
                     Guardar Cambios
                 </NavLink>
                 </div>

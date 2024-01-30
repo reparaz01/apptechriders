@@ -1,102 +1,153 @@
-import React, { useState, useEffect } from 'react';
-// Asegúrate de tener la ruta correcta para tu archivo de estilos CSS
+import React, { Component } from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import axios from 'axios';
+import Global from './Global';
+import moment from 'moment';
+import { NavLink } from 'react-router-dom';
 
-const Calendario = () => {
-  const [charlas, setCharlas] = useState([]);
-  const [mesActual, setMesActual] = useState(new Date());
+const localizer = momentLocalizer(moment);
 
-  // Simula una llamada a una API para obtener las charlas
-  useEffect(() => {
-    // Aquí deberías hacer una llamada a tu API real
-    // Puedes usar fetch o axios, por ejemplo
-    const obtenerCharlas = async () => {
-      // Supongamos que la API retorna un arreglo de charlas
-      const response = await fetch('URL_DE_TU_API');
-      const data = await response.json();
-      setCharlas(data);
+class Calendario extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      charlas: [],
+      viewDate: new Date(),
+      events: [],
+      selectedCharla: null,
+      dialogOpen: false,
     };
+  }
 
-    obtenerCharlas();
-  }, []); // Se ejecuta solo al montar el componente
+  componentDidMount() {
+    this.getCharlas();
+  }
 
-  const obtenerBotonCharla = (charla) => (
-    <button className="btn btn-primary" onClick={() => accederCharla(charla)}>
-      {charla.nombre}
-    </button>
-  );
-
-  const accederCharla = (charla) => {
-    // Lógica para acceder a la charla, por ejemplo, redireccionar a una página de detalles
-    console.log(`Acceder a la charla: ${charla.nombre}`);
+  getCharlas = () => {
+    var request = "api/charlas";
+    var url = Global.urlApi + request;
+    axios.get(url).then(response => {
+      const charlasFiltradas = response.data.filter(charla => charla.idCurso !== 0);
+      this.setState({
+        charlas: charlasFiltradas,
+      }, () => this.mapCharlasToEvents());
+    });
   };
 
-  const obtenerDiasDelMes = (mes) => {
-    const primerDiaDelMes = new Date(mes.getFullYear(), mes.getMonth(), 1);
-    const ultimoDiaDelMes = new Date(mes.getFullYear(), mes.getMonth() + 1, 0);
-    const primerDiaSemana = primerDiaDelMes.getDay();
-    const totalDias = ultimoDiaDelMes.getDate();
-
-    const diasDelMes = Array.from({ length: totalDias + primerDiaSemana }, (_, index) => {
-      if (index < primerDiaSemana) {
-        return null;
+  mapCharlasToEvents() {
+    const events = this.state.charlas.map((charla) => {
+      let color;
+      switch (charla.idEstadoCharla) {
+        case 1:
+          color = { primary: '#888888', secondary: 'lightgray' };
+          break;
+        case 2:
+          color = { primary: '#ffc400', secondary: 'lightorange' };
+          break;
+        case 3:
+          color = { primary: '#88cfff', secondary: 'lightblue' };
+          break;
+        case 4:
+          color = { primary: '#E74C3C', secondary: 'lightcoral' };
+          break;
+        case 5:
+          color = { primary: '#2ECC71', secondary: 'lightgreen' };
+          break;
+        case 6:
+          color = { primary: '#9B59B6', secondary: 'lightpurple' };
+          break;
+        default:
+          color = { primary: 'black', secondary: 'lightgray' };
+          break;
       }
-      const dia = index - primerDiaSemana + 1;
-      const fecha = new Date(mes.getFullYear(), mes.getMonth(), dia);
-      const charlaDelDia = charlas.find((c) => c.fecha === fecha.toISOString().split('T')[0]);
-      return { dia, fecha, charlaDelDia };
+
+      return {
+        title: charla.descripcionCharla,
+        start: new Date(charla.fechaCharla),
+        end: new Date(charla.fechaCharla),
+        charla: charla,
+        color: color,
+      };
     });
 
-    return diasDelMes;
-  };
+    this.setState({ events });
+  }
 
-  const cambiarMes = (direccion) => {
-    const nuevoMes = new Date(mesActual);
-    if (direccion === 'siguiente') {
-      nuevoMes.setMonth(nuevoMes.getMonth() + 1);
+  dayClicked = (slotInfo) => {
+    const charlaSeleccionada = this.state.charlas.find(
+      (charla) =>
+        new Date(charla.fechaCharla).getDate() === slotInfo.getDate() &&
+        new Date(charla.fechaCharla).getMonth() === slotInfo.getMonth() &&
+        new Date(charla.fechaCharla).getFullYear() === slotInfo.getFullYear()
+    );
+
+    if (charlaSeleccionada) {
+      this.setState({ selectedCharla: charlaSeleccionada, dialogOpen: true });
     } else {
-      nuevoMes.setMonth(nuevoMes.getMonth() - 1);
+      console.log('No hay Charla para esta fecha.');
     }
-    setMesActual(nuevoMes);
   };
 
-  return (
-    <div className="container">
-      <h2 className="mb-4">{mesActual.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</h2>
-      <div className="d-flex justify-content-between mb-3">
-        <button className="btn btn-dark" onClick={() => cambiarMes('anterior')}>Mes Anterior</button>
-        <button className="btn btn-dark" onClick={() => cambiarMes('siguiente')}>Mes Siguiente</button>
+  eventClicked = (event) => {
+    if ('charla' in event) {
+      const charlaSeleccionada = event.charla;
+      this.setState({ selectedCharla: charlaSeleccionada, dialogOpen: true });
+    } else {
+      console.log('No hay Charla asociada a este evento.');
+    }
+  };
+
+  closeDialog = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  prevMonth = () => {
+    this.setState((prevState) => ({
+      viewDate: new Date(
+        prevState.viewDate.getFullYear(),
+        prevState.viewDate.getMonth() - 1,
+        1
+      ),
+    }), () => this.mapCharlasToEvents());
+  };
+
+  nextMonth = () => {
+    this.setState((prevState) => ({
+      viewDate: new Date(
+        prevState.viewDate.getFullYear(),
+        prevState.viewDate.getMonth() + 1,
+        1
+      ),
+    }), () => this.mapCharlasToEvents());
+  };
+
+  render() {
+    return (
+      <div style={{ width: '80%', margin: '0 auto', paddingTop: '5%', paddingBottom: '5%', textAlign: 'center' }}>
+        <h1>
+          <button onClick={this.prevMonth} type="button" className="btn btn-outline-dark">←</button>
+          {moment(this.state.viewDate).format('MMMM YYYY')}
+          <button onClick={this.nextMonth} type="button" className="btn btn-outline-dark">→</button>
+        </h1>
+
+        <hr />
+        <Calendar
+          localizer={localizer}
+          views={['month']}
+          events={this.state.events}
+          onSelectEvent={this.eventClicked}
+          onSelectSlot={this.dayClicked}
+        />
+        <hr />
+
+        {/* Diálogo para mostrar detalles de la charla */}
+        <NavLink to="/detallesCharla">
+          Detalles Charla
+        </NavLink>
       </div>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>L</th>
-            <th>M</th>
-            <th>X</th>
-            <th>J</th>
-            <th>V</th>
-            <th>S</th>
-            <th>D</th>
-          </tr>
-        </thead>
-        <tbody>
-            {Array.from({ length: 6 }, (_, semana) => (
-                <tr key={semana}>
-                {obtenerDiasDelMes(mesActual).slice(semana * 7, (semana + 1) * 7).map((diaInfo, index) => (
-                    <td key={index}>
-                    {diaInfo && (
-                        <div className="d-flex flex-column">
-                        <span className="fw-bold">{diaInfo.dia}</span>
-                        {diaInfo.charlaDelDia ? obtenerBotonCharla(diaInfo.charlaDelDia) : null}
-                        </div>
-                    )}
-                    </td>
-                ))}
-                </tr>
-            ))}
-</tbody>
-      </table>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Calendario;
