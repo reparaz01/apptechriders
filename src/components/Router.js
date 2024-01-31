@@ -11,8 +11,10 @@ import ZonaAdmin from './zonaAdmin/DashboardAdmin';
 import TodosUsuarios from './zonaAdmin/TodosUsuarios';
 import InfoAdmin from './zonaAdmin/InfoAdmin';
 import InfoUsuario from './zonaAdmin/InfoUsuario';
+import InfoEmpresa from './zonaAdmin/InfoEmpresa';
 import TodosEstadoUsuario from './zonaAdmin/TodosEstadoUsuario';
 import TodosEstadoCharla from './zonaAdmin/TodosEstadoCharla';
+import TodosEstadoEmpresa from './zonaAdmin/TodosEstadoEmpresa';
 // Fin zona Admin
 
 import EditarProfesor from './zonaProfesor/EditarProfesor';
@@ -41,6 +43,11 @@ export default class Router extends Component {
     return <InfoUsuario idusuario={idusuario} />
   }
 
+  function IdEmpresaPerfil (){
+    var {idempresa} = useParams();
+    return <InfoEmpresa idempresa={idempresa} />
+  }
+
   function IdEstadoUsuario (){
     var {idestado} = useParams();
     return <TodosEstadoUsuario idestado={idestado} />
@@ -49,6 +56,11 @@ export default class Router extends Component {
   function IdEstadoCharla (){
     var {idestado} = useParams();
     return <TodosEstadoCharla idestado={idestado} />
+  }
+
+  function IdEstadoEmpresa (){
+    var {idestado} = useParams();
+    return <TodosEstadoEmpresa idestado={idestado} />
   }
   //Fin funciones zona Admin
 
@@ -72,7 +84,9 @@ export default class Router extends Component {
           <Route path='/todosEstadoUsuarios/:idestado' element={<IdEstadoUsuario/>} />
           <Route path="/infoPerfil" element={<InfoAdmin />} />
           <Route path='/infoUsuario/:idusuario' element={<IdUsuarioPerfil/>} />
+          <Route path='/infoEmpresa/:idempresa' element={<IdEmpresaPerfil/>} />
           <Route path='/todosEstadoCharla/:idestado' element={<IdEstadoCharla/>} />
+          <Route path='/todosEstadoEmpresa/:idestado' element={<IdEstadoEmpresa/>} />
           {/* Fin Rutas zona Admin */}
 
           <Route path="/editarProfesor" element={<EditarProfesor />} />

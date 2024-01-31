@@ -84,6 +84,7 @@ export default class EditarTechrider extends Component {
             this.setState({
               charlas: todasCharlas,
             });
+            localStorage.setItem("idEstadoCharla", response.data.idEstadoCharla)
           })
           .catch((error) => {
             console.error('Error al obtener charlas:', error);
@@ -125,6 +126,8 @@ export default class EditarTechrider extends Component {
             });
     }
  
+   
+ 
     getTecnologiasTechrider = () => {
         var request = `api/QueryTools/FindTecnologiasTechrider?idtechrider=${parseInt(localStorage.getItem('idUsuario'))}`;
         var url = Global.urlApi + request;
@@ -138,6 +141,8 @@ export default class EditarTechrider extends Component {
               console.error('Error al obtener Tecnologias:', error);
           });
       }
+ 
+     
  
  
     putInformacion = (e) => {
@@ -197,8 +202,8 @@ export default class EditarTechrider extends Component {
  
     componentDidUpdate(prevProps, prevState) {
         // Verificar si el estado de la información ha cambiado
-        if (prevState.cursos !== this.state.cursos) {
-        this.getCharlasProfesor();
+        if (prevState.informacion !== this.state.informacion) {
+        this.getCharlasTechrider();
        
         /*console.log(this.state.informacion);*/
         // Aquí puedes realizar cualquier otra operación después de la actualización del estado
@@ -331,7 +336,7 @@ export default class EditarTechrider extends Component {
                         <td>{tecnologia.tipoTecnologia}</td>
            
                         <td>
-                            <button className="btn btn-danger" onClick={() => this.handleEliminarCurso(tecnologia.idTecnologia)}>
+                            <button className="btn btn-danger" onClick={() => this.handleEliminarTecnologia(tecnologia.idTecnologia)}>
                             Eliminar
                             </button>
                         </td>
@@ -358,6 +363,7 @@ export default class EditarTechrider extends Component {
                 <thead>
                 <tr>
                     <th scope="col">Descripción</th>
+                    <th scope="col">ID ESTADO</th>
                     <th scope="col">Curso</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Acciones</th>
@@ -367,16 +373,20 @@ export default class EditarTechrider extends Component {
                 {this.state.charlas.map((charla) => (
                     <tr key={charla.idCharla}>
                         <td>{charla.descripcionCharla}</td>
+                        <td>{charla.idEstadoCharla}</td>
                         <td>{charla.nombreCurso}</td>
                         <td>{charla.fechaCharla}</td>
                     <td>
-                        {/* Agrega aquí el botón de eliminar y su lógica */}
-                        <button
-                            className="btn btn-danger"
-                            onClick={() => this.handleEliminarCharla(charla.idCharla)}
-                        >
-                        Eliminar
-                        </button>
+                        {/* eslint-disable eqeqeq */}
+                        {charla.idEstadoCharla == '3' ? (
+                            <button className='btn btn-success' onClick={() => this.handleEliminarCharla(charla.idCharla)}>
+                                Eliminar
+                            </button>
+                        ) : (
+                            <button className='btn btn-success' disabled>
+                                Eliminar
+                            </button>
+                        )}
                     </td>
                     </tr>
                 ))}

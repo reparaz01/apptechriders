@@ -25,8 +25,6 @@ export default class InfoUsuario extends Component {
     //En este caso el ID es recuperado mediante parametros en la url.
     getInformacion = () => {
 
-        console.log("Has entrado en la inforamcion del usuario");
-
         var idUsuarioRuta = this.props.idusuario;
 
         var token = localStorage.getItem('token');

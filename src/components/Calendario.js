@@ -1,14 +1,40 @@
 import React, { Component } from "react";
-import './../styles/calendario.css';
-
+import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import bootstrap from "@fullcalendar/bootstrap";
 import timeGrid from "@fullcalendar/timegrid";
 import calenderList from "@fullcalendar/list";
 import interaction from "@fullcalendar/interaction";
+import Global from './Global';
+ import './../styles/calendario.css'; 
 
 class Calendario extends Component {
+  state = {
+    charlas: [],
+    status: false
+  };
+
+  componentDidMount() {
+    this.getCharlas();
+  }
+
+  getCharlas = () => {
+    var request = "api/charlas";
+    var url = Global.urlApi + request;
+    axios.get(url)
+      .then(response => {
+        this.setState({
+          charlas: response.data,
+          status: true
+        });
+      })
+      .catch(error => {
+        console.error('Error al obtener charlas:', error);
+        // Manejar el error según tus necesidades
+      });
+  };
+
   handleEventClick = (clickInfo) => {
     console.log(clickInfo);
   };
@@ -19,21 +45,30 @@ class Calendario extends Component {
 
   renderEventContent = (eventInfo) => {
     return (
-      <>
+      <div>
         <b>{eventInfo.timeText}</b>
+        <br />
         <b>{eventInfo.event.title}</b>
-      </>
+      </div>
     );
   };
 
   render() {
+    const { charlas } = this.state;
+
+    // Transforma las charlas en el formato esperado por FullCalendar
+    const events = charlas.map(charla => ({
+      title: charla.descripcion.replace(/^0+/, ''), // Elimina el cero inicial
+      date: charla.fechaCharla
+    }));
+
     return (
       <div className="App">
         <div className="card">
           <div className="card-header">
             <div className="card-header-toolbar"></div>
           </div>
-          <div className="card-body" style={{ width: "1200px" }}>
+          <div className="card-body" style={{ width: "1400px" }}>
             <FullCalendar
               plugins={[
                 dayGridPlugin,
@@ -43,17 +78,7 @@ class Calendario extends Component {
                 calenderList
               ]}
               initialView="dayGridMonth"
-              events={[
-                {
-                  title: "event 1",
-                  date: "2020-09-01",
-                  description: "Toto lorem ipsum dolor sit incid idunt ut",
-                  className: "fc-event-solid-warning",
-                  eventContent: "some text"
-                },
-                { title: "event 2", date: "2024-01-02" },
-                { title: "event 3", date: "2024-02-02" }
-              ]}
+              events={events}
               eventColor="#378006"
               themeSystem="bootstrap"
               navLinks="true"
@@ -65,7 +90,7 @@ class Calendario extends Component {
               locales="allLocales"
               locale="es"
               firstDay="1"
-              editable={true}
+              editable={false} // Desactiva la edición y el arrastre
               selectable={true}
               selectMirror={true}
               dayMaxEvents={true}
@@ -73,9 +98,7 @@ class Calendario extends Component {
               eventContent={this.renderEventContent}
               eventClick={this.handleEventClick}
               eventsSet={this.handleEvents}
-              height={700} 
-              
-               // Ajusta la altura según tus necesidades
+              height={700}
             />
           </div>
         </div>

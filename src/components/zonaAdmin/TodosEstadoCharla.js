@@ -10,13 +10,12 @@ import Footer from '../Footer';
 
 export default class TodosCHarlaUsuario extends Component {
   state = {
-    charlaEstado: {}, // Estado para almacenar todos los usuarios del estado
-    statusCharlaEstado: false, // Estado para verificar si los usuarios del estado se han cargado correctamente
-    searchTerm: '', // Nuevo estado para el término de búsqueda
-    filteredCharlaEstado: [], // Nuevo estado para almacenar usuarios filtrados
+    charlaEstado: {}, 
+    statusCharlaEstado: false, 
+    searchTerm: '', 
+    filteredCharlaEstado: [], 
   };
 
-  // Método para obtener usuarios del estado desde la API
   getCharlaEstado = () => {
     var estado = this.props.idestado;
     var token = localStorage.getItem('token');
@@ -27,41 +26,49 @@ export default class TodosCHarlaUsuario extends Component {
     axios.get(url, { headers }).then((response) => {
       this.setState({
         charlaEstado: response.data,
-        filteredCharlaEstado: response.data, // Inicialmente, los usuarios filtrados son iguales a todos los usuarios
+        filteredCharlaEstado: response.data, 
         statusCharlaEstado: true,
       });
     });
   };
 
-  // Método para manejar cambios en el cuadro de búsqueda
+  
   handleSearchChange = (event) => {
     const searchTerm = event.target.value;
     this.setState({ searchTerm }, () => {
-      // Llama a performSearch cada vez que se actualiza el término de búsqueda
+      
       this.performSearch();
     });
   };
 
-  // Método para realizar la búsqueda
+
   performSearch = () => {
     const { searchTerm, charlaEstado } = this.state;
 
-    // Filtra los usuarios basándose en el término de búsqueda
-    const filteredCharlaEstado = charlaEstado.filter(
-      (charla) =>
-        charla.descripcionCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.fechaSolicitudCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.fechaCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.techRider.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.provincia.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.provincia.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.estadoCharla.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredCharlaEstado = charlaEstado.filter((charla) => {
 
-    this.setState({ filteredCharlaEstado });
-  };
+      const descripcion = (charla.descripcion || '').toString().toLowerCase();
+      const fechaSolicitud = (charla.fechaSolicitud || '').toString().toLowerCase();
+      const fechaCharla = (charla.fechaCharla || '').toString().toLowerCase();
+      const idTechRider = (charla.idTechRider || '').toString().toLowerCase();
+      const idProvincia = (charla.idProvincia || '').toString().toLowerCase();
+      const idEstadoCharla = (charla.idEstadoCharla || '').toString().toLowerCase();
 
-  // Método que se ejecuta al montar el componente, obtiene los usuarios del estado
+      return (
+        descripcion.includes(searchTerm.toLowerCase()) ||
+        fechaSolicitud.includes(searchTerm.toLowerCase()) ||
+        fechaCharla.includes(searchTerm.toLowerCase()) ||
+        idTechRider.includes(searchTerm.toLowerCase()) ||
+        idProvincia.includes(searchTerm.toLowerCase()) ||
+        idEstadoCharla.includes(searchTerm.toLowerCase())
+      );
+  });
+
+  this.setState({ filteredCharlaEstado });
+};
+
+
+  
   componentDidMount() {
     this.getCharlaEstado();
   }
@@ -139,3 +146,7 @@ export default class TodosCHarlaUsuario extends Component {
     );
   }
 }
+
+
+// Modificar charlas de las otras areas
+// Segun usuarios habilitar el boton select de charlas
