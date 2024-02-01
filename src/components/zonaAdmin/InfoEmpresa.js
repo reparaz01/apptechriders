@@ -36,14 +36,29 @@ export default class InfoEmpresa extends Component {
 
   getResponsablesEmpresa = () => {
 
-    //Esperar API para recuperar todos los responsables de una empresa
+    var idEmpresa = this.props.idempresa;
+    var token = localStorage.getItem('token');
+    var headers = { Authorization: 'Bearer ' + token };
+    var request = "/api/EmpresasCentros/"+idEmpresa;
+    var url = Global.urlApi + request;
+    axios.get(url,{ headers }).then(response => {
+      this.setState({
+        empresa : response.data,
+        statusEmpresa : true,
+        error: null
+      });
+    })
+    .catch(error => {        
+      console.error('Error al obtener información de la empresa :', error);      
+      this.setState({      
+        error: 'Error al cargar la información la empresa. Inténtalo de nuevo más tarde.'    
+      });
+    });
   }
 
   componentDidMount (){
     this.getInfoEmpresa();
   }
-
-
 
   render() {
 
@@ -51,10 +66,7 @@ export default class InfoEmpresa extends Component {
     {
       return (
         <div>
-            <div className="header">
-                <Navbar />
-            </div>
-            
+              <Navbar />
               <div className="dashboard-body">
                   <div className="container my-4">
                     {/* De momento dejamso aqui un link para ir atras */}
@@ -117,19 +129,15 @@ export default class InfoEmpresa extends Component {
                           </div>
                       </form>
                       {this.state.empresa.idTipoEmpresa === 1 && (
-                        <button className="btn btn-primary">
+                        <button className="btn btn-dark">
                           Mostrar Responsables
                         </button>
                       )}
                   </div>
               </div>
-              <div className="footer">
-                  <Footer />
-              </div>
+              <Footer />
           </div>
       )
     }
     }
 }
-
-// 3. Ver si poner el boton PUT para actualizar datos. Y tambien habilitar el boton editar 

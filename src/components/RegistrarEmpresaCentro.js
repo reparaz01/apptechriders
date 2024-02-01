@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Navbar from './Navbar';
 import Footer from './Footer';
-
+import { NavLink } from 'react-router-dom';
 
 export default class RegistrarEmpresaCentro extends Component {
  cajaNombre = React.createRef();
@@ -102,6 +102,11 @@ export default class RegistrarEmpresaCentro extends Component {
      <div>
        <Navbar />
        <div className='container mt-5 mb-5'>
+        <NavLink to="/" className="form-label fw-bold" onClick={this.handleGoBack} role="img">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+            </svg>
+        </NavLink>
          <div className='card text-center'>
              <h2 className='card-header'>Registro de Centro o Empresa</h2>
                  <div className="card-body">
@@ -167,7 +172,7 @@ export default class RegistrarEmpresaCentro extends Component {
                              </div>
                          </div>
                          <br/>
-                         <button className='btn btn-info' type="submit" onClick={this.registro}>Registro Centro/Empresa</button>
+                         <button className='btn btn-dark' type="submit" onClick={this.registro}>Registro Centro/Empresa</button>
                      </form>
                  </div>
              </div>

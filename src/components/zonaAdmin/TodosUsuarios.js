@@ -159,7 +159,7 @@ export default class TodosUsuarios extends Component {
                                                 <td>{usuario.provincia}</td>
                                                 <td>{usuario.estado}</td>
                                                 <td>
-                                                    <NavLink to={'/infoUsuario/' + usuario.idUsuario} className="btn btn-info">
+                                                    <NavLink to={'/infoUsuario/' + usuario.idUsuario} className="btn btn-dark">
                                                         Informacion
                                                     </NavLink>
                                                 </td>

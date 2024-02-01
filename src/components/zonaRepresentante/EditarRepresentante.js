@@ -252,7 +252,7 @@ export default class EditarRepresentante extends Component {
           <div className="container my-4">
             <div className="container my-4 d-flex justify-content-center align-items-center">
               <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
-              <NavLink to="/areaRepresentante" className="btn btn-primary" role="button" onClick={this.putInformacion}>
+              <NavLink to="/areaRepresentante" className="btn btn-dark" role="button" onClick={this.putInformacion}>
                 Guardar Cambios
               </NavLink>
             </div>

@@ -157,17 +157,6 @@ export default class Registro extends Component {
                                         <input type="text" name="linkedin" ref={this.cajaLinkedin} className="form-control"/>
                                     </div>
                                     <div className='col md-6'>
-                                        <label>Contraseña:</label>
-                                        <input type="password" name="pass" ref={this.cajaPassword} className="form-control"/>
-                                    </div>
-                                </div>
-                                <br />
-                                <div className="row">
-                                    <div className='col md-6'>
-                                        <label>Repetir Contraseña:</label>
-                                        <input type="password" name="reppass" className="form-control" />
-                                    </div>
-                                    <div className='col md-6'>
                                         <label>Provincia:</label>
                                         <select name="provincia" ref={this.cajaProvincia} className="form-control">
                                             {           
@@ -180,19 +169,17 @@ export default class Registro extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                {/*<label>Empresa/Centro:</label>
-                                <select name="empresacentro" ref={this.cajaEmpresaCentro} className="form-control">
-                                    <option value={null}>
-                                        Sin Empresa/centro
-                                    </option> 
-                                    {                                          
-                                        this.state.empresacentros.map((empresacentro, index) => {                                                  
-                                            return(<option key={index} value={empresacentro.idEmpresaCentro}>
-                                                {empresacentro.nombre}
-                                            </option>)
-                                        }) 
-                                    }
-                                </select>*/}
+                                <br />
+                                <div className="row">
+                                    <div className='col md-6'>
+                                        <label>Contraseña:</label>
+                                        <input type="password" name="pass" ref={this.cajaPassword} className="form-control"/>
+                                    </div>
+                                    <div className='col md-6'>
+                                        <label>Repetir Contraseña:</label>
+                                        <input type="password" name="reppass" className="form-control" />
+                                    </div>
+                                </div>
                                 <br/>
                                 <button className='btn btn-dark btn-block' type="submit" onClick={this.registro}>&nbsp;&nbsp;  Registrarse &nbsp;&nbsp;</button>
                             </form>

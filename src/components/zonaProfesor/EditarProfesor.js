@@ -123,7 +123,24 @@ export default class EditarProfesor extends Component {
     });
 };
 
+handleEliminarCharla = (idCharla) => {
+  var token = localStorage.getItem('token');
+  var headers = { Authorization: 'Bearer ' + token };
+  var request = `api/charlas/${idCharla}`;
+  var url = Global.urlApi + request;
 
+  axios
+    .delete(url, { headers })
+    .then((response) => {
+        alert('Charla eliminada');
+        this.setState({
+            charlas: this.state.charlas.filter((charla) => charla.idCharla !== idCharla),
+        });
+    })
+    .catch((error) => {
+        console.error('Error al eliminar charla:', error);
+    });
+};
 
 
 
@@ -147,19 +164,18 @@ export default class EditarProfesor extends Component {
   }
   getEmpresasCentro = () => {
 
-        var request = "api/EmpresasCentros/"
-        var url = Global.urlApi + request;
+    var request = "api/EmpresasCentros/"
+    var url = Global.urlApi + request;
 
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    centros: response.data
-                });
-            })
-            .catch(error => {
-                console.error('Error al obtener Empresa Centro:', error);
+    axios.get(url)
+        .then(response => {
+            this.setState({
+                centros: response.data
             });
-    
+        })
+        .catch(error => {
+            console.error('Error al obtener Empresa Centro:', error);
+        });
   }
 
 
@@ -219,12 +235,8 @@ export default class EditarProfesor extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Verificar si el estado de la información ha cambiado
     if (prevState.cursos !== this.state.cursos) {
       this.getCharlasProfesor();
-      
-      /*console.log(this.state.informacion);*/
-      // Aquí puedes realizar cualquier otra operación después de la actualización del estado
     }
   }
 
@@ -245,7 +257,7 @@ export default class EditarProfesor extends Component {
           <div className="container my-4">
             <div className="container my-4 d-flex justify-content-center align-items-center">
               <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
-              <NavLink to="/areaProfesor" className="btn btn-primary" role="button" onClick={this.putInformacion}>
+              <NavLink to="/areaProfesor" className="btn btn-dark" role="button" onClick={this.putInformacion}>
                 Guardar Cambios
               </NavLink>
             </div>

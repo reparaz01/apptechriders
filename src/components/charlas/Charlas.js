@@ -132,10 +132,8 @@ export default class Charlas extends Component {
 
   render() {
     return (
-      <div>
-        <div className="header">
-          <Navbar />
-        </div>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
         <div className="dashboard-body">
           <div className="cajas-arriba">
             <div>
@@ -153,6 +151,7 @@ export default class Charlas extends Component {
                   onChange={this.handleSearchChange}
                 />
               </form>
+              <br></br>
             </div>
           </div>
           <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
@@ -181,13 +180,19 @@ export default class Charlas extends Component {
                         <td>{charlas.modalidad}</td>
                         <td>
                         {this.state.usuario.idRole === 3 ? (
-                          <button className='btn btn-success' onClick={() => this.putCharlaTech(this.state.usuario.idUsuario,charlas.idCharla)}>
-                            Seleccionar
+                          <>
+                          <button className='btn btn-dark' onClick={() => this.putCharlaTech(this.state.usuario.idUsuario,charlas.idCharla)}>
+                            Seleccionar 
                           </button>
+                          &nbsp;&nbsp;&nbsp;
+                          <NavLink to={"/detallesCharla"} className="btn btn-dark" onClick={() => localStorage.setItem('idCharlaSeleccionada', charlas.idCharla)}>
+                            Informacion 
+                          </NavLink>
+                          </>
                         ) : (
-                          <NavLink to={"/detallesCharla/"+charlas.idCharla} className={'btn btn-success'}>
-                            Detalles
-                          </NavLink>  
+                          <NavLink to={"/detallesCharla"} className="btn btn-dark" onClick={() => localStorage.setItem('idCharlaSeleccionada', charlas.idCharla)}>
+                            Informacion
+                          </NavLink>
                         )}
                         </td>
                       </tr>
@@ -197,10 +202,8 @@ export default class Charlas extends Component {
             </table>
           </div>
         </div>
-        <div className="footer">
-          <Footer />
-        </div>
-        {this.state.redirectTo && <RedirectTo path={this.state.redirectTo} />} 
+        {this.state.redirectTo && <RedirectTo path={this.state.redirectTo} />}
+        <Footer /> 
       </div>
     );
   }

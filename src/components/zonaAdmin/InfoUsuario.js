@@ -134,9 +134,7 @@ export default class InfoUsuario extends Component {
   render() {
     return (
         <div>
-            <div className="header">
-                <Navbar />
-            </div>
+            <Navbar />
             <div className="container my-4">
 
                 {/* Muestra un texto con el nombre del usuario */}
@@ -233,21 +231,21 @@ export default class InfoUsuario extends Component {
                                             
                                             {/* Muestra una serie de botones segun el estado del usuario  */}
                                             {this.state.informacion.estado === 0 && (
-                                                <button className="btn btn-primary mt-2" onClick={this.activarUsuario}>
+                                                <button className="btn btn-dark" onClick={this.activarUsuario}>
                                                     Activar Usuario
                                                 </button>
                                             )}
                                             {this.state.informacion.estado === 1 && (
-                                                <button className="btn btn-warning mt-2" onClick={this.bajaUsuario}>
+                                                <button className="btn btn-dark" onClick={this.bajaUsuario}>
                                                     Dar de Baja Usuario
                                                 </button>
                                             )}
                                             {this.state.informacion.estado === 2 && (
                                                 <div>
-                                                    <button className="btn btn-success mt-2">
+                                                    <button className="btn btn-dark" onClick={this.activarUsuario}>
                                                         Aceptar Usuario
                                                     </button>
-                                                    <button className="btn btn-danger mt-2 ms-2">
+                                                    <button className="btn btn-dark" onClick={this.bajaUsuario}>
                                                         Rechazar Usuario
                                                     </button>
                                                 </div>
@@ -259,9 +257,7 @@ export default class InfoUsuario extends Component {
                     )
                 }
             </div>
-            <div className="footer">
-                <Footer />
-            </div>
+            <Footer />
         </div>
     )
   }

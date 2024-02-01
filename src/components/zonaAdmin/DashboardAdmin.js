@@ -1,12 +1,9 @@
-// DashboardAdmin.js
 import React, { Component } from 'react';
 import Navbar from './../Navbar';
 import Footer from './../Footer';
 import SidebarAdmin from './SidebarAdmin';
 import './../../styles/zonaAdmin.css';
-//import Perfil from './Perfil';
 import InfoAdmin from './InfoAdmin';
-//import Usuarios from './Usuarios';
 import Todosusuarios from './TodosUsuarios';
 import TodosCharlas from './TodosCharlas';
 import TodosEmpresas from './TodosEmpresas';

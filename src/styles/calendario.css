@@ -19,7 +19,7 @@ body .fc {
 
 .fc-bgevent {
   /* default look for background events */
-  background: #8fdf82;
+  background: #bce8f1;
   opacity: 0.3; }
 
 .fc-nonbusiness {
@@ -235,11 +235,11 @@ temporary rendered events).
   font-size: 0.85em;
   line-height: 1.4;
   border-radius: 3px;
-  border: 1px solid #3788d8; }
+  border: 1px solid #000000; }
 
 .fc-event,
 .fc-event-dot {
-  background-color: #3788d8;
+  background-color: #000000;
   /* default BACKGROUND color */ }
 
 .fc-event,
@@ -511,8 +511,7 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-list-heading td {
   background: #eee; }
 
-.fc-unthemed td.fc-today {
-  background: #fcf8e3; }
+
 
 .fc-unthemed .fc-disabled-day {
   background: #d7d7d7;
@@ -627,13 +626,13 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 /* "primary" coloring */
 .fc-button-primary {
   color: #fff;
-  background-color: #2C3E50;
-  border-color: #2C3E50; }
+  background-color: #000000;
+  border-color: #000000; }
 
 .fc-button-primary:hover {
   color: #fff;
-  background-color: #1e2b37;
-  border-color: #1a252f; }
+  background-color: #000000;
+  border-color: #000000; }
 
 .fc-button-primary:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(76, 91, 106, 0.5);
@@ -1331,16 +1330,19 @@ be a descendant of the grid when it is being dragged.
     background-color: #000000; /* Fondo negro para los botones */
     color: #ffffff; /* Texto blanco para los botones */
     border: none; /* Elimina el borde predeterminado */
-    padding: 5x; /* Ajusta el relleno para aumentar el tamaño del botón */
+    padding: 5x 10px; /* Ajusta el relleno para aumentar el tamaño del botón */
     font-size: 16px; /* Ajusta el tamaño del texto del botón */
     cursor: pointer; /* Cambia el cursor al pasar el ratón para indicar que es interactivo */
-    content: "\2039"; /* Contenido Unicode para la flecha de "prev" */
+    content: "holal"; /* Contenido Unicode para la flecha de "prev" */
   }
   
   .fc-next-button::after {
-    content: "\203A"; /* Contenido Unicode para la flecha de "next" */
+    content: "⏵"; /* Contenido Unicode para la flecha de "next" */
   }
   
+  .fc-prev-button::after {
+    content: "⏴"; /* Contenido Unicode para la flecha de "next" */
+  }
   /* Cambia el color del texto en los botones al pasar el ratón */
   .fc-prev-button:hover,
   .fc-next-button:hover {
@@ -1360,3 +1362,38 @@ be a descendant of the grid when it is being dragged.
     border: 1px solid #000000; /* Borde negro para resaltar el día actual */
     color: #ffffff; /* Texto blanco para resaltar el día actual */
   }
+  .fc-daygrid-event {
+    display: inline-block center; /* o block según tus preferencias */
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    border: 1px solid #000; /* Borde opcional */
+    border-radius: 3px; /* Borde redondeado */
+    padding: 2px 10px; /* Ajusta el relleno para reducir el tamaño de la caja de evento */
+    text-align: center; /* Centra el texto */
+    overflow: hidden; /* Oculta el texto que excede el tamaño de la caja */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  }
+  
+  .fc-daygrid-event:hover {
+    background-color: #333; /* Cambia el color de fondo al pasar el ratón */
+  }
+
+  .fc-day-today {
+    background-color: #000000; /* Azul cian */
+
+  }
+  .fc-toolbar-chunk button.fc-today-button {
+    background-color: #000000; /* Fondo negro */
+    color: #ffffff; /* Texto blanco */
+    border: none; /* Elimina el borde predeterminado */
+    padding: 6px 10px; /* Ajusta el relleno para aumentar el tamaño del botón si es necesario */
+    font-size: 16px; /* Ajusta el tamaño del texto del botón */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón para indicar que es interactivo */
+  }
+  
+  /* Estilo para resaltar el botón "today" al pasar el ratón */
+  .fc-toolbar-chunk button.fc-today-button:hover {
+    background-color: #333333; /* Cambia el color de fondo al pasar el ratón */
+  }
+
+  

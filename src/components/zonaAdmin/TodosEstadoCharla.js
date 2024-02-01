@@ -50,17 +50,17 @@ export default class TodosCHarlaUsuario extends Component {
       const descripcion = (charla.descripcion || '').toString().toLowerCase();
       const fechaSolicitud = (charla.fechaSolicitud || '').toString().toLowerCase();
       const fechaCharla = (charla.fechaCharla || '').toString().toLowerCase();
-      const idTechRider = (charla.idTechRider || '').toString().toLowerCase();
-      const idProvincia = (charla.idProvincia || '').toString().toLowerCase();
-      const idEstadoCharla = (charla.idEstadoCharla || '').toString().toLowerCase();
+      const turno = (charla.turno || '').toString().toLowerCase();
+      const modalidad = (charla.modalidad || '').toString().toLowerCase();
+      const idCharla = (charla.idCharla || '').toString().toLowerCase();
 
       return (
         descripcion.includes(searchTerm.toLowerCase()) ||
         fechaSolicitud.includes(searchTerm.toLowerCase()) ||
         fechaCharla.includes(searchTerm.toLowerCase()) ||
-        idTechRider.includes(searchTerm.toLowerCase()) ||
-        idProvincia.includes(searchTerm.toLowerCase()) ||
-        idEstadoCharla.includes(searchTerm.toLowerCase())
+        turno.includes(searchTerm.toLowerCase()) ||
+        modalidad.includes(searchTerm.toLowerCase()) ||
+        idCharla.includes(searchTerm.toLowerCase())
       );
   });
 
@@ -75,10 +75,8 @@ export default class TodosCHarlaUsuario extends Component {
 
   render() {
     return (
-      <div>
-        <div className="header">
-          <Navbar />
-        </div>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
         <div className="container my-4">
           <div className="cajas-arriba">
             <div>
@@ -106,13 +104,13 @@ export default class TodosCHarlaUsuario extends Component {
               <thead className="table-light">
                 <tr>
                   <th>#</th>
+                  <th>Id</th>
                   <th>Descripción</th>
                   <th>Fecha Solicitud</th>
                   <th>Fecha Charla</th>
-                  <th>Tech Rider</th>
-                  <th>Provincia</th>
-                  <th>Estado</th>
-                  <th>Opciones</th>
+                  <th>Turno</th>
+                  <th>Modalidad</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -121,14 +119,14 @@ export default class TodosCHarlaUsuario extends Component {
                     return (
                       <tr key={index}>
                         <td> </td>
+                        <td>{charla.idCharla}</td>
                         <td>{charla.descripcion}</td>
                         <td>{charla.fechaSolicitud}</td>
                         <td>{charla.fechaCharla}</td>
-                        <td>{charla.idTechRider}</td>
-                        <td>{charla.idProvincia}</td>
-                        <td>{charla.idEstadoCharla}</td>
+                        <td>{charla.turno}</td>
+                        <td>{charla.modalidad}</td>
                         <td>
-                          <NavLink to={'#'} className="btn btn-info">
+                          <NavLink to={"/detallesCharla"} className="btn btn-dark" onClick={() => localStorage.setItem('idCharlaSeleccionada', charla.idCharla)}>
                             Informacion
                           </NavLink>
                         </td>
@@ -139,14 +137,8 @@ export default class TodosCHarlaUsuario extends Component {
             </table>
           </div>
         </div>
-        <div className="footer">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     );
   }
 }
-
-
-// Modificar charlas de las otras areas
-// Segun usuarios habilitar el boton select de charlas

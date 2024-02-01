@@ -135,7 +135,7 @@ export default class TodosEmpresas extends Component {
                                                 <td>{empresas.tipoEmpresa}</td>
                                                 <td>{empresas.descripcionEstado}</td>
                                                 <td>
-                                                    <NavLink to={'/infoEmpresa/'+empresas.idEmpresaCentro} className="btn btn-info">
+                                                    <NavLink to={'/infoEmpresa/'+empresas.idEmpresaCentro} className="btn btn-dark">
                                                         Informacion
                                                     </NavLink>
                                                 </td>

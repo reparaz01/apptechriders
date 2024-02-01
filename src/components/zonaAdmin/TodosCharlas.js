@@ -61,18 +61,22 @@ export default class TodosCharla extends Component {
   // Método para realizar la búsqueda
   performSearch = () => {
     var { searchTerm, charlas } = this.state;
-
+  
     // Filtra las charlas basándose en el término de búsqueda
-    const filteredCharlas = charlas.filter(
-      (charla) =>
+    const filteredCharlas = charlas.filter((charla) => {
+      const idCharlaString = String(charla.idCharla); // Convierte a cadena
+  
+      return (
         charla.descripcionCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
         charla.fechaSolicitudCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
         charla.fechaCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (charla.techRider && charla.techRider.toLowerCase().includes(searchTerm.toLowerCase())) ||
         charla.provincia.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        charla.estadoCharla.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+        charla.estadoCharla.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        idCharlaString.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+  
     this.setState({ filteredCharlas });
   };
 
@@ -138,6 +142,7 @@ export default class TodosCharla extends Component {
               <thead className="table-light">
                 <tr>
                   <th>#</th>
+                  <th>ID</th>
                   <th>Descripción</th>
                   <th>Fecha Solicitud</th>
                   <th>Fecha Charla</th>
@@ -153,6 +158,7 @@ export default class TodosCharla extends Component {
                     return (
                       <tr key={index}>
                         <td> </td>
+                        <td>{charla.idCharla}</td>
                         <td>{charla.descripcionCharla}</td>
                         <td>{charla.fechaSolicitudCharla}</td>
                         <td>{charla.fechaCharla}</td>
@@ -160,7 +166,7 @@ export default class TodosCharla extends Component {
                         <td>{charla.provincia}</td>
                         <td>{charla.estadoCharla}</td>
                         <td>
-                          <NavLink to={'/infoUsuario/' + charla.idCharla} className="btn btn-info">
+                          <NavLink to={"/detallesCharla"} className="btn btn-dark" onClick={() => localStorage.setItem('idCharlaSeleccionada', charla.idCharla)}>
                             Informacion
                           </NavLink>
                         </td>

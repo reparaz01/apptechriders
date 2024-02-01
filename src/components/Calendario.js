@@ -5,9 +5,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import bootstrap from "@fullcalendar/bootstrap";
 import timeGrid from "@fullcalendar/timegrid";
 import calenderList from "@fullcalendar/list";
-import interaction from "@fullcalendar/interaction";
 import Global from './Global';
- import './../styles/calendario.css'; 
+import './../styles/calendario.css'; 
 
 class Calendario extends Component {
   state = {
@@ -36,7 +35,11 @@ class Calendario extends Component {
   };
 
   handleEventClick = (clickInfo) => {
-    console.log(clickInfo);
+    const idCharlaSeleccionada = clickInfo.event.id;
+    localStorage.setItem('idCharlaSeleccionada', idCharlaSeleccionada);
+
+    // Redirige a DetallesCharla
+    window.location.href = "/detallesCharla";
   };
 
   handleEvents = (events) => {
@@ -44,8 +47,16 @@ class Calendario extends Component {
   };
 
   renderEventContent = (eventInfo) => {
+    const idCharlaSeleccionada = eventInfo.event.id;
+
     return (
-      <div>
+      <div
+        onClick={() => {
+          localStorage.setItem('idCharlaSeleccionada', idCharlaSeleccionada);
+          window.location.href = "/detallesCharla";
+        }}
+        style={{ cursor: "pointer" }} // Cambia el cursor para indicar que es interactivo
+      >
         <b>{eventInfo.timeText}</b>
         <br />
         <b>{eventInfo.event.title}</b>
@@ -56,10 +67,10 @@ class Calendario extends Component {
   render() {
     const { charlas } = this.state;
 
-    // Transforma las charlas en el formato esperado por FullCalendar
     const events = charlas.map(charla => ({
-      title: charla.descripcion, 
-      date: new Date(charla.fechaCharla).toISOString().split('T')[0] 
+      title: charla.descripcion,
+      date: new Date(charla.fechaCharla).toISOString().split('T')[0],
+      id: charla.idCharla
     }));
 
     return (
@@ -73,16 +84,14 @@ class Calendario extends Component {
               plugins={[
                 dayGridPlugin,
                 bootstrap,
-                interaction,
                 timeGrid,
                 calenderList
               ]}
-
               initialView="dayGridMonth"
               events={events}
-              eventColor="#378006"
+              eventColor="#000000"
               themeSystem="bootstrap"
-              navLinks="true"
+              navLinks={true}
               headerToolbar={{
                 left: "prev,next today",
                 center: "title",
@@ -91,13 +100,12 @@ class Calendario extends Component {
               locales="allLocales"
               locale="es"
               firstDay="1"
-              editable={false} // Desactiva la edición y el arrastre
+              editable={false}
               selectable={true}
               selectMirror={true}
               dayMaxEvents={true}
               weekends={true}
               eventContent={this.renderEventContent}
-              eventClick={this.handleEventClick}
               eventsSet={this.handleEvents}
               height={700}
             />

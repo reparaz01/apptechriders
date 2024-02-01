@@ -136,15 +136,6 @@ export default class InfoAdmin extends Component {
         this.getInformacion();
     }
 
-    // Función que se ejecuta al actualizar el componente
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.statusPutInformacion && this.state.statusPutInformacion !== prevState.statusPutInformacion) {
-    //         // Redirige a /zonaAdmin después de una actualización exitosa
-    //         alert("entro");
-    //         this.setState({ redirectTo: "/zonaAdmin" });
-    //     }
-    // }
-
     // Función que renderiza el componente
     render() {
         return (
@@ -212,8 +203,8 @@ export default class InfoAdmin extends Component {
                             </div>
                         </form>
                         {/* Botones para activar edición y actualizar datos */}
-                        <button type="submit" className="btn btn-warning" onClick={this.ableCamps}>Activar Edicion</button>
-                        <button type="submit" className="btn btn-success" onClick={this.putInformacion}>Actualizar Datos</button>
+                        <button type="submit" className="btn btn-dark" onClick={this.ableCamps}>Activar Edicion</button>
+                        <button type="submit" className="btn btn-dark" onClick={this.putInformacion}>Actualizar Datos</button>
                     </div>
                     {/* Redirección a la ruta especificada */}
                     {this.state.redirectTo && <RedirectTo path={this.state.redirectTo} />}

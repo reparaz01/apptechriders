@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { NavLink } from 'react-router-dom';
  
 export default class RegistrarCurso extends Component {
     cajaIdCentro = React.createRef();
@@ -134,6 +135,11 @@ export default class RegistrarCurso extends Component {
         <div>
         <Navbar />
         <div className='container mt-5 mb-5'>
+            <NavLink to="/areaProfesor" className="form-label fw-bold" onClick={this.handleGoBack} role="img">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                </svg>
+            </NavLink>
           <div className='card text-center'>
               <h2 className='card-header'>Nuevo Curso</h2>
                   <div className="card-body">
@@ -148,7 +154,7 @@ export default class RegistrarCurso extends Component {
                             <label>Descripcion:</label>
                             <input type="text" name="descripcion" ref={this.cajaDescripcion} className="form-control" />
                             <br/>
-                            <button className='btn btn-info' type="submit" onClick={this.CrearCurso}>Crear Curso</button>
+                            <button className='btn btn-dark' type="submit" onClick={this.CrearCurso}>Crear Curso</button>
                       </form>
                   </div>
               </div>

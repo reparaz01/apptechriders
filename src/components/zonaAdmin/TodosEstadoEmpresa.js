@@ -62,9 +62,7 @@ export default class TodosEstadoEmpresa extends Component {
   render() {
     return (
       <div>
-        <div className="header">
-          <Navbar />
-        </div>
+        <Navbar />
         <div className="container my-4">
           <div className="cajas-arriba">
             <div>
@@ -112,7 +110,7 @@ export default class TodosEstadoEmpresa extends Component {
                         <td>{empresa.tipoEmpresa}</td>
                         <td>{empresa.descripcionEstado}</td>
                         <td>
-                          <NavLink to={'/infoEmpresa/'+empresa.idEmpresaCentro} className="btn btn-info">
+                          <NavLink to={'/infoEmpresa/'+empresa.idEmpresaCentro} className="btn btn-dark">
                             Información
                           </NavLink>
                         </td>
@@ -123,9 +121,7 @@ export default class TodosEstadoEmpresa extends Component {
             </table>
           </div>
         </div>
-        <div className="footer">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     );
   }

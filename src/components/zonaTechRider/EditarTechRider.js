@@ -199,6 +199,34 @@ export default class EditarTechrider extends Component {
         this.loadCharlaDetalles(idCharla);
     };
 
+    eliminarTecnologia = (idTecnologia) => {
+        var token = localStorage.getItem('token');
+        var headers = { Authorization: 'Bearer ' + token };
+        var requestTecnologiasTech = "api/tecnologiastechriders/delete/" + localStorage.getItem("idUsuario") + "/" + idTecnologia;
+        var urlTecnologiaTech = Global.urlApi + requestTecnologiasTech;
+        
+        var requestCurso = "api/tecnologias/" + idTecnologia;
+        var urlTecnologia = Global.urlApi + requestCurso;
+    
+        axios.delete(urlTecnologiaTech, { headers })
+          .then((responseTecnologiaTech) => {
+            if (responseTecnologiaTech.status === 200) {
+              axios.delete(urlTecnologia, { headers })
+                .then((responseTecnologia) => {
+                    this.setState({
+                      tecnologia: this.state.tecnologias.filter(tecnologia => tecnologia.idTecnologia !== idTecnologia),
+                    });
+                    alert('Tecnologia eliminada exitosamente');
+                  })
+                .catch((errorCurso) => {
+                  alert('No se puede eliminar la tecnologia, hay por lo menos una charla asignada con ella.');
+                });
+            } else {
+              alert('Error al eliminar la tecnologia del techrider.');
+            }
+          })
+    }
+
     
     loadCharlaDetalles = (idCharla) => {
         var request = "api/charlas/" + idCharla;
@@ -296,7 +324,7 @@ export default class EditarTechrider extends Component {
             <div className="container my-4">
                 <div className="container my-4 d-flex justify-content-center align-items-center">
                 <h1 className="text-center mb-0 me-2 ms-2">Datos Personales  </h1> &nbsp; &nbsp;&nbsp;&nbsp;
-                <NavLink to="/areaTech" className="btn btn-primary" role="button" onClick={this.putInformacion}>
+                <NavLink to="/areaTech" className="btn btn-dark" role="button" onClick={this.putInformacion}>
                     Guardar Cambios
                 </NavLink>
                 </div>
@@ -406,7 +434,7 @@ export default class EditarTechrider extends Component {
                         <td>{tecnologia.tipoTecnologia}</td>
            
                         <td>
-                            <button className="btn btn-danger" onClick={() => this.handleEliminarTecnologia(tecnologia.idTecnologia)}>
+                            <button className="btn btn-danger" onClick={() => this.eliminarTecnologia(tecnologia.idTecnologia)}>
                             Eliminar
                             </button>
                         </td>
@@ -421,12 +449,6 @@ export default class EditarTechrider extends Component {
             <div className="container my-2">
             <h1 className="text-center">
                 Mis Charlas &nbsp;
-                <NavLink to="/registrarCharla" className="form-label fw-bold" role="img">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
-                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-            </svg>
-                </NavLink>
             </h1>
             <br />
             <table className="table">
@@ -449,7 +471,7 @@ export default class EditarTechrider extends Component {
                     <td>
                         {/* eslint-disable eqeqeq */}
                         {charla.idEstadoCharla == '3' ? (
-                            <button className='btn btn-success' onClick={() => this.handleEliminarCharla(charla.idCharla)}>
+                            <button className='btn btn-danger' onClick={() => this.handleEliminarCharla(charla.idCharla)}>
                                 Eliminar
                             </button>
                         ) : (

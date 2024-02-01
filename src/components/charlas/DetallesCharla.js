@@ -150,39 +150,39 @@ export default class DetallesCharla extends Component {
               <div className="row">
                 <div className="col-md-6 mb-3 mb-md-0">
                   <label className="form-label fw-bold">Descripción</label>
-                  <input type="text" readOnly className="form-control" value={this.state.charla.descripcion} />
+                  <input type="text" readOnly className="form-control" defaultValue={this.state.charla.descripcion} />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label fw-bold">Fecha</label>
-                  <input type="text" readOnly className="form-control" value={new Date(this.state.charla.fechaCharla).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} />
+                  <input type="text" readOnly className="form-control" defaultValue={new Date(this.state.charla.fechaCharla).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} />
                 </div>
                 <div className="col-md-6 mt-3">
                   <label className="form-label fw-bold">Estado</label>
-                  <input type="text" readOnly className="form-control" value={this.getEstadoCharla(this.state.charla.idEstadoCharla)} />
+                  <input type="text" readOnly className="form-control" defaultValue={this.getEstadoCharla(this.state.charla.idEstadoCharla)} />
                 </div>
                 <div className="col-md-6 mt-3">
                   <label className="form-label fw-bold">Provincia</label>
-                  <input type="text" readOnly className="form-control"  value={this.state.provincia ? this.state.provincia.nombreProvincia : 'Desconocida'} />
+                  <input type="text" readOnly className="form-control"  defaultValue={this.state.provincia ? this.state.provincia.nombreProvincia : 'Desconocida'} />
                 </div>
                 <div className="col-md-6 mt-3">
                   <label className="form-label fw-bold">Curso</label>
-                  <input type="text" readOnly className="form-control" value={this.state.curso.nombreCurso} />
+                  <input type="text" readOnly className="form-control" defaultValue={this.state.curso.nombreCurso} />
                 </div>
                 <div className="col-md-6 mt-3">
                   <label className="form-label fw-bold">Fecha Solicitud</label>
-                  <input type="text" readOnly className="form-control" value={new Date(this.state.charla.fechaSolicitud).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} />
+                  <input type="text" readOnly className="form-control" defaultValue={new Date(this.state.charla.fechaSolicitud).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} />
                 </div>
                 <div className="col-md-6 mt-3">
                   <label className="form-label fw-bold">Modalidad</label>
-                  <input type="text" readOnly className="form-control" value={this.state.charla.modalidad} />
+                  <input type="text" readOnly className="form-control" defaultValue={this.state.charla.modalidad} />
                 </div>
                 <div className="col-md-6 mt-3">
                   <label className="form-label fw-bold">TechRider</label>
-                  <input type="text" readOnly className="form-control" value={this.state.techrider ? this.state.techrider.nombre : 'No hay Tech Rider'} />
+                  <input type="text" readOnly className="form-control" Value={this.state.techrider ? this.state.techrider.nombre : 'No hay Tech Rider'} />
                 </div>
                 <div className="mt-3">
                   <label className="form-label fw-bold">Observaciones</label>
-                  <textarea className="form-control" value={this.state.charla.observaciones} readOnly />
+                  <textarea className="form-control" defaultValue={this.state.charla.observaciones} readOnly />
                 </div>
               </div>
             </div>
