@@ -58,8 +58,8 @@ class Calendario extends Component {
 
     // Transforma las charlas en el formato esperado por FullCalendar
     const events = charlas.map(charla => ({
-      title: charla.descripcion.replace(/^0+/, ''), // Elimina el cero inicial
-      date: charla.fechaCharla
+      title: charla.descripcion, 
+      date: new Date(charla.fechaCharla).toISOString().split('T')[0] 
     }));
 
     return (
@@ -77,6 +77,7 @@ class Calendario extends Component {
                 timeGrid,
                 calenderList
               ]}
+
               initialView="dayGridMonth"
               events={events}
               eventColor="#378006"

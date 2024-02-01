@@ -30,9 +30,11 @@ import RegistrarTecnologia from './RegistrarTecnologia';
 import AreaRepresentante from './zonaRepresentante/AreaRepresentante';
 import EditarRepresentante from './zonaRepresentante/EditarRepresentante';
 
+//Zona Charlas
 import Charlas from './charlas/Charlas';
 import DetallesCharla from './charlas/DetallesCharla';
 import RegistrarCharla from './charlas/RegistrarCharla';
+//Fin zona charlas
 
 export default class Router extends Component {
   render() {
@@ -64,6 +66,8 @@ export default class Router extends Component {
   }
   //Fin funciones zona Admin
 
+  //Zona charlas
+  //Fin zona charlas
    
     return (
       <BrowserRouter>
@@ -74,9 +78,11 @@ export default class Router extends Component {
           <Route path="/registro" element={<Registro />} />
           <Route path="/contacto" element={<Contacto />} />
 
+          {/* Rutas zona charlas */}
           <Route path="/charlas" element={<Charlas />} />
           <Route path="/detallesCharla" element={<DetallesCharla/>} />
           <Route path="/registrarCharla" element={<RegistrarCharla/>} />
+          {/*Fin rutas zona charlas */}
 
           {/* Rutas zona Admin */}
           <Route path="/zonaAdmin" element={<ZonaAdmin />} />

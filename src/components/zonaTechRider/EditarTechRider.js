@@ -27,6 +27,7 @@ export default class EditarTechrider extends Component {
         centroUsuario: {},
         tecnologias: [],
         charlas: [],
+        charla:{},
         idUsuario: localStorage.getItem("idUsuario"),
     };
  
@@ -80,7 +81,6 @@ export default class EditarTechrider extends Component {
         const urlTodasCharlas = Global.urlApi + request;
         axios.get(urlTodasCharlas).then((response) => {
             var todasCharlas = response.data;
-            console.log('Todas las charlas:', todasCharlas);
             this.setState({
               charlas: todasCharlas,
             });
@@ -193,9 +193,80 @@ export default class EditarTechrider extends Component {
             console.error('Error al actualizar usuario:', error);
         });
     };
+
+    handleEliminarCharla = (idCharla) => {
+        // Antes de hacer la eliminación, carga los detalles de la charla
+        this.loadCharlaDetalles(idCharla);
+    };
+
+    
+    loadCharlaDetalles = (idCharla) => {
+        var request = "api/charlas/" + idCharla;
+        var url = Global.urlApi + request;
+    
+        axios.get(url).then(response => {
+            this.setState({
+                charla: response.data,
+            }, () => {
+                // Actualiza el estado con el ID del TechRider a null
+                // y el ID del EstadoCharla a 2 (indicando eliminación por el TechRider)
+                this.setState({
+                    charla: {
+                        idCharla: idCharla,
+                        idTechRider: null,
+                        idEstadoCharla: 2,
+                        descripcion: this.state.charla.descripcion,
+                        acreditacionLinkedIn: this.state.charla.acreditacionLinkedIn,
+                        fechaCharla: this.state.charla.fechaCharla,
+                        observaciones: this.state.charla.observaciones,
+                        fechaSolicitud: this.state.charla.fechaSolicitud,
+                        turno: this.state.charla.turno,
+                        modalidad: this.state.charla.modalidad,
+                        idCurso: this.state.charla.idCurso,
+                        idProvincia: this.state.charla.idProvincia,
+                    },
+                }, () => {
+                    // Realiza la actualización en la base de datos
+                    var token = localStorage.getItem('token');
+                    var headers = { Authorization: 'Bearer ' + token };
+                    var request = "api/charlas/";
+                    var url = Global.urlApi + request;
+    
+                    var data = {
+                        idCharla: idCharla,
+                        idTechRider: this.state.charla.idTechRider,
+                        idEstadoCharla: this.state.charla.idEstadoCharla,
+                        descripcion: this.state.charla.descripcion,
+                        acreditacionLinkedIn: this.state.charla.acreditacionLinkedIn,
+                        fechaCharla: this.state.charla.fechaCharla,
+                        observaciones: this.state.charla.observaciones,
+                        fechaSolicitud: this.state.charla.fechaSolicitud,
+                        turno: this.state.charla.turno,
+                        modalidad: this.state.charla.modalidad,
+                        idCurso: this.state.charla.idCurso,
+                        idProvincia: this.state.charla.idProvincia,
+                    };
+    
+                    axios.put(url, data, { headers })
+                        .then((response) => {
+                            // Realiza las actualizaciones necesarias en el estado o realiza cualquier otra acción
+                            console.log('Charla actualizada con éxito:', response.data);
+                            alert('Charla actualizada');
+    
+                            // Vuelve a cargar las charlas después de la eliminación
+                            this.getCharlasTechrider();
+                        })
+                        .catch((error) => {
+                            console.error('Error al actualizar charla:', error);
+                        });
+                });
+            });
+        });
+    };
  
     componentDidMount() {
         this.getInformacion();
+        
        
  
     }
@@ -204,7 +275,6 @@ export default class EditarTechrider extends Component {
         // Verificar si el estado de la información ha cambiado
         if (prevState.informacion !== this.state.informacion) {
         this.getCharlasTechrider();
-       
         /*console.log(this.state.informacion);*/
         // Aquí puedes realizar cualquier otra operación después de la actualización del estado
         }

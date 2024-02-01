@@ -1308,3 +1308,55 @@ be a descendant of the grid when it is being dragged.
   border-width: 5px 6px 5px 0;
   border-top-color: transparent;
   border-bottom-color: transparent; }
+
+
+  .fc-header-toolbar button {
+    background-color: #000000; /* Fondo negro para los botones */
+    color: #ffffff; /* Texto blanco para los botones */
+  }
+  
+
+
+    
+  /* Nuevos */
+  /* Estilos para el botón "hoy" */
+  .fc-today-button {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  
+  /* Estilos para los botones de navegación "prev" y "next" */
+  .fc-prev-button,
+  .fc-next-button {
+    background-color: #000000; /* Fondo negro para los botones */
+    color: #ffffff; /* Texto blanco para los botones */
+    border: none; /* Elimina el borde predeterminado */
+    padding: 5x; /* Ajusta el relleno para aumentar el tamaño del botón */
+    font-size: 16px; /* Ajusta el tamaño del texto del botón */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón para indicar que es interactivo */
+    content: "\2039"; /* Contenido Unicode para la flecha de "prev" */
+  }
+  
+  .fc-next-button::after {
+    content: "\203A"; /* Contenido Unicode para la flecha de "next" */
+  }
+  
+  /* Cambia el color del texto en los botones al pasar el ratón */
+  .fc-prev-button:hover,
+  .fc-next-button:hover {
+    color: #cccccc; /* Cambia el color del texto al pasar el ratón */
+  }
+  
+  /* Estilos para los eventos en el calendario */
+  .fc-event {
+    background-color: #000000; /* Fondo negro para eventos */
+    border-color: #000000; /* Borde negro para eventos */
+    color: #ffffff; /* Texto blanco para eventos */
+  }
+  
+  /* Estilos para el día actual en el modo de vista del mes */
+  .fc-highlight {
+    background-color: #333; /* Fondo oscuro para resaltar el día actual */
+    border: 1px solid #000000; /* Borde negro para resaltar el día actual */
+    color: #ffffff; /* Texto blanco para resaltar el día actual */
+  }
