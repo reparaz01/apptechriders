@@ -8,9 +8,13 @@ import { NavLink } from 'react-router-dom';
 export default class InfoEmpresa extends Component {
 
   state = {
+    idEmpresa: this.props.idempresa,
     empresa : {},
     statusEmpresa : false,
-    error : null
+    error : null,
+    empresaResponsables: [],
+    statusEmpresaResponsable : false,
+    mostrarResponsables: false,
   }
 
   getInfoEmpresa = () => {
@@ -35,26 +39,32 @@ export default class InfoEmpresa extends Component {
   }
 
   getResponsablesEmpresa = () => {
-
-    var idEmpresa = this.props.idempresa;
     var token = localStorage.getItem('token');
     var headers = { Authorization: 'Bearer ' + token };
-    var request = "/api/EmpresasCentros/"+idEmpresa;
+    var request = "api/QueryTools/FindTechRidersEnEmpresa/"+this.props.idempresa;
     var url = Global.urlApi + request;
     axios.get(url,{ headers }).then(response => {
       this.setState({
-        empresa : response.data,
-        statusEmpresa : true,
+        empresaResponsables : response.data,
+        statusEmpresaResponsable : true,
         error: null
       });
     })
     .catch(error => {        
-      console.error('Error al obtener información de la empresa :', error);      
+      console.error('Error al obtener información de la empresa con sus responsables :', error);      
       this.setState({      
-        error: 'Error al cargar la información la empresa. Inténtalo de nuevo más tarde.'    
+        error: 'Error al cargar la información la empresa con sus responsables. Inténtalo de nuevo más tarde.'    
       });
     });
   }
+
+    // Función para mostrar/ocultar el div de responsables
+  toggleResponsables = () => {
+    this.setState((prevState) => ({
+      mostrarResponsables: !prevState.mostrarResponsables,
+    }));
+    this.getResponsablesEmpresa();
+  };
 
   componentDidMount (){
     this.getInfoEmpresa();
@@ -129,14 +139,40 @@ export default class InfoEmpresa extends Component {
                           </div>
                       </form>
                       {this.state.empresa.idTipoEmpresa === 1 && (
-                        <button className="btn btn-dark">
+                        <button className="btn btn-dark" onClick={this.toggleResponsables}>
                           Mostrar Responsables
                         </button>
+                      )}
+                      {this.state.mostrarResponsables === true && (
+                        <div>
+                          <table className="table">
+                            <thead className="table-light">
+                                <tr>
+                                  <th>Representante / TechRider</th>
+                                  <th>Email</th>
+                                  <th>Telefono</th>
+                                  <th>Direccion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.empresaResponsables.map((responsables,index) => { 
+                                        return (
+                                            <tr key={index}>
+                                                <td>{responsables.techRider}</td>
+                                                <td>{responsables.email}</td>
+                                                <td>{responsables.telefonoTechRider}</td>
+                                                <td>{responsables.direccion}</td>
+                                            </tr>
+                                        );
+                                    })}
+                            </tbody>
+                          </table>
+                        </div>
                       )}
                   </div>
               </div>
               <Footer />
-          </div>
+        </div>
       )
     }
     }

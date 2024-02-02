@@ -39,9 +39,7 @@ export default class RegistrarCharla extends Component {
  
         if (!descripcion || !fechaCharla || !observaciones || !fechaSolicitud || !turno
         || !modalidad || !acreditacionLinkedIn || isNaN(provincia) || isNaN(idcurso)) {
-            // Mostrar mensaje de error en la interfaz de usuario
             this.setState({ error: "Por favor complete todos los campos obligatorios" });
-            // Restablecer el estado de error después de 3 segundos (o el tiempo que desees)
             setTimeout(() => {
                 this.setState({ error: null });
             }, 3500);
@@ -65,15 +63,15 @@ export default class RegistrarCharla extends Component {
         var request = 'api/charlas';
         var url = Global.urlApi + request;
         const headers = { Authorization: `Bearer ${this.state.token}`}
-        axios.post(url, datos, { headers }).then(response => {        
+        axios.post(url, datos, { headers }).then(response => {  
+            window.location.href = "/areaProfesor";      
             Swal.fire({
                 icon: "success",
                 title: "Charla Creada",
             });
+            
         }).catch(error => {
-            // Manejar errores de la solicitud HTTP si es necesario
             console.error("Error en la solicitud HTTP", error);
-            // Actualizar el estado de error con un mensaje específico
             this.setState({ error: "Error en la solicitud HTTP" });
             Swal.fire({
                 icon: "error",
@@ -183,8 +181,8 @@ export default class RegistrarCharla extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <br/>
-                            <button className='btn btn-info' type="submit" onClick={this.CrearCharlas}>Crear Charla</button>
+                            <br/><br/>
+                            <button className='btn btn-dark' type="submit" onClick={this.CrearCharlas}>Crear Charla</button>
                         </form>
                     </div>
                 </div>

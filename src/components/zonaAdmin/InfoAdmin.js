@@ -203,7 +203,7 @@ export default class InfoAdmin extends Component {
                             </div>
                         </form>
                         {/* Botones para activar edición y actualizar datos */}
-                        <button type="submit" className="btn btn-dark" onClick={this.ableCamps}>Activar Edicion</button>
+                        <button type="submit" className="btn btn-dark" onClick={this.ableCamps}>Activar Edicion</button>&nbsp;&nbsp;
                         <button type="submit" className="btn btn-dark" onClick={this.putInformacion}>Actualizar Datos</button>
                     </div>
                     {/* Redirección a la ruta especificada */}

@@ -13,7 +13,7 @@ export default class Charlas extends Component {
     statusCharlas: false,   // Estado para verificar si las charlas se han cargado correctamente
     searchTerm: '',         // Nuevo estado para el término de búsqueda
     filteredCharlas: [],    // Nuevo estado para almacenar charlas filtradas
-    redirectTo: null, // variable para redireccionar
+    redirectTo: null,       // variable para redireccionar
     usuario : {},
     statusPutCharlaTech : false,
     statusPutCambioEstadoCharla : false
@@ -92,9 +92,8 @@ export default class Charlas extends Component {
   performSearch = () => {
   const { searchTerm, charlas } = this.state;
 
-  // Filtra las charlas basándose en el término de búsqueda
+
   const filteredCharlas = charlas.filter((charla) => {
-    // Asegurarse de que los valores no sean null antes de llamar a toLowerCase
     const descripcion = charla.descripcion ? charla.descripcion.toLowerCase() : '';
     const fechaSolicitud = charla.fechaSolicitud ? charla.fechaSolicitud.toLowerCase() : '';
     const fechaCharla = charla.fechaCharla ? charla.fechaCharla.toLowerCase() : '';
@@ -113,7 +112,7 @@ export default class Charlas extends Component {
   this.setState({ filteredCharlas });
 };
 
-  // Método que se ejecuta después de que el componente se ha montado
+ 
   componentDidMount() {
     this.getCharlas();
     this.getInfoUsuario();

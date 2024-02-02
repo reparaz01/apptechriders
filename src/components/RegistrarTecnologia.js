@@ -10,11 +10,13 @@ import { NavLink } from 'react-router-dom';
 export default class RegistrarTecnologia extends Component {
     cajaNombreTecnologia = React.createRef();
     cajaidTipoTecnologia = React.createRef();
+    cajaTecnologia = React.createRef();
  
     state = {
         error: null,
         token: localStorage.getItem("token"),
         tipotecno: [],
+        tecnologias: [],
         idUsuario: localStorage.getItem("idUsuario"),
     }
  
@@ -75,6 +77,24 @@ export default class RegistrarTecnologia extends Component {
             console.log(response);
         });
     }
+
+    asignarTecnoTech = () =>{
+        var idTecnologia = parseInt(this.cajaTecnologia.current.value);
+
+        var datos = {
+            "idUsuario": this.state.idUsuario,
+            "idTecnologia": idTecnologia,
+        }
+ 
+        var token = localStorage.getItem('token');
+        var headers = { Authorization: 'Bearer ' + token };
+        var request = `api/TecnologiasTechRiders?idtechrider=${this.state.idUsuario}&idtecnologia=${idTecnologia}`;
+        var url = Global.urlApi + request;
+        axios.post(url, datos, { headers }).then(response => {        
+            console.log(response)
+            alert("Tecnologia asignada");
+        });
+    }
  
     getTipoTecno = () => {
         const request = 'api/tipotecnologias';
@@ -85,9 +105,21 @@ export default class RegistrarTecnologia extends Component {
             })
         })
     }
+
+    getTecnologias = () => {
+        var request = 'api/tecnologias';
+        var url = Global.urlApi + request;
+        axios.get(url).then(response =>{
+            this.setState({
+                tecnologias: response.data
+            })
+        })
+    }
+
  
     componentDidMount = () => {
         this.getTipoTecno();
+        this.getTecnologias();
         this.MySwal = withReactContent(Swal);
     }
  
@@ -101,7 +133,7 @@ export default class RegistrarTecnologia extends Component {
                         <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                     </svg>
                 </NavLink>
-              <div className='card text-center'>
+              <div className='card text-center mb-5'>
                   <h2 className='card-header'>Nueva Tecnologia</h2>
                       <div className="card-body">
                       {this.state.error && <div className="alert alert-danger">{this.state.error}</div>}
@@ -121,6 +153,26 @@ export default class RegistrarTecnologia extends Component {
                                     </select>
                                 <br/>
                                 <button className='btn btn-dark' type="submit" onClick={this.CrearTecnologia}>Crear Tecnologia</button>
+                          </form>
+                      </div>
+                  </div>
+                  <div className='card text-center mb-5'>
+                     <h2 className='card-header'>Asignar Tecnologia</h2>
+                      <div className="card-body">
+                      {this.state.error && <div className="alert alert-danger">{this.state.error}</div>}
+                            <form>
+                                <label>Nombre Tecnologia:</label>
+                                <select name="tecnologias" ref={this.cajaTecnologia} className="form-control">
+                                    {          
+                                        this.state.tecnologias.map((tecnologia, index) => {
+                                            return(<option key={index} value={tecnologia.idTecnologia}>
+                                                {tecnologia.nombreTecnologia}
+                                            </option>)
+                                        })    
+                                    }
+                                </select>
+                                <br/>
+                                <button className='btn btn-dark' type="submit" onClick={this.asignarTecnoTech}>Asignar Tecnologia</button>
                           </form>
                       </div>
                   </div>

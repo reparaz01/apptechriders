@@ -136,11 +136,41 @@ handleEliminarCharla = (idCharla) => {
         this.setState({
             charlas: this.state.charlas.filter((charla) => charla.idCharla !== idCharla),
         });
+        this.getCharlasProfesor();
     })
     .catch((error) => {
         console.error('Error al eliminar charla:', error);
     });
 };
+
+handleEliminarCurso = (idCurso) => {
+  var token = localStorage.getItem('token');
+  var headers = { Authorization: 'Bearer ' + token };
+  var requestCursoProfesor = `api/cursosprofesores?idcurso=${idCurso}&idprofesor=${parseInt(localStorage.getItem('idUsuario'))}`;
+  var urlCursoProfesor = Global.urlApi + requestCursoProfesor;
+ 
+  var requestCurso = `api/cursos/` + idCurso;
+  var urlCurso = Global.urlApi + requestCurso;
+
+  axios.delete(urlCursoProfesor, { headers })
+    .then((responseCursoProfesor) => {
+      // Verificar si se eliminó correctamente antes de eliminar el curso
+      if (responseCursoProfesor.status === 200) {
+        axios.delete(urlCurso, { headers })
+          .then((responseCurso) => {
+              this.setState({
+                cursos: this.state.cursos.filter(curso => curso.idCurso !== idCurso),
+              });
+              alert('Curso eliminado exitosamente');
+            })
+          .catch((errorCurso) => {
+            alert('Curso Eliminado');
+          });
+      } else {
+        alert('Error al eliminar el curso del profesor.');
+      }
+    })
+}
 
 
 

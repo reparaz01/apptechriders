@@ -86,7 +86,6 @@ export default class DetallesCharla extends Component {
         })
         .catch(error => {
           console.error('Error al obtener Tech Rider:', error);
-          // Manejo del error: establecer techrider en un objeto vacío o null
           this.setState({
             techrider: null,
           });
@@ -119,13 +118,12 @@ export default class DetallesCharla extends Component {
   }
 
   componentDidMount = () => {
-    this.loadCharlaDetalles(this.state.idcharla); // Cargar detalles usando idcharla del estado
+    this.loadCharlaDetalles(this.state.idcharla); 
   }
 
   componentDidUpdate = (oldProps) => {
     // No es necesario comparar oldProps.idCharla y this.props.idCharla aquí
     // ya que estás leyendo el idCharla actualizado del localStorage directamente.
-    // Pero puedes agregar la lógica según tus necesidades.
   }
 
   render() {

@@ -75,7 +75,7 @@ export default class TodosCHarlaUsuario extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div>
         <Navbar />
         <div className="container my-4">
           <div className="cajas-arriba">

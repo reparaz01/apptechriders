@@ -217,6 +217,7 @@ export default class EditarTechrider extends Component {
                       tecnologia: this.state.tecnologias.filter(tecnologia => tecnologia.idTecnologia !== idTecnologia),
                     });
                     alert('Tecnologia eliminada exitosamente');
+                    this.getTecnologiasTechrider();
                   })
                 .catch((errorCurso) => {
                   alert('No se puede eliminar la tecnologia, hay por lo menos una charla asignada con ella.');

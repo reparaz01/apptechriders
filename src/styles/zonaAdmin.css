@@ -11,18 +11,22 @@
 }
 
 .sidebar-admin {
-  width: 300px;
-  background-color: #f0f0f0;
+  flex: 1; /* Ajusta la barra lateral para ocupar el espacio disponible */
+  background-color: #001f3f; /* Cambia el color a azul marino */
   padding: 20px;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1); /* Añadir sombra */
+  color: #fff;
 }
 
 .sidebar-admin button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 10px;
   border: none;
-  background-color: #ddd;
+  background-color: #004080; /* Cambia el color de fondo de los botones a un tono más claro */
+  color: #fff; /* Cambia el color del texto de los botones */
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .dashboard-body {

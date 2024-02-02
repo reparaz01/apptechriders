@@ -180,7 +180,7 @@ export default class Registro extends Component {
                                         <input type="password" name="reppass" className="form-control" />
                                     </div>
                                 </div>
-                                <br/>
+                                <br/><br/>
                                 <button className='btn btn-dark btn-block' type="submit" onClick={this.registro}>&nbsp;&nbsp;  Registrarse &nbsp;&nbsp;</button>
                             </form>
                         </div>
